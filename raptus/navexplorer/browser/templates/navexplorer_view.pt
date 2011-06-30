@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  
+<html xmlns="http://www.w3.org/1999/xhtml"
+      lang="de"
+      xml:lang="de"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      tal:define="portal_state context/@@plone_portal_state;
+                  portal_url portal_state/portal_url;">
+
+<head>
+    <script type="text/javascript">
+        // build a bridge from plone to tree frame
+        window.onload=function(){
+            frames[0].document.plone_frame = frames[1];
+        }
+    </script>
+    <title></title>
+</head>
+<frameset cols="410px, 100%"
+ tal:define="portal_state context/@@plone_portal_state;
+             portal_url portal_state/portal_url;">
+  <frameset>
+      <frame src="contents_of_frame1.html"
+             tal:attributes="src string:${portal_url}/navexplorer_tree;">
+  </frameset>
+  <frame src="contents_of_frame2.html"
+         id="frame_plone_content"
+         tal:attributes="src context/absolute_url">
+  <noframes>
+    <p>your browser dosen't support frames. Please upgrade to a new version.</p>
+  </noframes>
+  
+
+</frameset>
+</html>
+

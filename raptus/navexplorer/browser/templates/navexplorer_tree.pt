@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  
+<html xmlns="http://www.w3.org/1999/xhtml"
+      lang="de"
+      xml:lang="de"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      tal:define="portal_state context/@@plone_portal_state;
+                  portal_url portal_state/portal_url;">
+    <link href="navexplorer_jqueryui_themes/ui-lightness/jquery-ui-1.8.13.custom.css" media="screen" type="text/css" rel="stylesheet"
+          tal:attributes="href string:${portal_url}/navexplorer_jqueryui_themes/ui-lightness/jquery-ui-1.8.13.custom.css">
+    <link href="navexplorer.css" media="screen" type="text/css" rel="stylesheet"
+          tal:attributes="href string:${portal_url}/navexplorer.css">
+              
+    <script type="text/javascript" src="/jquery.js"
+            tal:attributes="src string:${portal_url}/jquery.js"></script>
+    <script type="text/javascript" src="/++resource++jquery-ui.min.js"
+            tal:attributes="src string:${portal_url}/++resource++jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/++resource++jquery-ui-i18n.js"
+            tal:attributes="src string:${portal_url}/++resource++jquery-ui-i18n.js"></script>
+    <script type="text/javascript" src="/jquery.cookie.js"
+            tal:attributes="src string:${portal_url}/jquery.cookie.js"></script>
+    <script type="text/javascript" src="/jquery.hotkeys.js"
+            tal:attributes="src string:${portal_url}/jquery.hotkeys.js"></script>
+    <script type="text/javascript" src="/jquery.jstree.js"
+            tal:attributes="src string:${portal_url}/jquery.jstree.js"></script>
+    <script type="text/javascript" src="/plone_javascript_variables"
+            tal:attributes="src string:${portal_url}/plone_javascript_variables.js"></script>
+    <script type="text/javascript" src="/raptus.navexplorer.js"
+            tal:attributes="src string:${portal_url}/raptus.navexplorer.js"></script>
+    <title></title>
+<head>
+
+    
+</head>
+<body>
+    
+    <div id="navexplorer_content">
+        <div id="navexplorer_tree"></div>
+        
+        
+        <div id="navexplorer_info_wrap">
+            <div id="navexplorer_info" class="accordion">
+              <h3><a href="#">General Infos</a></h3>
+                <div><p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                        tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos
+                        et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+                        sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
+                        elitr, sed diam nonumy eirmod tempor invidunt u
+                </p></div>
+              <h3><a href="#">Article</a></h3>
+                <div><p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                        tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos
+                        et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+                        sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
+                        elitr, sed diam nonumy eirmod tempor invidunt u
+                </p></div>
+              <h3><a href="#">LinguaPlone</a></h3>
+                <div><p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                        tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos
+                        et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+                        sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
+                        elitr, sed diam nonumy eirmod tempor invidunt u
+                </p></div>
+              <h3><a href="#">Developer</a></h3>
+                <div><p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                        tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos
+                        et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+                        sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
+                        elitr, sed diam nonumy eirmod tempor invidunt u
+                </p></div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
+

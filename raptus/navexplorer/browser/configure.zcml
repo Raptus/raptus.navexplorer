@@ -1,0 +1,28 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="raptus.navexplorer">
+
+    <browser:page
+        name="navexplorer_view"
+        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        template="templates/navexplorer_view.pt"
+        permission="raptus.navexplorer.view"
+        />
+
+    <browser:page
+        name="navexplorer_tree"
+        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        template="templates/navexplorer_tree.pt"
+        permission="raptus.navexplorer.view"
+        />
+
+    <browser:page
+        name="navexplorer_ajax"
+        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        class=".ajax.AjaxView"
+        permission="raptus.navexplorer.view"
+        />
+
+  
+</configure>
