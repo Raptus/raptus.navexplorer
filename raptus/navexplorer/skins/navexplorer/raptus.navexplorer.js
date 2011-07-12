@@ -39,21 +39,25 @@ raptus_navexplorer = {
             plugins : ['themes', 'json_data', 'ui','hotkeys', 'contextmenu']
 
         }).bind('select_node.jstree', function (event, data) {
-            $('#navexplorer_tree').resize(raptus_navexplorer.resizeInfoBox());
+            $('#navexplorer_tree').resize(raptus_navexplorer.resizeAccordion());
             var url = raptus_navexplorer.host_url + data.rslt.obj.attr('id');
             raptus_navexplorer.goToLocation(url);
-        }).bind('before.jstree',raptus_navexplorer.resizeInfoBox);
+        }).bind('hover_node.jstree', raptus_navexplorer.reloadAccordion
+        ).bind('before.jstree',raptus_navexplorer.resizeAccordion);
         
         
         //info box
-        $('#navexplorer_info').accordion({
-            header: 'h3',
-            
-        });
+        raptus_navexplorer.initAccordion();
         
     },
     
-    resizeInfoBox: function(){
+    initAccordion : function(){
+        $('#navexplorer_info').accordion({
+            header: 'h3',
+        });
+    },
+    
+    resizeAccordion: function(){
         var size_window= $(window).height();
         var size_info = $('#navexplorer_info').height();
         var size_tree = $('#navexplorer_tree').height();
@@ -61,6 +65,14 @@ raptus_navexplorer = {
         if (absolute <= size_tree)
             absolute = size_tree;
         $('#navexplorer_info').css('bottom', 'auto').css('top', absolute + 'px');
+    },
+    
+    reloadAccordion : function(evnet, data){
+        var url = data.rslt.obj.attr('id') + '/navexplorer_accordion';
+        $.get(url, function(data) {
+              $('#navexplorer_info_wrap').html(data);
+              raptus_navexplorer.initAccordion();
+        });
     },
     
     customContextMenu : function(node){

@@ -6,6 +6,7 @@ from zope.app.publisher.browser.menu import getMenu
 from Products.ATContentTypes.interfaces.interfaces import IATContentType
 from Products.CMFPlone import PloneMessageFactory as _p
 
+from raptus.navexplorer import _
 from raptus.navexplorer.interfaces import IContextMenu
 
 
@@ -39,7 +40,7 @@ class DefaultContextMenu(object):
                       )
             contentaction[action.get('id')] = di
         
-        results['contentaction'] = dict(label=translate(_p('Content Actions'),context=self.request),
+        results['contentaction'] = dict(label=translate(_('Content Actions'),context=self.request),
                                         submenu=contentaction)
         return results
     

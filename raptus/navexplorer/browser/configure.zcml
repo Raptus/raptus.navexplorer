@@ -24,5 +24,11 @@
         permission="raptus.navexplorer.view"
         />
 
+    <browser:page
+        name="navexplorer_accordion"
+        for="*"
+        class=".accordion.AjaxAccordion"
+        permission="raptus.navexplorer.view"
+        />
   
 </configure>

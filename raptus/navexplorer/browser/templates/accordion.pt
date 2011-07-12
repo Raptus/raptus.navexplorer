@@ -1,0 +1,17 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      i18n:domain="raptus.navexplorer"
+      tal:omit-tag="">
+    
+    <div id="navexplorer_info"
+         class="accordion">
+        <tal:repeat tal:repeat="item view/items">
+          <h3><a href="#" tal:content="item/title">General Infos</a></h3>
+          <div tal:content="structure item/content">Content informations</div>
+        </tal:repeat>
+    </div>
+
+</html>

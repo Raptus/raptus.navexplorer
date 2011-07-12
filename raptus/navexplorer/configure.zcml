@@ -28,10 +28,26 @@
       recursive="True"/>
       
 
+  <i18n:registerTranslations directory="locales"/>
 
-    <adapter
+  <adapter
       factory=".contextmenu.DefaultContextMenu" />
 
-  
-  
+  <adapter
+      name="raptus.navexplorer.accordion.plone"
+      factory=".accordion.AccordionPlone" />
+
+  <adapter
+      name="raptus.navexplorer.accordion.archetypes"
+      factory=".accordion.AccordionArchetypes" />
+
+  <adapter
+      name="raptus.navexplorer.accordion.folder"
+      factory=".accordion.AccordionFolder" />
+
+  <adapter
+      name="raptus.navexplorer.accordion.security"
+      factory=".accordion.AccordionSecurity" />
+
+
 </configure>

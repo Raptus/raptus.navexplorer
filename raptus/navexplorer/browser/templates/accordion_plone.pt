@@ -1,0 +1,34 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      i18n:domain="raptus.navexplorer"
+      tal:omit-tag="">
+
+    <table>
+        <tr>
+            <td i18n:translate="">Title</td>
+            <td tal:content="view/title">BNCT Rocks</td>
+        </tr>
+        <tr>
+            <td i18n:translate="">Plone version</td>
+            <td tal:content="view/version">4.0.1</td>
+        </tr>
+        <tr>
+            <td i18n:translate="">Default Page</td>
+            <td tal:content="view/defaultpage">Artikel XY</td>
+        </tr>
+        <tr>
+            <td i18n:translate="">Email from address</td>
+            <td tal:content="view/emailfromaddress">info@raptus.com</td>
+        </tr>
+        <tr>
+            <td i18n:translate="">Email from name</td>
+            <td tal:content="view/emailfromname">info@raptus.com</td>
+        </tr>
+    </table>
+
+
+</html>
+

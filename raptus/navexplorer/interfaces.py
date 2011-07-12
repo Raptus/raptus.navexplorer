@@ -26,3 +26,26 @@ class IContextMenu(Interface):
 
             Note:  the attribute action are called with javascript eval !!
         """
+        
+class IAccordionItem(Interface):
+    """ Render html to build the accordion below the jstree.
+    """
+    
+    def __init__(self, context):
+        """
+        """
+    
+    def title(self):
+        """ return the item title as string
+        """
+        
+    def content(self):
+        """ return the content as html string
+        """
+        
+    def available(self):
+        """ return true or false if this item is available
+        """
+        
+        
+        

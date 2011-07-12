@@ -68,4 +68,8 @@ class AjaxView(BrowserView):
             return dict()
         return contextmenu.build()
     
-            
+    
+    
+    
+    
+    

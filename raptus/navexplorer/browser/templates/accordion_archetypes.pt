@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      i18n:domain="raptus.navexplorer"
+      tal:omit-tag="">
+
+    <table tal:define="plone context/@@plone;">
+        <tr>
+            <td i18n:translate="">Title</td>
+            <td tal:content="view/title">BNCT Rocks</td>
+        </tr>
+        <tr>
+            <td i18n:translate="">Default Page</td>
+            <td tal:content="view/defaultpage">Artikel XY</td>
+        </tr>
+        <tr>
+            <td i18n:translate="">Type</td>
+            <td tal:content="view/type">Plone Page</td>
+        </tr>
+        <tr>
+            <td i18n:translate="">Created</td>
+            <td tal:content="python:plone.toLocalizedTime(view.created)">Fr 20.04.2001 - 21:05 </td>
+        </tr>
+        <tr>
+            <td i18n:translate="">Modified</td>
+            <td tal:content="python:plone.toLocalizedTime(view.modified)">Fr 29.04.2011 - 21:05 </td>
+        </tr>
+
+    </table>
+
+
+</html>
+
