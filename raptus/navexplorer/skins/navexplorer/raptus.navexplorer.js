@@ -2,7 +2,8 @@ raptus_navexplorer = {
 
     //default configuration
     settings : { refreshtime: 30000,
-                 observetime: 33
+                 observetime: 33,
+                 manual_expires: 300
                 },
 
     init: function($){
@@ -100,7 +101,7 @@ raptus_navexplorer = {
         });
         $('#manual-message').dialog({
             modal: true,
-            autoOpen: false,
+            autoOpen: $.cookie('raptus_navexplorer_manual')?false:true,
             draggable: false,
             buttons: {
                 Ok: function() {
@@ -108,7 +109,9 @@ raptus_navexplorer = {
                 }
             }
         });
-
+        $.cookie('raptus_navexplorer_manual', true,{
+            expires: raptus_navexplorer.settings.manual_expires,
+        });
         
     },
     
