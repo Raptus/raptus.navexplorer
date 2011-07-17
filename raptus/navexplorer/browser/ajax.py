@@ -45,7 +45,9 @@ class AjaxView(BrowserView):
                      metadata=self.metadata(obj))
     
     def title(self, obj):
-        title = obj.Title()
+        title = None
+        if hasattr(obj, 'Title'):
+            title = obj.Title()
         if not title:
             title = obj.getId()
         return title
