@@ -10,9 +10,14 @@
         <dt i18n:translate="">Components</dt>
         <dd tal:repeat="component view/components"
             tal:content="component/title">Teaser</dd>
+        <dd tal:condition="not:view/components"
+            i18n:translate="">No components selected</dd>
+            
         <dt i18n:translate="">Selection</dt>
         <dd tal:repeat="selection view/selections"
             tal:content="selection/title">Teaser</dd>
+        <dd tal:condition="not:view/selections"
+            i18n:translate="">No selection selected</dd>
     </dl>
 
 

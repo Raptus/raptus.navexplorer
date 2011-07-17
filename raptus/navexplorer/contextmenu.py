@@ -58,7 +58,7 @@ class DefaultContextMenu(object):
                        icon = value.get('icon',''),
                        _class = value.get('class',''),
                        separator_before = separator,
-                       _disabled = separator,
+                       _disabled = (not value.get('action', False) and separator) and True or False,
                       )
                 
             if value.get('submenu', None):

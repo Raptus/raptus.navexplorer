@@ -6,12 +6,13 @@
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="raptus.navexplorer"
       tal:define="portal_state context/@@plone_portal_state;
                   portal_url portal_state/portal_url;">
     <link href="navexplorer_jqueryui_themes/ui-lightness/jquery-ui-1.8.13.custom.css" media="screen" type="text/css" rel="stylesheet"
-          tal:attributes="href string:${portal_url}/navexplorer_jqueryui_themes/ui-lightness/jquery-ui-1.8.13.custom.css">
+          tal:attributes="href string:${portal_url}/navexplorer_jqueryui_themes/ui-lightness/jquery-ui-1.8.13.custom.css"/>
     <link href="navexplorer.css" media="screen" type="text/css" rel="stylesheet"
-          tal:attributes="href string:${portal_url}/navexplorer.css">
+          tal:attributes="href string:${portal_url}/navexplorer.css"/>
               
     <script type="text/javascript" src="/jquery.js"
             tal:attributes="src string:${portal_url}/jquery.js"></script>
@@ -36,44 +37,48 @@
 </head>
 <body>
     
+    <div id="header">
+        <button id="header_close" i18n:translate="">close navexplorer</button>
+        <button id="header_newwin" i18n:translate="">open navexplorer as new window</button>
+        <button id="header_notice" i18n:translate="">open manual box</button>
+    </div>
+    
     <div id="navexplorer_content">
+        
+        
         <div id="navexplorer_tree"></div>
         
         
         <div id="navexplorer_info_wrap">
             <div id="navexplorer_info" class="accordion">
-              <h3><a href="#">General Infos</a></h3>
-                <div><p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                        tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos
-                        et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-                        sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
-                        elitr, sed diam nonumy eirmod tempor invidunt u
-                </p></div>
-              <h3><a href="#">Article</a></h3>
-                <div><p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                        tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos
-                        et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-                        sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
-                        elitr, sed diam nonumy eirmod tempor invidunt u
-                </p></div>
-              <h3><a href="#">LinguaPlone</a></h3>
-                <div><p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                        tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos
-                        et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-                        sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
-                        elitr, sed diam nonumy eirmod tempor invidunt u
-                </p></div>
-              <h3><a href="#">Developer</a></h3>
-                <div><p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                        tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos
-                        et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-                        sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
-                        elitr, sed diam nonumy eirmod tempor invidunt u
-                </p></div>
             </div>
         </div>
     </div>
-    
+    <div id="manual-message" title="Navigation Explorer Manual">
+        <p i18n:translate="">
+            Mouse click: Show information about the selected content.
+        </p>
+        <p i18n:translate="">
+            Mouse double click: Open content in the right frame
+        </p>
+        <p i18n:translate="">
+            Mouse right click: Open contextmenu with additional actions.
+        </p>
+        <p i18n:translate="">
+            Arrow keys: Navigation through the tree and open/close treenodes.
+        </p>
+        <p i18n:translate="">
+            Enter key: Open content in the right frame.
+        </p>
+        <p i18n:translate="">
+            Information:<br/>
+            <a href="http://www.raptus.com" target="_BLANK">raptus.com</a><br/>
+            <a href="http://plone.org/products/raptus.navexplorer" target="_BLANK">plone.org/products/raptus.navexplorer</a><br/>
+            <a href="http://www.jstree.com" target="_BLANK">jstree.com</a><br/>
+            <a href="mailto:sriolo@raptus.com">sriolo@raptus.com</a><br/>
+        </p>
+    </div>
+
 </body>
 </html>
 

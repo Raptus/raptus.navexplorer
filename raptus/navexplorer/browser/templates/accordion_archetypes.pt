@@ -11,7 +11,7 @@
             <td i18n:translate="">Title</td>
             <td tal:content="view/title">BNCT Rocks</td>
         </tr>
-        <tr>
+        <tr tal:condition="view/defaultpage">
             <td i18n:translate="">Default Page</td>
             <td tal:content="view/defaultpage">Artikel XY</td>
         </tr>

@@ -7,9 +7,6 @@ raptus_navexplorer = {
 
     init: function($){
         
-        
-        
-        
         // jstree
         $.jstree._themes = 'navexplorer_tree_themes/';
         
@@ -51,8 +48,7 @@ raptus_navexplorer = {
             $('#navexplorer_tree').resize(raptus_navexplorer.resizeAccordion());
             raptus_navexplorer.goToLocation(data.rslt.obj.data('url'));
         });
-        inst.bind('hover_node.jstree', raptus_navexplorer.reloadAccordion
-        );
+        inst.bind('hover_node.jstree', raptus_navexplorer.reloadAccordion);
         inst.bind('before.jstree',raptus_navexplorer.resizeAccordion);
         
         // overriding default click function
@@ -78,9 +74,41 @@ raptus_navexplorer = {
                            
         // set interval to url change notification
         window.setInterval(raptus_navexplorer.urlObserve, raptus_navexplorer.settings.observetime);
-        
+       
         //info box
         raptus_navexplorer.initAccordion();
+        
+        
+        //init buttons
+        $('#header_close').button({
+            icons: { primary: 'ui-icon-close' },
+            text: false
+        }).click(function(){
+            document.main_document.location = document.plone_frame.document.location;
+        });
+        $('#header_newwin').button({
+            icons: { primary: 'ui-icon-newwin' },
+            text: false
+        }).click(function(){
+            alert('Sorry, function is not implemented yet');
+        });
+        $('#header_notice').button({
+            icons: { primary: 'ui-icon-notice' },
+            text: false
+        }).click(function(){
+            $('#manual-message').dialog('open');
+        });
+        $('#manual-message').dialog({
+            modal: true,
+            autoOpen: false,
+            draggable: false,
+            buttons: {
+                Ok: function() {
+                    $( this ).dialog('close');
+                }
+            }
+        });
+
         
     },
     
@@ -127,7 +155,7 @@ raptus_navexplorer = {
             el.data('contextmenu', obj.contextmenu);
         }
         
-        if (obj.reloadchilds){
+        if (obj.reloadchildren){
             tree.refresh(el);
         }
     },
@@ -135,14 +163,18 @@ raptus_navexplorer = {
     urlObserve: function(){
         if (!document.plone_frame)
             return;
-        if (raptus_navexplorer.url_observation)
-            if (raptus_navexplorer.url_observation != document.plone_frame.location)
-                raptus_navexplorer.urlChanged();
+        if (raptus_navexplorer.url_observation != document.plone_frame.location)
+            if (raptus_navexplorer.url_observation)
+                jQuery(document.plone_frame.window).load(raptus_navexplorer.urlChanged);
+            else 
+                jQuery(document.plone_frame).ready(raptus_navexplorer.urlChanged);
         raptus_navexplorer.url_observation = document.plone_frame.location;
     },
     
     urlChanged: function(){
+        document.main_document.title = document.plone_frame.document.title;
         raptus_navexplorer.sync();
+        document.plone_frame.jq('#contentview-open_navexplorer').remove();
     },
     
     initAccordion : function(){
@@ -153,8 +185,12 @@ raptus_navexplorer = {
     
     resizeAccordion: function(){
         var size_window= $(window).height();
+        var info = $('#navexplorer_info');
+        var margin_info = info.data('margin_info') ? info.data('margin_info') : parseInt(info.css('margin-top'));
+        info.data('margin_info', margin_info);
+        info.css('margin-top','0px');
         var size_info = $('#navexplorer_info').height();
-        var size_tree = $('#navexplorer_tree').height();
+        var size_tree = $('#navexplorer_tree').height() + margin_info + parseInt($('#navexplorer_content').css('margin-top'));
         var absolute = size_window - size_info;
         if (absolute <= size_tree)
             absolute = size_tree;
@@ -166,6 +202,7 @@ raptus_navexplorer = {
         $.get(url, function(data) {
               $('#navexplorer_info_wrap').html(data);
               raptus_navexplorer.initAccordion();
+              raptus_navexplorer.resizeAccordion();
         });
     },
     

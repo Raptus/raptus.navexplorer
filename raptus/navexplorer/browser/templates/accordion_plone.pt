@@ -15,7 +15,7 @@
             <td i18n:translate="">Plone version</td>
             <td tal:content="view/version">4.0.1</td>
         </tr>
-        <tr>
+        <tr tal:condition="view/defaultpage">
             <td i18n:translate="">Default Page</td>
             <td tal:content="view/defaultpage">Artikel XY</td>
         </tr>

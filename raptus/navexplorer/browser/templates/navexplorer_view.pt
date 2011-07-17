@@ -14,6 +14,7 @@
         // build a bridge from plone to tree frame
         window.onload=function(){
             frames[0].document.plone_frame = frames[1];
+            frames[0].document.main_document = document;
         }
     </script>
     <title></title>
