@@ -25,6 +25,13 @@
         />
 
     <browser:page
+        name="navexplorer_sync"
+        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        class=".ajax.SyncView"
+        permission="raptus.navexplorer.view"
+        />
+
+    <browser:page
         name="navexplorer_accordion"
         for="*"
         class=".accordion.AjaxAccordion"

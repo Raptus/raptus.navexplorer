@@ -38,7 +38,11 @@ class IAccordionItem(Interface):
     def title(self):
         """ return the item title as string
         """
-        
+    
+    def suffix(self):
+        """ return title suffix as string or None
+        """
+    
     def content(self):
         """ return the content as html string
         """

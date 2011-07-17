@@ -19,6 +19,9 @@ class AccordionBase(object):
     def __init__(self, context):
         self.context = context
         self.request = context.REQUEST
+        
+    def suffix(self):
+        return None
 
     def content(self):
         return self.view_class(self.context, self.request)()
@@ -65,4 +68,6 @@ class AccordionSecurity(AccordionBase):
 
     def title(self):
         return _('Security')
+
+
 

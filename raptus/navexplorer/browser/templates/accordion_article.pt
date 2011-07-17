@@ -1,0 +1,21 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      i18n:domain="raptus.navexplorer"
+      tal:omit-tag="">
+
+    <dl>
+        <dt i18n:translate="">Components</dt>
+        <dd tal:repeat="component view/components"
+            tal:content="component/title">Teaser</dd>
+        <dt i18n:translate="">Selection</dt>
+        <dd tal:repeat="selection view/selections"
+            tal:content="selection/title">Teaser</dd>
+    </dl>
+
+
+
+</html>
+

@@ -1,21 +1,27 @@
 raptus_navexplorer = {
+
+    //default configuration
+    settings : { refreshtime: 30000,
+                 observetime: 33
+                },
+
     init: function($){
         
-        // host url
         
-        var regex = /(^.*?:\/\/.*?)\/.*$/;
-        raptus_navexplorer.host_url = portal_url.match(regex)[1];
         
         
         // jstree
         $.jstree._themes = 'navexplorer_tree_themes/';
-        $('#navexplorer_tree').jstree({
+        
+        var inst = raptus_navexplorer.treeinst = $('#navexplorer_tree');
+        inst.jstree({
             json_data: {
+                progressive_unload : true,
                 ajax: {
                     url: portal_url + '/navexplorer_ajax',
                     data: function(n){
                         return {
-                            id: n.attr ? n.attr("id") : '',
+                            path: n.data ? n.data('path') : '',
                         };
                     }
                 }
@@ -38,17 +44,105 @@ raptus_navexplorer = {
                                                
             plugins : ['themes', 'json_data', 'ui','hotkeys', 'contextmenu']
 
-        }).bind('select_node.jstree', function (event, data) {
-            $('#navexplorer_tree').resize(raptus_navexplorer.resizeAccordion());
-            var url = raptus_navexplorer.host_url + data.rslt.obj.attr('id');
-            raptus_navexplorer.goToLocation(url);
-        }).bind('hover_node.jstree', raptus_navexplorer.reloadAccordion
-        ).bind('before.jstree',raptus_navexplorer.resizeAccordion);
+        });
         
+        //events notifications
+        inst.bind('select_node.jstree', function (event, data) {
+            $('#navexplorer_tree').resize(raptus_navexplorer.resizeAccordion());
+            raptus_navexplorer.goToLocation(data.rslt.obj.data('url'));
+        });
+        inst.bind('hover_node.jstree', raptus_navexplorer.reloadAccordion
+        );
+        inst.bind('before.jstree',raptus_navexplorer.resizeAccordion);
+        
+        // overriding default click function
+        inst.undelegate('a', 'click.jstree');
+        inst.delegate('a', 'dblclick.jstree', $.proxy(function (event) {
+            event.preventDefault();
+            event.currentTarget.blur();
+            if(!$(event.currentTarget).hasClass("jstree-loading")) {
+                this.select_node(event.currentTarget, true, event);
+            }
+        }, inst.jstree('')));
+        inst.undelegate('a', 'mouseenter.jstree');
+        inst.delegate('a', 'click.jstree', $.proxy(function (event) {
+            if(!$(event.currentTarget).hasClass("jstree-loading")) {
+                this.hover_node(event.target);
+            }
+        }, inst.jstree('')));
+        inst.undelegate('a', 'mouseleave.jstree');
+        
+        // set interval to sync
+        window.setInterval(raptus_navexplorer.sync,
+                           raptus_navexplorer.settings.refreshtime);
+                           
+        // set interval to url change notification
+        window.setInterval(raptus_navexplorer.urlObserve, raptus_navexplorer.settings.observetime);
         
         //info box
         raptus_navexplorer.initAccordion();
         
+    },
+    
+    sync : function(){
+            
+        var li = new Array();
+        raptus_navexplorer.treeinst.find('li').each(function(){
+            if (!$(this).data('path') || !$(this).data('mtime'))
+                return;
+            li.push({path:$(this).data('path'),
+                     mtime:$(this).data('mtime'),
+                     id:$(this).attr('id')});
+        });
+        var data = {tree: JSON.stringify(li)};
+        
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: portal_url + '/navexplorer_sync',
+            data: data,
+            success: function(data){
+                $.each(data, function(){
+                    raptus_navexplorer.update(this.id, this);
+                });
+            }
+        });
+    },
+    
+    
+    update: function(id, obj){
+        var el = $('#'+id);
+        var tree = raptus_navexplorer.treeinst.jstree('');
+        if (obj.metadata){
+            $.each(obj.metadata, function(key, value){
+                el.data(key, value);
+            });
+        }
+        
+        if (obj.title){
+            tree.set_text(el, obj.title);
+        }
+        
+        if (obj.contextmenu){
+            el.data('contextmenu', obj.contextmenu);
+        }
+        
+        if (obj.reloadchilds){
+            tree.refresh(el);
+        }
+    },
+    
+    urlObserve: function(){
+        if (!document.plone_frame)
+            return;
+        if (raptus_navexplorer.url_observation)
+            if (raptus_navexplorer.url_observation != document.plone_frame.location)
+                raptus_navexplorer.urlChanged();
+        raptus_navexplorer.url_observation = document.plone_frame.location;
+    },
+    
+    urlChanged: function(){
+        raptus_navexplorer.sync();
     },
     
     initAccordion : function(){
@@ -68,7 +162,7 @@ raptus_navexplorer = {
     },
     
     reloadAccordion : function(evnet, data){
-        var url = data.rslt.obj.attr('id') + '/navexplorer_accordion';
+        var url = data.rslt.obj.data('url') + '/navexplorer_accordion';
         $.get(url, function(data) {
               $('#navexplorer_info_wrap').html(data);
               raptus_navexplorer.initAccordion();
@@ -79,9 +173,9 @@ raptus_navexplorer = {
         
         var eval_action = function(menu){
             var mdi = {};
-            jQuery.each(menu,function(mkey, mvalue){
+            $.each(menu,function(mkey, mvalue){
                 var di = {};
-                jQuery.each(mvalue, function(key, value) {
+                $.each(mvalue, function(key, value) {
                     switch(key) {
                     case 'action':
                         di['action'] = function(obj){eval(value)};

@@ -1,3 +1,4 @@
+import re
 import json
 
 from Acquisition import aq_base
@@ -17,14 +18,14 @@ class AjaxView(BrowserView):
         pstate = getMultiAdapter((self.context, self.request), name='plone_portal_state')
         self.portal = portal = pstate.portal()
         
-        id = self.request.get('id', None)
-        if not id:
+        path = self.request.get('path', None)
+        if not path:
             children = [self.build(obj) for obj in self.children(portal)]
             initdata = self.build(portal)
             initdata.update(dict(children=children))
             return json.dumps(initdata)
         
-        node = portal.unrestrictedTraverse(id);
+        node = portal.unrestrictedTraverse(path);
         children = [self.build(obj) for obj in self.children(node)]
         return json.dumps(children)
 
@@ -40,7 +41,7 @@ class AjaxView(BrowserView):
         return dict( data=dict(title=self.title(obj),
                                icon=self.icon(obj)),
                      state=state,
-                     attr=dict(id=obj.absolute_url_path()),
+                     attr=dict(id=self.id(obj)),
                      metadata=self.metadata(obj))
     
     def title(self, obj):
@@ -57,19 +58,36 @@ class AjaxView(BrowserView):
         if not icon:
             icon = 'folder_icon.png'
         return '%s/%s' % (self.portal.absolute_url(), icon,)
-    
+
+    def id(self, obj):
+        return re.sub('\W|^(?=\d)','_', repr(obj._p_oid))
     
     def metadata(self, obj):
-        return dict(contextmenu=self.contextmenu(obj))
+        return dict(contextmenu=self.contextmenu(obj),
+                    path=obj.absolute_url_path(),
+                    url=obj.absolute_url(),
+                    mtime=obj._p_mtime)
     
     def contextmenu(self, obj):
         contextmenu = queryAdapter(obj, interface=IContextMenu)
         if not contextmenu:
             return dict()
         return contextmenu.build()
+
+
+class SyncView(AjaxView):
     
-    
-    
+    def __call__(self):
+        tree = json.loads(self.request.form.get('tree', '[]'))
+        outdated = list()
+        for node in tree:
+            obj = self.context.unrestrictedTraverse(str(node.get('path')))
+            if not obj._p_mtime == node.get('mtime'):
+                outdated.append(dict(id = self.id(obj),
+                                     metadata = self.metadata(obj),
+                                     contextmenu = self.contextmenu(obj),
+                                     title = self.title(obj)))
+        return json.dumps(outdated)
     
     
     

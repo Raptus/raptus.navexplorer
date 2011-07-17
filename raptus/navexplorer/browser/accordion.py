@@ -4,7 +4,6 @@ from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
-
 from plone.app.contentmenu import PloneMessageFactory as _p
 
 from raptus.navexplorer.interfaces import IAccordionItem
@@ -22,7 +21,7 @@ class AjaxAccordion(BrowserView):
         li = list()
         for name, item in getAdapters((self.context,), IAccordionItem):
             if not item.available():
-                return
+                continue
             li.append(item)
         return li
 
@@ -96,6 +95,7 @@ class Folder(Base):
     def layout(self):
         return [_p(i) for i in self.context.getDefaultLayout()]
 
+
 class Security(Base):
     
     template = ViewPageTemplateFile('templates/accordion_security.pt')
@@ -109,6 +109,3 @@ class Security(Base):
             return None
         return rt.getHistoryMetadata()
         
-        
-
-
