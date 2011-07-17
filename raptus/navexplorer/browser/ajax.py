@@ -66,7 +66,7 @@ class AjaxView(BrowserView):
     
     def metadata(self, obj):
         return dict(contextmenu=self.contextmenu(obj),
-                    path=obj.absolute_url_path(),
+                    path='/'.join(obj.getPhysicalPath()),
                     url=obj.absolute_url(),
                     mtime=obj._p_mtime)
     
