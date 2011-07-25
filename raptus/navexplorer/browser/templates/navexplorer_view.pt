@@ -10,13 +10,6 @@
                   portal_url portal_state/portal_url;">
 
 <head>
-    <script type="text/javascript">
-        // build a bridge from plone to tree frame
-        window.onload=function(){
-            frames[0].document.plone_frame = frames[1];
-            frames[0].document.main_document = document;
-        }
-    </script>
     <title></title>
 </head>
 <frameset cols="410px, 100%"
@@ -24,10 +17,12 @@
              portal_url portal_state/portal_url;">
   <frameset>
       <frame src="contents_of_frame1.html"
+             name="tree_frame"
              tal:attributes="src string:${portal_url}/navexplorer_tree;">
   </frameset>
   <frame src="contents_of_frame2.html"
          id="frame_plone_content"
+         name="plone_frame"
          tal:attributes="src context/absolute_url">
   <noframes>
     <p>your browser dosen't support frames. Please upgrade to a new version.</p>

@@ -3,8 +3,10 @@ raptus_navexplorer = {
     //default configuration
     settings : { refreshtime: 30000,
                  observetime: 33,
-                 manual_expires: 300
+                 manual_expires: 300,
+                 standaloneWindow: 'width=800,height=1000,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes, copyhistory=no, resizable=yes',
                 },
+
 
     init: function($){
         
@@ -25,22 +27,28 @@ raptus_navexplorer = {
                 }
             },
             
-            themes : {
+            themes: {
                 theme : 'apple',
                 dots : false,
                 icons : true
             },
-            ui : { select_limit : 1},
+            ui: { select_limit : -1,
+                  select_multiple_modifier: 'alt'},
             
             contextmenu: {items: raptus_navexplorer.customContextMenu },
             
-            hotkeys: { 'del' : false,
-                       'f2' : false,
-                       'return' : function(){ var o = this.data.ui.hovered || this.data.ui.last_selected;
+            hotkeys: { 'del': false,
+                       'f2': false,
+                       'return': function(){ var o = this.data.ui.hovered || this.data.ui.last_selected;
                                                this.deselect_all();
                                                this.select_node(o)}},
                                                
-            plugins : ['themes', 'json_data', 'ui','hotkeys', 'contextmenu']
+            dnd: {
+                drop_finish: raptus_navexplorer.dndFinish,
+                drop_check: raptus_navexplorer.dndCheck,
+            },
+
+            plugins: ['themes', 'json_data', 'ui', 'hotkeys', 'contextmenu', 'cookies', 'dnd']
 
         });
         
@@ -61,6 +69,14 @@ raptus_navexplorer = {
                 this.select_node(event.currentTarget, true, event);
             }
         }, inst.jstree('')));
+        // restore selection function from ui plugin
+        inst.delegate('a', 'click.jstree', $.proxy(function (event) {
+            event.preventDefault();
+            event.currentTarget.blur();
+            if(!$(event.currentTarget).hasClass("jstree-loading")) {
+                this.select_node(event.currentTarget, true, event);
+            }
+        }, inst.jstree('')));
         inst.undelegate('a', 'mouseenter.jstree');
         inst.delegate('a', 'click.jstree', $.proxy(function (event) {
             if(!$(event.currentTarget).hasClass("jstree-loading")) {
@@ -68,6 +84,8 @@ raptus_navexplorer = {
             }
         }, inst.jstree('')));
         inst.undelegate('a', 'mouseleave.jstree');
+
+        
         
         // set interval to sync
         window.setInterval(raptus_navexplorer.sync,
@@ -79,41 +97,11 @@ raptus_navexplorer = {
         //info box
         raptus_navexplorer.initAccordion();
         
-        
-        //init buttons
-        $('#header_close').button({
-            icons: { primary: 'ui-icon-close' },
-            text: false
-        }).click(function(){
-            document.main_document.location = document.plone_frame.document.location;
-        });
-        $('#header_newwin').button({
-            icons: { primary: 'ui-icon-newwin' },
-            text: false
-        }).click(function(){
-            alert('Sorry, function is not implemented yet');
-        });
-        $('#header_notice').button({
-            icons: { primary: 'ui-icon-notice' },
-            text: false
-        }).click(function(){
-            $('#manual-message').dialog('open');
-        });
-        $('#manual-message').dialog({
-            modal: true,
-            autoOpen: $.cookie('raptus_navexplorer_manual')?false:true,
-            draggable: false,
-            buttons: {
-                Ok: function() {
-                    $( this ).dialog('close');
-                }
-            }
-        });
-        $.cookie('raptus_navexplorer_manual', true,{
-            expires: raptus_navexplorer.settings.manual_expires,
-        });
+        // init buttons
+        raptus_navexplorer.initButtons();
         
     },
+    
     
     sync : function(){
             
@@ -121,9 +109,19 @@ raptus_navexplorer = {
         raptus_navexplorer.treeinst.find('li').each(function(){
             if (!$(this).data('path') || !$(this).data('mtime'))
                 return;
+            
+            var children = null;
+            if (!($(this).hasClass('jstree-closed') || $(this).hasClass('jstree-leaf'))){
+                children = new Array();
+                $(this).children('ul').children('li').each(function(){
+                    children.push($(this).attr('id'));
+                });
+            }
+            
             li.push({path:$(this).data('path'),
                      mtime:$(this).data('mtime'),
-                     id:$(this).attr('id')});
+                     id:$(this).attr('id'),
+                     children:children});
         });
         var data = {tree: JSON.stringify(li)};
         
@@ -154,37 +152,92 @@ raptus_navexplorer = {
             tree.set_text(el, obj.title);
         }
         
-        if (obj.contextmenu){
-            el.data('contextmenu', obj.contextmenu);
-        }
-        
         if (obj.reloadchildren){
             tree.refresh(el);
         }
     },
     
+    
     urlObserve: function(){
-        if (!document.plone_frame)
+        if (!raptus_navexplorer.getPloneFrame())
             return;
-        if (raptus_navexplorer.url_observation != document.plone_frame.location)
+        if (raptus_navexplorer.url_observation != raptus_navexplorer.getPloneFrame().location)
             if (raptus_navexplorer.url_observation)
-                jQuery(document.plone_frame.window).load(raptus_navexplorer.urlChanged);
+                jQuery(raptus_navexplorer.getPloneFrame().window).load(raptus_navexplorer.urlChanged);
             else 
-                jQuery(document.plone_frame).ready(raptus_navexplorer.urlChanged);
-        raptus_navexplorer.url_observation = document.plone_frame.location;
+                jQuery(raptus_navexplorer.getPloneFrame().document).ready(raptus_navexplorer.urlChanged);
+        raptus_navexplorer.url_observation = raptus_navexplorer.getPloneFrame().location;
     },
+    
     
     urlChanged: function(){
-        document.main_document.title = document.plone_frame.document.title;
+        parent.document.title = raptus_navexplorer.getPloneFrame().document.title;
         raptus_navexplorer.sync();
-        document.plone_frame.jq('#contentview-open_navexplorer').remove();
+        raptus_navexplorer.getPloneFrame().jq('#contentview-open_navexplorer').remove();
     },
     
+    
+    initButtons: function(){
+        $('#header_close').button({
+            icons: { primary: 'ui-icon-close' },
+            text: false
+        }).click(function(){
+            parent.location = raptus_navexplorer.getPloneFrame().document.location;
+        });
+        if (!parent.frames.tree_frame)
+            $('#header_newwin').attr('checked',true);
+        $('#header_newwin').button({
+            icons: { primary: 'ui-icon-newwin' },
+            text: false
+        }).click(function(){
+            if ($(this).attr('checked'))
+                raptus_navexplorer.openStandalone();
+            else
+                raptus_navexplorer.closeStandalone();
+        });
+        $('#header_notice').button({
+            icons: { primary: 'ui-icon-notice' },
+            text: false
+        }).click(function(){
+            $('#manual-message').dialog('open');
+        });
+        $('#manual-message').dialog({
+            modal: true,
+            autoOpen: $.cookie('raptus_navexplorer_manual')?false:true,
+            draggable: false,
+            buttons: {
+                Ok: function() {
+                    $( this ).dialog('close');
+                }
+            }
+        });
+        $.cookie('raptus_navexplorer_manual', true,{
+            expires: raptus_navexplorer.settings.manual_expires,
+        });
+    },
+    
+    
+    openStandalone: function(){
+        $('body>*').remove();
+        var tree_window = window.open(document.location,'own_window_tree', raptus_navexplorer.settings.standaloneWindow);
+        parent.location = raptus_navexplorer.getPloneFrame().location
+        tree_window.parent.frames.plone_frame = parent;
+    },
+
+
+    closeStandalone: function(){
+        $('body>*').remove();
+        raptus_navexplorer.getPloneFrame().location = portal_url + '/@@navexplorer_view';
+        self.close();
+    },
+
+
     initAccordion : function(){
         $('#navexplorer_info').accordion({
             header: 'h3',
         });
     },
+    
     
     resizeAccordion: function(){
         var size_window= $(window).height();
@@ -200,6 +253,7 @@ raptus_navexplorer = {
         $('#navexplorer_info').css('bottom', 'auto').css('top', absolute + 'px');
     },
     
+    
     reloadAccordion : function(evnet, data){
         var url = data.rslt.obj.data('url') + '/navexplorer_accordion';
         $.get(url, function(data) {
@@ -208,6 +262,7 @@ raptus_navexplorer = {
               raptus_navexplorer.resizeAccordion();
         });
     },
+    
     
     customContextMenu : function(node){
         
@@ -234,8 +289,54 @@ raptus_navexplorer = {
         return eval_action(node.data('contextmenu'));
     },
 
-    goToLocation : function(url){
-        document.plone_frame.location = url;
+
+    dndFinish: function(dnd){alert(dnd);
+        raptus_navexplorer.dndAjax(dnd, false);
+        //raptus_navexplorer.urlChanged();
+    },
+    
+    
+    dndCheck: function(dnd){
+        raptus_navexplorer.dndAjax(dnd, true);
+    },
+    
+    
+    dndAjax: function(dnd, dryrun){
+        console.log(dnd);
+        if (dnd.o === false)
+            return;
+        var li = [];
+        dnd.o.each(function(){
+            var path = $(this).data('path');
+            if (!path)
+                return;
+            li.push(path);
+        });
+        if (!li.length)
+            return {inside: false, after: false, before: false};
+        var data = { drag: li,
+                     drop: dnd.r.data('path') ? dnd.r.data('path'):dnd.r.parent().data('path'),
+                     dryrun: dryrun}
+        data = {dnd: JSON.stringify(data)};
+
+         $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: portal_url + '/navexplorer_dnd',
+            data: data,
+            success: function(data){
+                return data;
+            }
+        });
+    },
+
+    getPloneFrame: function(){
+        return parent.frames.plone_frame;
+    },
+
+
+    goToLocation: function(url){
+       raptus_navexplorer.getPloneFrame().location = url;
     }
 }
 

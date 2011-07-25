@@ -32,6 +32,13 @@
         />
 
     <browser:page
+        name="navexplorer_dnd"
+        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        class=".ajax.DNDView"
+        permission="raptus.navexplorer.view"
+        />
+
+    <browser:page
         name="navexplorer_accordion"
         for="*"
         class=".accordion.AjaxAccordion"

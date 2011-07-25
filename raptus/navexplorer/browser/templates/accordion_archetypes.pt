@@ -27,7 +27,10 @@
             <td i18n:translate="">Modified</td>
             <td tal:content="python:plone.toLocalizedTime(view.modified)">Fr 29.04.2011 - 21:05 </td>
         </tr>
-
+        <tr>
+            <td i18n:translate="">URL</td>
+            <td tal:content="view/absolute_url">Fr 29.04.2011 - 21:05 </td>
+        </tr>
     </table>
 
 

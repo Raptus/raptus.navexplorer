@@ -47,7 +47,8 @@ body{
 
 
 /* jquery ui */
-button.ui-button-icon-only {
+#header .ui-button {
   width: 20px;
   height: 20px;
+  border: 0;
 }

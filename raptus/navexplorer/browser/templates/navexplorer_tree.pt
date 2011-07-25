@@ -39,7 +39,8 @@
     
     <div id="header">
         <button id="header_close" i18n:translate="">close navexplorer</button>
-        <button id="header_newwin" i18n:translate="">open navexplorer as new window</button>
+        <label for="header_newwin" i18n:translate="">open navexplorer as new window</label>
+        <input type="checkbox" id="header_newwin"/>
         <button id="header_notice" i18n:translate="">open manual box</button>
     </div>
     

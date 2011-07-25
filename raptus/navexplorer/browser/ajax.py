@@ -1,7 +1,11 @@
 import re
 import json
+import transaction
 
-from Acquisition import aq_base
+from Acquisition import aq_base, aq_parent
+
+from OFS.CopySupport import CopyError
+from AccessControl import Unauthorized
 
 from zope.component import getMultiAdapter
 from zope.component import queryAdapter
@@ -9,6 +13,7 @@ from zope.component import queryAdapter
 from Products.Five.browser import BrowserView
 
 from raptus.navexplorer.interfaces import IContextMenu
+
 
 
 class AjaxView(BrowserView):
@@ -41,7 +46,7 @@ class AjaxView(BrowserView):
         return dict( data=dict(title=self.title(obj),
                                icon=self.icon(obj)),
                      state=state,
-                     attr=dict(id=self.id(obj)),
+                     attr=self.attr(obj),
                      metadata=self.metadata(obj))
     
     def title(self, obj):
@@ -62,7 +67,10 @@ class AjaxView(BrowserView):
         return '%s/%s' % (self.portal.absolute_url(), icon,)
 
     def id(self, obj):
-        return re.sub('\W|^(?=\d)','_', repr(obj._p_oid))
+        return unicode(hash(obj.getPhysicalPath()))
+    
+    def attr(self, obj):
+        return {'id':self.id(obj),'class':'jstree-drop'}
     
     def metadata(self, obj):
         return dict(contextmenu=self.contextmenu(obj),
@@ -83,13 +91,49 @@ class SyncView(AjaxView):
         tree = json.loads(self.request.form.get('tree', '[]'))
         outdated = list()
         for node in tree:
+            update = False
+            reloadchildren = False
             obj = self.context.unrestrictedTraverse(str(node.get('path')))
+            
             if not obj._p_mtime == node.get('mtime'):
+                update = True
+            
+            if node.get('children'):
+                children_server = [self.id(i) for i in self.children(obj)]
+                children_client = node.get('children')
+                children_server.sort()
+                children_client.sort()
+                if not children_server == children_client:
+                    update = True
+                    reloadchildren = True
+            
+            if update:
                 outdated.append(dict(id = self.id(obj),
                                      metadata = self.metadata(obj),
-                                     contextmenu = self.contextmenu(obj),
-                                     title = self.title(obj)))
+                                     title = self.title(obj),
+                                     reloadchildren = reloadchildren))
         return json.dumps(outdated)
     
+class DNDView(BrowserView):
     
-    
+    def __call__(self):
+        try:
+            dnd = json.loads(self.request.form.get('dnd'))
+            dryrun = dnd.get('dryrun')
+            drag = [self.context.unrestrictedTraverse(str(i)) for i in dnd.get('drag')]
+            drop = self.context.unrestrictedTraverse(str(dnd.get('drop')))
+            ids = [i.getId() for i in drag]
+            
+            parent = aq_parent(drag[0])
+            parent.manage_cutObjects(ids, self.request)
+            drop.manage_pasteObjects(self.request['__cp'])
+        except (CopyError, Unauthorized, ValueError):
+            transaction.abort()
+            return json.dumps(dict(after=False, before=False, inside=False))
+            
+        if dryrun:
+            transaction.abort()
+            
+        return json.dumps(dict(after=False, before=False, inside=True))
+
+

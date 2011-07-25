@@ -84,6 +84,8 @@ class Archetypes(Base):
     def modified(self):
         return self.context.modified()
     
+    def absolute_url(self):
+        return self.context.absolute_url()
     
 class Folder(Base):
     
