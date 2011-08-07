@@ -139,21 +139,23 @@ class DNDView(AjaxView):
             parent = aq_parent(drag[0])
             parent.manage_cutObjects(ids, self.request)
             drop.manage_pasteObjects(self.request['__cp'])
+            drag_old_new = [(i, drop[i.getId()],) for i in drag]
+
         except (CopyError, Unauthorized, ValueError):
             transaction.abort()
-            return json.dumps(dict(after=False, before=False, inside=False))
+            return self.response(False)
             
         if dryrun:
             transaction.abort()
             
-        return self.response(False, False, True, drag)
+        return self.response(True, drag_old_new)
 
-    def response(self, after, before, inside, objects=[]):
-        permission = dict(after=after, before=before, inside=inside)
+    def response(self, permission, drag_old_new=[]):
         sync = list()
-        for obj in objects:
-            sync.append(dict(id=self.id(obj),
-                             metadata = self.metadata(obj)))
+        for old, new in drag_old_new:
+            sync.append(dict(id = self.id(old),
+                             newid = self.id(new),
+                             metadata = self.metadata(new)))
         return json.dumps(dict(sync=sync,
                                permission=permission))
 

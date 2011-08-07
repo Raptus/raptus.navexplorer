@@ -5,6 +5,9 @@ raptus_navexplorer = {
                  observetime: 33,
                  manual_expires: 300,
                  standaloneWindow: 'width=800,height=1000,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes, copyhistory=no, resizable=yes',
+                 theme: { theme : 'apple',
+                          dots : false,
+                          icons : true}
                 },
 
 
@@ -27,11 +30,8 @@ raptus_navexplorer = {
                 }
             },
             
-            themes: {
-                theme : 'apple',
-                dots : false,
-                icons : true
-            },
+            themes: raptus_navexplorer.settings.theme,
+            
             ui: { select_limit : -1,
                   select_multiple_modifier: 'alt'},
             
@@ -43,15 +43,14 @@ raptus_navexplorer = {
                                                this.deselect_all();
                                                this.select_node(o)}},
                                                
-            dnd: {
-                // don't work with contextmenu 
-                //drag_target: '.jstree li',
-                check_timeout: 800,
-                //drop_target: '.jstree li',
-                drop_check: raptus_navexplorer.dndCheck,
+            dnd: { drag_target: false,
+                   drop_target: false,
+                   check_timeout: 800,
             },
 
-            plugins: ['themes', 'json_data', 'dnd', 'ui', 'hotkeys', 'contextmenu', 'cookies']
+            crrm: { move: { check_move: raptus_navexplorer.dndCheck}},
+
+            plugins: ['themes', 'json_data', 'crrm', 'dnd', 'ui', 'hotkeys', 'contextmenu', 'cookies']
 
         });
         
@@ -63,7 +62,6 @@ raptus_navexplorer = {
         inst.bind('hover_node.jstree', raptus_navexplorer.reloadAccordion);
         inst.bind('before.jstree',raptus_navexplorer.resizeAccordion);
         inst.bind('move_node.jstree', raptus_navexplorer.dndMoved);
-        
         // overriding default click function
         inst.undelegate('a', 'click.jstree');
         inst.delegate('a', 'dblclick.jstree', $.proxy(function (event) {
@@ -166,6 +164,10 @@ raptus_navexplorer = {
         
         if (obj.deletenode){
             tree.delete_node(el);
+        }
+        
+        if (obj.newid){
+            el.attr('id', obj.newid);
         }
     },
     
@@ -304,33 +306,25 @@ raptus_navexplorer = {
     },
 
 
-    dndMoved: function(e){
+    dndMoved: function(e, data){
         // event is not completely and some attribute are missing. so we take
         // the last position from dndCheck.
         var dnd = raptus_navexplorer.dnd_last_position;
-        var data = raptus_navexplorer.dndAjax(dnd, false);
-        $.each(data.sync, function(){
-            raptus_navexplorer.update(this.id, this);
-        });
-        raptus_navexplorer.goToLocation(dnd.r.parent().data('url')+'/folder_contents');
+        raptus_navexplorer.dndAjax(dnd, false);
     },
     
     
     dndCheck: function(dnd){
         raptus_navexplorer.dnd_last_position = dnd;
-        var data = raptus_navexplorer.dndAjax(dnd, true);
-        return {
-                inside: false,
-                after: false,
-                before: false
-            };
-        return data.permission;
+        if (!$.vakata.dnd.helper.hasClass('jstree-loading') && $.vakata.dnd.helper.children('ins').hasClass('jstree-ok'))
+            return true;
+        raptus_navexplorer.dndAjax(dnd, true);
+        return false;
     },
     
     
     dndAjax: function(dnd, dryrun){
-        if (dnd.drop === false)
-            return false;
+        console.log(dnd);
         var li = [];
         dnd.o.each(function(){
             var path = $(this).data('path');
@@ -341,11 +335,12 @@ raptus_navexplorer = {
         if (!li.length) 
             return false;
         var data = { drag: li,
-                     drop: dnd.r.data('path')?dnd.r.data('path'):dnd.r.parent().data('path'),
+                     drop: dnd.r.data('path'),
                      dryrun: dryrun}
         data = {dnd: JSON.stringify(data)};
 
-        $.vakata.dnd.helper.children('ins').attr('class','jstree-invalid');
+        $.vakata.dnd.helper.append('<img src="throbber.gif">');
+        $.vakata.dnd.helper.addClass('jstree-loading');
 
         var xhr = $.ajax({
                             type: 'POST',
@@ -355,12 +350,25 @@ raptus_navexplorer = {
                             success: function(data,textStatus, xhr){
                                 if (!raptus_navexplorer.dnd_last_xhr === xhr)
                                     return;
-                                if (data.permission.inside)
+                                if (data.permission) {
                                     $.vakata.dnd.helper.children('ins').attr('class', 'jstree-ok');
+                                    var tree = $('.jstree').jstree('');
+                                    var pn = tree._get_move();
+                                    //tree.prepare_move(pn, pn.r, pn.pos, pn.cp, true, true );
+                                }
+                                if (data.permission && !dryrun) {
+                                    $.each(data.sync, function(){
+                                        raptus_navexplorer.update(this.id, this);
+                                    });
+                                    raptus_navexplorer.goToLocation(dnd.r.data('url') + '/folder_contents');
+                                }
                             },
+                            complete: function(jqXHR, textStatus){
+                                $.vakata.dnd.helper.removeClass('jstree-loading');
+                                $.vakata.dnd.helper.children('img').remove();
+                            }
         });
         raptus_navexplorer.dnd_last_xhr = xhr;
-        return false;
     },
 
     getPloneFrame: function(){

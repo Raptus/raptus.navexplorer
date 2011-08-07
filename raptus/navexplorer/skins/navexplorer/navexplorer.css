@@ -46,6 +46,16 @@ body{
 }
 
 
+/* jstree custom */
+#vakata-dragged.jstree-apple img {
+  left: 0;
+  position: absolute;
+  top: 4px;
+  width: 12px;
+  height: 12px;
+}
+
+
 /* jquery ui */
 #header .ui-button {
   width: 20px;
