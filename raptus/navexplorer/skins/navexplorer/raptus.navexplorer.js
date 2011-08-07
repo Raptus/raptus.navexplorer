@@ -44,11 +44,14 @@ raptus_navexplorer = {
                                                this.select_node(o)}},
                                                
             dnd: {
-                drop_finish: raptus_navexplorer.dndFinish,
+                // don't work with contextmenu 
+                //drag_target: '.jstree li',
+                check_timeout: 800,
+                //drop_target: '.jstree li',
                 drop_check: raptus_navexplorer.dndCheck,
             },
 
-            plugins: ['themes', 'json_data', 'ui', 'hotkeys', 'contextmenu', 'cookies', 'dnd']
+            plugins: ['themes', 'json_data', 'dnd', 'ui', 'hotkeys', 'contextmenu', 'cookies']
 
         });
         
@@ -59,6 +62,7 @@ raptus_navexplorer = {
         });
         inst.bind('hover_node.jstree', raptus_navexplorer.reloadAccordion);
         inst.bind('before.jstree',raptus_navexplorer.resizeAccordion);
+        inst.bind('move_node.jstree', raptus_navexplorer.dndMoved);
         
         // overriding default click function
         inst.undelegate('a', 'click.jstree');
@@ -70,7 +74,11 @@ raptus_navexplorer = {
             }
         }, inst.jstree('')));
         // restore selection function from ui plugin
+        // and check first of key down event
         inst.delegate('a', 'click.jstree', $.proxy(function (event) {
+            var settings = this.get_settings().ui;
+            if (!(event[settings.select_multiple_modifier + 'Key'] || event[settings.select_range_modifier + 'Key']))
+                return;
             event.preventDefault();
             event.currentTarget.blur();
             if(!$(event.currentTarget).hasClass("jstree-loading")) {
@@ -155,6 +163,10 @@ raptus_navexplorer = {
         if (obj.reloadchildren){
             tree.refresh(el);
         }
+        
+        if (obj.deletenode){
+            tree.delete_node(el);
+        }
     },
     
     
@@ -171,6 +183,8 @@ raptus_navexplorer = {
     
     
     urlChanged: function(){
+        if (!raptus_navexplorer.getPloneFrame())
+            return;
         parent.document.title = raptus_navexplorer.getPloneFrame().document.title;
         raptus_navexplorer.sync();
         raptus_navexplorer.getPloneFrame().jq('#contentview-open_navexplorer').remove();
@@ -254,7 +268,7 @@ raptus_navexplorer = {
     },
     
     
-    reloadAccordion : function(evnet, data){
+    reloadAccordion : function(event, data){
         var url = data.rslt.obj.data('url') + '/navexplorer_accordion';
         $.get(url, function(data) {
               $('#navexplorer_info_wrap').html(data);
@@ -290,44 +304,63 @@ raptus_navexplorer = {
     },
 
 
-    dndFinish: function(dnd){alert(dnd);
-        raptus_navexplorer.dndAjax(dnd, false);
-        //raptus_navexplorer.urlChanged();
+    dndMoved: function(e){
+        // event is not completely and some attribute are missing. so we take
+        // the last position from dndCheck.
+        var dnd = raptus_navexplorer.dnd_last_position;
+        var data = raptus_navexplorer.dndAjax(dnd, false);
+        $.each(data.sync, function(){
+            raptus_navexplorer.update(this.id, this);
+        });
+        raptus_navexplorer.goToLocation(dnd.r.parent().data('url')+'/folder_contents');
     },
     
     
     dndCheck: function(dnd){
-        raptus_navexplorer.dndAjax(dnd, true);
+        raptus_navexplorer.dnd_last_position = dnd;
+        var data = raptus_navexplorer.dndAjax(dnd, true);
+        return {
+                inside: false,
+                after: false,
+                before: false
+            };
+        return data.permission;
     },
     
     
     dndAjax: function(dnd, dryrun){
-        console.log(dnd);
-        if (dnd.o === false)
-            return;
+        if (dnd.drop === false)
+            return false;
         var li = [];
         dnd.o.each(function(){
             var path = $(this).data('path');
             if (!path)
-                return;
+                return false;
             li.push(path);
         });
-        if (!li.length)
-            return {inside: false, after: false, before: false};
+        if (!li.length) 
+            return false;
         var data = { drag: li,
-                     drop: dnd.r.data('path') ? dnd.r.data('path'):dnd.r.parent().data('path'),
+                     drop: dnd.r.data('path')?dnd.r.data('path'):dnd.r.parent().data('path'),
                      dryrun: dryrun}
         data = {dnd: JSON.stringify(data)};
 
-         $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            url: portal_url + '/navexplorer_dnd',
-            data: data,
-            success: function(data){
-                return data;
-            }
+        $.vakata.dnd.helper.children('ins').attr('class','jstree-invalid');
+
+        var xhr = $.ajax({
+                            type: 'POST',
+                            dataType: 'json',
+                            url: portal_url + '/navexplorer_dnd',
+                            data: data,
+                            success: function(data,textStatus, xhr){
+                                if (!raptus_navexplorer.dnd_last_xhr === xhr)
+                                    return;
+                                if (data.permission.inside)
+                                    $.vakata.dnd.helper.children('ins').attr('class', 'jstree-ok');
+                            },
         });
+        raptus_navexplorer.dnd_last_xhr = xhr;
+        return false;
     },
 
     getPloneFrame: function(){
@@ -336,7 +369,8 @@ raptus_navexplorer = {
 
 
     goToLocation: function(url){
-       raptus_navexplorer.getPloneFrame().location = url;
+        if (raptus_navexplorer.getPloneFrame())
+            raptus_navexplorer.getPloneFrame().location = url;
     }
 }
 

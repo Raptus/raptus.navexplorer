@@ -70,7 +70,7 @@ class AjaxView(BrowserView):
         return unicode(hash(obj.getPhysicalPath()))
     
     def attr(self, obj):
-        return {'id':self.id(obj),'class':'jstree-drop'}
+        return dict(id=self.id(obj))
     
     def metadata(self, obj):
         return dict(contextmenu=self.contextmenu(obj),
@@ -86,6 +86,9 @@ class AjaxView(BrowserView):
 
 
 class SyncView(AjaxView):
+    """ reload tree nodes on a already existing jstree
+    """
+    
     
     def __call__(self):
         tree = json.loads(self.request.form.get('tree', '[]'))
@@ -93,7 +96,12 @@ class SyncView(AjaxView):
         for node in tree:
             update = False
             reloadchildren = False
-            obj = self.context.unrestrictedTraverse(str(node.get('path')))
+            try:
+                obj = self.context.unrestrictedTraverse(str(node.get('path')))
+            except (AttributeError, KeyError,):
+                outdated.append(dict(id = node.get('id'),
+                                     deletenode = True))
+                continue
             
             if not obj._p_mtime == node.get('mtime'):
                 update = True
@@ -113,8 +121,12 @@ class SyncView(AjaxView):
                                      title = self.title(obj),
                                      reloadchildren = reloadchildren))
         return json.dumps(outdated)
-    
-class DNDView(BrowserView):
+
+
+class DNDView(AjaxView):
+    """ check if a one or more objects has
+        drag and drop support
+    """
     
     def __call__(self):
         try:
@@ -134,6 +146,14 @@ class DNDView(BrowserView):
         if dryrun:
             transaction.abort()
             
-        return json.dumps(dict(after=False, before=False, inside=True))
+        return self.response(False, False, True, drag)
 
+    def response(self, after, before, inside, objects=[]):
+        permission = dict(after=after, before=before, inside=inside)
+        sync = list()
+        for obj in objects:
+            sync.append(dict(id=self.id(obj),
+                             metadata = self.metadata(obj)))
+        return json.dumps(dict(sync=sync,
+                               permission=permission))
 
