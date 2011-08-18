@@ -62,6 +62,7 @@ raptus_navexplorer = {
         inst.bind('hover_node.jstree', raptus_navexplorer.reloadAccordion);
         inst.bind('before.jstree',raptus_navexplorer.resizeAccordion);
         inst.bind('move_node.jstree', raptus_navexplorer.dndMoved);
+
         // overriding default click function
         inst.undelegate('a', 'click.jstree');
         inst.delegate('a', 'dblclick.jstree', $.proxy(function (event) {
@@ -89,9 +90,11 @@ raptus_navexplorer = {
                 this.hover_node(event.target);
             }
         }, inst.jstree('')));
-        inst.undelegate('a', 'mouseleave.jstree');
-
-        
+        // force to reset all value and make a new check
+        inst.delegate('a', 'mouseleave.jstree', $.proxy(function (event){
+            if($.vakata.dnd.is_drag && $.vakata.dnd.user_data.jstree)
+                this.dnd_leave(event);
+        },inst.jstree('')))
         
         // set interval to sync
         window.setInterval(raptus_navexplorer.sync,
@@ -227,6 +230,7 @@ raptus_navexplorer = {
                 }
             }
         });
+        $('#manual-message-tabs').tabs();
         $.cookie('raptus_navexplorer_manual', true,{
             expires: raptus_navexplorer.settings.manual_expires,
         });
@@ -307,16 +311,13 @@ raptus_navexplorer = {
 
 
     dndMoved: function(e, data){
-        // event is not completely and some attribute are missing. so we take
-        // the last position from dndCheck.
-        var dnd = raptus_navexplorer.dnd_last_position;
-        raptus_navexplorer.dndAjax(dnd, false);
+        raptus_navexplorer.dndAjax(data.rslt, false);
     },
     
     
     dndCheck: function(dnd){
-        raptus_navexplorer.dnd_last_position = dnd;
-        if (!$.vakata.dnd.helper.hasClass('jstree-loading') && $.vakata.dnd.helper.children('ins').hasClass('jstree-ok'))
+        if ((!$.vakata.dnd.helper.hasClass('jstree-loading') &&
+            $.vakata.dnd.helper.children('ins').hasClass('jstree-ok')))
             return true;
         raptus_navexplorer.dndAjax(dnd, true);
         return false;
@@ -342,33 +343,30 @@ raptus_navexplorer = {
         $.vakata.dnd.helper.append('<img src="throbber.gif">');
         $.vakata.dnd.helper.addClass('jstree-loading');
 
-        var xhr = $.ajax({
-                            type: 'POST',
-                            dataType: 'json',
-                            url: portal_url + '/navexplorer_dnd',
-                            data: data,
-                            success: function(data,textStatus, xhr){
-                                if (!raptus_navexplorer.dnd_last_xhr === xhr)
-                                    return;
-                                if (data.permission) {
-                                    $.vakata.dnd.helper.children('ins').attr('class', 'jstree-ok');
-                                    var tree = $('.jstree').jstree('');
-                                    var pn = tree._get_move();
-                                    //tree.prepare_move(pn, pn.r, pn.pos, pn.cp, true, true );
-                                }
-                                if (data.permission && !dryrun) {
-                                    $.each(data.sync, function(){
-                                        raptus_navexplorer.update(this.id, this);
-                                    });
-                                    raptus_navexplorer.goToLocation(dnd.r.data('url') + '/folder_contents');
-                                }
-                            },
-                            complete: function(jqXHR, textStatus){
-                                $.vakata.dnd.helper.removeClass('jstree-loading');
-                                $.vakata.dnd.helper.children('img').remove();
-                            }
+        $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: portal_url + '/navexplorer_dnd',
+                data: data,
+                success: function(data,textStatus, xhr){
+                    if (data.permission) {
+                        $.vakata.dnd.helper.children('ins').attr('class', 'jstree-ok');
+                        var tree = $('.jstree').jstree('');
+                        tree.data.dnd.inside = true;
+                        var pn = tree._get_move();
+                    }
+                    if (data.permission && !dryrun) {
+                        $.each(data.sync, function(){
+                            raptus_navexplorer.update(this.id, this);
+                        });
+                        raptus_navexplorer.goToLocation(dnd.r.data('url') + '/folder_contents');
+                    }
+                },
+                complete: function(jqXHR, textStatus){
+                    $.vakata.dnd.helper.removeClass('jstree-loading');
+                    $.vakata.dnd.helper.children('img').remove();
+                }
         });
-        raptus_navexplorer.dnd_last_xhr = xhr;
     },
 
     getPloneFrame: function(){

@@ -45,6 +45,14 @@ body{
   padding-right: 15px;
 }
 
+#manual-message-tabs {
+  margin-top:5px;
+}
+#manual-message-tabs,
+#manual-message {
+  padding:0;
+}
+
 
 /* jstree custom */
 #vakata-dragged.jstree-apple img {
@@ -62,3 +70,8 @@ body{
   height: 20px;
   border: 0;
 }
+
+.ui-tabs .ui-tabs-nav li a {
+  padding:2.5px 16px;
+}
+

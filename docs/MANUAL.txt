@@ -1,0 +1,48 @@
+Introduction
+============
+
+
+
+User manual and feature
+=======================
+
+Mouse click: Show information about the selected content.
+
+Mouse double click: Open content in the right frame
+
+Mouse right click: Open contextmenu with additional actions.
+
+Arrow keys: Navigation through the tree and open/close treenodes.
+
+Enter key: Open content in the right frame.
+
+Drag and Drop: Move one or more treenodes in a other.
+
+Multiselection: keep the key 'shift' or 'alt' and press with the mouse all desired treenodes.
+
+
+
+Developer Manual
+================
+
+contextmenu
+-----------
+
+accordion
+---------
+
+logo change
+-----------
+
+permission
+----------
+
+Future feature
+==============
+
+
+Development
+===========
+
+
+

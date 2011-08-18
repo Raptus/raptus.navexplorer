@@ -2571,14 +2571,14 @@
                     o = this.data.dnd.w < this.data.core.li_height/2 ? ["inside","before","after"] : ["inside","after","before"];
                 }
                 else { o = ["after","inside","before"]; }
-                $.each(o, $.proxy(function (i, val) { 
+                $.each(o, $.proxy(function (i, val) {
                     if(this.data.dnd[val]) {
                         $.vakata.dnd.helper.children("ins").attr("class","jstree-ok");
                         r = val;
                         return false;
                     }
                 }, this));
-                if(r === false) { $.vakata.dnd.helper.children("ins").attr("class","jstree-invalid"); }
+                if(r === false) { $.vakata.dnd.helper.children("ins").attr("class","jstree-invalid");}
                 
                 pos = rtl ? (this.data.dnd.off.right - 18) : (this.data.dnd.off.left + 10);
                 switch(r) {

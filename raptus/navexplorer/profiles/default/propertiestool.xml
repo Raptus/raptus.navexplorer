@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<object name="portal_properties" meta_type="Plone Properties Tool">
+    <object name="raptus_navexplorer" purge="False">
+        <property name="additional_development_info" purge="False" type="string">
+            &lt;a href="http://raptus.com" target="_BLANK"&gt; &lt;img src="raptus_navexplorer_dialog_logo.png" alt="logo" /&gt;&lt;/a&gt;
+        </property>
+    </object>
+
+</object>

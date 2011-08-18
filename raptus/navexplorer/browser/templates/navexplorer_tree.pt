@@ -17,8 +17,8 @@
     <script type="text/javascript" src="/jquery.js"
             tal:attributes="src string:${portal_url}/jquery.js"></script>
     <script type="text/javascript" src="/++resource++jquery-ui.min.js"
-            tal:attributes="src string:${portal_url}/++resource++jquery-ui.min.js"></script>
-    <script type="text/javascript" src="/++resource++jquery-ui-i18n.js"
+            tal:attributes="src string:${portal_url}/raptus.navexplorer-jquery-ui-1.8.15.custom.min.js"></script>
+    <script type="text/javascript" src="/raptus.navexplorer-jquery-ui-1.8.15.custom.min.js"
             tal:attributes="src string:${portal_url}/++resource++jquery-ui-i18n.js"></script>
     <script type="text/javascript" src="/jquery.cookie.js"
             tal:attributes="src string:${portal_url}/jquery.cookie.js"></script>
@@ -56,28 +56,52 @@
         </div>
     </div>
     <div id="manual-message" title="Navigation Explorer Manual">
-        <p i18n:translate="">
-            Mouse click: Show information about the selected content.
-        </p>
-        <p i18n:translate="">
-            Mouse double click: Open content in the right frame
-        </p>
-        <p i18n:translate="">
-            Mouse right click: Open contextmenu with additional actions.
-        </p>
-        <p i18n:translate="">
-            Arrow keys: Navigation through the tree and open/close treenodes.
-        </p>
-        <p i18n:translate="">
-            Enter key: Open content in the right frame.
-        </p>
-        <p i18n:translate="">
-            Information:<br/>
-            <a href="http://www.raptus.com" target="_BLANK">raptus.com</a><br/>
-            <a href="http://plone.org/products/raptus.navexplorer" target="_BLANK">plone.org/products/raptus.navexplorer</a><br/>
-            <a href="http://www.jstree.com" target="_BLANK">jstree.com</a><br/>
-            <a href="mailto:sriolo@raptus.com">sriolo@raptus.com</a><br/>
-        </p>
+        
+        <div id="manual-message-tabs">
+            <ul>
+                <li><a href="#tabs-1">Manual</a></li>
+                <li><a href="#tabs-2">Development</a></li>
+            </ul>
+            <div id="tabs-1">
+                <p i18n:translate="">
+                    Mouse click: Show information about the selected content.
+                </p>
+                <p i18n:translate="">
+                    Mouse double click: Open content in the right frame
+                </p>
+                <p i18n:translate="">
+                    Mouse right click: Open contextmenu with additional actions.
+                </p>
+                <p i18n:translate="">
+                    Arrow keys: Navigation through the tree and open/close treenodes.
+                </p>
+                <p i18n:translate="">
+                    Enter key: Open content in the right frame.
+                </p>
+                <p i18n:translate="">
+                    Drag and Drop: Move one or more treenodes in a other.
+                </p>
+                <p i18n:translate="">
+                    Multiselection: keep the key 'shift' or 'alt' and press with the mouse all desired treenodes.
+                </p>
+            </div>
+            <div id="tabs-2">
+                <p tal:replace="structure context/portal_properties/raptus_navexplorer/additional_development_info" />
+                <p i18n:translate="">
+                    Information:<br/>
+                    <a href="http://www.raptus.com" target="_BLANK">raptus.com</a><br/>
+                    <a href="http://plone.org/products/raptus.navexplorer" target="_BLANK">plone.org/products/raptus.navexplorer</a><br/>
+                    <a href="http://www.jstree.com" target="_BLANK">jstree.com</a><br/>
+                    <a href="mailto:sriolo@raptus.com">sriolo@raptus.com</a><br/>
+                </p>
+                <p>
+                    Copyright and credits
+                    raptus.navexplorer is copyright 2011 by raptus , and is licensed under the GPL. See LICENSE.txt for details.
+                </p>
+            </div>
+
+        </div>
+
     </div>
 
 </body>
