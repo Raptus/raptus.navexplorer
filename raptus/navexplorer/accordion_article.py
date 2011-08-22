@@ -15,6 +15,8 @@ class AccordionArticle(AccordionBase):
 
     view_class = Article
 
+    order = 300
+
     def title(self):
         return _('Article')
 
@@ -24,6 +26,8 @@ class AccordionArticleContent(AccordionArticle):
     component.adapts(IATContentType)
 
     view_class = ArticleContent
+    
+    order = 400
     
     def suffix(self):
         return _('Subcontent')

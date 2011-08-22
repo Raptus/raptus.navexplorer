@@ -1,6 +1,6 @@
 from zope import interface, component
 
-from Products.CMFCore.interfaces._content import IFolderish
+from Products.CMFCore.interfaces import IFolderish
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from Products.ATContentTypes.interfaces.interfaces import IATContentType
 
@@ -15,6 +15,9 @@ class AccordionBase(object):
     interface.implements(IAccordionItem)
     
     view_class = None
+    
+    order = 0
+    permission = 'raptus.navexplorer.accordion.default'
 
     def __init__(self, context):
         self.context = context
@@ -36,6 +39,8 @@ class AccordionPlone(AccordionBase):
 
     view_class = accordion.Plone
 
+    order = 100
+
     def title(self):
         return _('Plone Site')
 
@@ -45,6 +50,8 @@ class AccordionArchetypes(AccordionBase):
     component.adapts(IATContentType)
 
     view_class = accordion.Archetypes
+
+    order = 200
 
     def title(self):
         return _('General Information')
@@ -56,6 +63,8 @@ class AccordionFolder(AccordionBase):
 
     view_class = accordion.Folder
 
+    order = 500
+
     def title(self):
         return _('Folder')
 
@@ -65,6 +74,8 @@ class AccordionSecurity(AccordionBase):
     component.adapts(IFolderish)
 
     view_class = accordion.Security
+
+    order = 600
 
     def title(self):
         return _('Security')

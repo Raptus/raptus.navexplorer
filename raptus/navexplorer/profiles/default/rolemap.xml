@@ -5,10 +5,16 @@
       <role name="Contributor" />
       <role name="Editor" />
       <role name="Manager" />
-      <role name="Operator" />
-      <role name="Owner" />
-      <role name="Reviewer" />
-      <role name="Webmaster" />
+    </permission>
+    <permission name="raptus.navexplorer: DND" acquire="False">
+      <role name="Contributor" />
+      <role name="Editor" />
+      <role name="Manager" />
+    </permission>
+    <permission name="raptus.navexplorer: Accordion Default" acquire="False">
+      <role name="Contributor" />
+      <role name="Editor" />
+      <role name="Manager" />
     </permission>
   </permissions>
 </rolemap>

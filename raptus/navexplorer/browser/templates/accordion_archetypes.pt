@@ -20,8 +20,16 @@
             <td tal:content="view/type">Plone Page</td>
         </tr>
         <tr>
+            <td i18n:translate="">Creator</td>
+            <td tal:content="view/creator">Chuck Norris</td>
+        </tr>
+        <tr>
             <td i18n:translate="">Created</td>
             <td tal:content="python:plone.toLocalizedTime(view.created)">Fr 20.04.2001 - 21:05 </td>
+        </tr>
+        <tr>
+            <td i18n:translate="">Last Editor</td>
+            <td tal:content="view/editor">The Notorious B.I.G.</td>
         </tr>
         <tr>
             <td i18n:translate="">Modified</td>

@@ -6,4 +6,14 @@
       title="raptus.navexplorer: View"
       />
 
+  <permission
+      id="raptus.navexplorer.dnd"
+      title="raptus.navexplorer: DND"
+      />
+
+  <permission
+      id="raptus.navexplorer.accordion.default"
+      title="raptus.navexplorer: Accordion Default"
+      />
+
 </configure>

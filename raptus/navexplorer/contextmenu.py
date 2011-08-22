@@ -35,7 +35,7 @@ class DefaultContextMenu(object):
         contentaction = dict()
         for action in action_list:
             di = dict( label = translate(_p(action.get('title')),context=self.request),
-                       action = self.action(action.get('url')),
+                       action = self._action(action.get('url')),
                        icon = action.get('id'),
                       )
             contentaction[action.get('id')] = di
@@ -54,7 +54,7 @@ class DefaultContextMenu(object):
                 separator = extra.get('separator', None)
             
             su = dict( label = translate(_p(value.get('title')),context=self.request),
-                       action = self.action(value.get('action','')),
+                       action = self._action(value.get('action','')),
                        icon = value.get('icon',''),
                        _class = value.get('class',''),
                        separator_before = separator,
@@ -67,7 +67,7 @@ class DefaultContextMenu(object):
         
         return di
     
-    def action(self, link):
+    def _action(self, link):
         return "raptus_navexplorer.goToLocation('%s');" % link
     
     

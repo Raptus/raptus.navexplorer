@@ -192,7 +192,8 @@ raptus_navexplorer = {
             return;
         parent.document.title = raptus_navexplorer.getPloneFrame().document.title;
         raptus_navexplorer.sync();
-        raptus_navexplorer.getPloneFrame().jq('#contentview-open_navexplorer').remove();
+        if (raptus_navexplorer.getPloneFrame().jq)
+            raptus_navexplorer.getPloneFrame().jq('#contentview-open_navexplorer').remove();
     },
     
     
@@ -201,7 +202,10 @@ raptus_navexplorer = {
             icons: { primary: 'ui-icon-close' },
             text: false
         }).click(function(){
-            parent.location = raptus_navexplorer.getPloneFrame().document.location;
+            if ($('#header_newwin').attr('checked'))
+                window.close();
+            else
+                parent.location = raptus_navexplorer.getPloneFrame().document.location;
         });
         if (!parent.frames.tree_frame)
             $('#header_newwin').attr('checked',true);

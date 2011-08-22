@@ -1,3 +1,6 @@
+from itertools import chain
+
+from zope.i18n import translate
 from zope.component import getAdapters
 
 from Products.Five.browser import BrowserView
@@ -5,9 +8,13 @@ from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from plone.app.contentmenu import PloneMessageFactory as _p
+from plone.app.workflow.browser.sharing import SharingView
+from plone.app.workflow.browser.sharing import merge_search_results
+from plone.app.layout.viewlets.content import ContentHistoryViewlet
+from plone.app.content.browser.folderfactories import _allowedTypes
 
+from raptus.navexplorer import config
 from raptus.navexplorer.interfaces import IAccordionItem
-
 
 
 class AjaxAccordion(BrowserView):
@@ -18,10 +25,16 @@ class AjaxAccordion(BrowserView):
         return self.template()
         
     def items(self):
+        ms_tool = getToolByName(self.context, 'portal_membership')
         li = list()
-        for name, item in getAdapters((self.context,), IAccordionItem):
+        for name, item in sorted(getAdapters((self.context,), IAccordionItem),
+                                 key=lambda item:item[1].order):
+            
             if not item.available():
                 continue
+            if not ms_tool.checkPermission(config.PERMISSIONS['accordion.default'], self.context):
+                continue
+            
             li.append(item)
         return li
 
@@ -68,9 +81,14 @@ class Plone(Base):
         return self.context.email_from_name
 
 
-class Archetypes(Base):
-    
+class Archetypes(Base, ContentHistoryViewlet):
+
     template = ViewPageTemplateFile('templates/accordion_archetypes.pt')
+    
+    def __init__(self, context, request):
+        super(Archetypes, self).__init__(context, request)
+        super(ContentHistoryViewlet, self).__init__(context, request, self)
+        self.update()
     
     def type(self):
         type_info = self.context.getTypeInfo()
@@ -86,7 +104,20 @@ class Archetypes(Base):
     
     def absolute_url(self):
         return self.context.absolute_url()
+
+    def creator(self):
+        return self.context.Creator()
     
+    def editor(self):
+        history = self.fullHistory()
+        if not history:
+            return
+        
+        actor = history.pop(0).get('actor', None)
+        if not actor:
+            return 
+        return actor.get('username')
+
 class Folder(Base):
     
     template = ViewPageTemplateFile('templates/accordion_folder.pt')
@@ -94,20 +125,38 @@ class Folder(Base):
     def amount(self):
         return len(self.context)
 
-    def layout(self):
-        return [_p(i) for i in self.context.getDefaultLayout()]
+    def allowed_types(self):
+        return [translate(msgid=i.Title(), domain=i.i18n_domain, context=self.request)
+                for i in _allowedTypes(self.request, self.context)]
 
 
-class Security(Base):
+class Security(Base, SharingView):
     
     template = ViewPageTemplateFile('templates/accordion_security.pt')
     
-    def creator(self):
-        return self.context.Creator()
+    # this code override the search string and display all entries
+    def do_not_search_user(self, hunter, search_term):
+        return hunter.searchUsers()
     
-    def editor(self):
-        rt = getToolByName(self.context, 'portal_repository', None)
-        if rt is None or not rt.isVersionable(self.context):
-            return None
-        return rt.getHistoryMetadata()
-        
+    def do_not_search_group(self, hunter, search_term):
+        return hunter.searchGroups()
+    
+    def _principal_search_results(self,
+                                  search_for_principal,
+                                  get_principal_by_id,
+                                  get_principal_title,
+                                  principal_type,
+                                  id_key):
+        if principal_type == 'user':
+            search_for_principal = self.do_not_search_user
+        if principal_type == 'group':
+            search_for_principal = self.do_not_search_group
+        self.request.form['search_term'] = ' '
+        return super(Security, self)._principal_search_results( search_for_principal,
+                                                                get_principal_by_id,
+                                                                get_principal_title,
+                                                                principal_type,
+                                                                id_key)
+
+
+

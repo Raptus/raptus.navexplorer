@@ -12,13 +12,18 @@ from zope.component import queryAdapter
 
 from Products.Five.browser import BrowserView
 
-from raptus.navexplorer.interfaces import IContextMenu
+from Products.CMFCore import permissions
+from Products.CMFCore.interfaces import IFolderish
+from Products.CMFCore.utils import getToolByName
 
+from raptus.navexplorer import config
+from raptus.navexplorer.interfaces import IContextMenu
 
 
 class AjaxView(BrowserView):
     """ generate json from plone content
     """
+    
     def __call__(self):
         pstate = getMultiAdapter((self.context, self.request), name='plone_portal_state')
         self.portal = portal = pstate.portal()
@@ -30,14 +35,19 @@ class AjaxView(BrowserView):
             initdata.update(dict(children=children))
             return json.dumps(initdata)
         
-        node = portal.unrestrictedTraverse(path);
+        node = portal.restrictedTraverse(path);
         children = [self.build(obj) for obj in self.children(node)]
         return json.dumps(children)
 
     def children(self, obj):
         if not hasattr(aq_base(obj), 'contentValues'):
             return []
-        return obj.contentValues()
+        ms_tool = getToolByName(self.context, 'portal_membership')
+        children = list()
+        for child in obj.contentValues():
+            if ms_tool.checkPermission(permissions.View, child):
+                children.append(child)
+        return children
 
     def build(self, obj):
         state = ''
@@ -89,7 +99,6 @@ class SyncView(AjaxView):
     """ reload tree nodes on a already existing jstree
     """
     
-    
     def __call__(self):
         tree = json.loads(self.request.form.get('tree', '[]'))
         outdated = list()
@@ -97,7 +106,7 @@ class SyncView(AjaxView):
             update = False
             reloadchildren = False
             try:
-                obj = self.context.unrestrictedTraverse(str(node.get('path')))
+                obj = self.context.restrictedTraverse(str(node.get('path')))
             except (AttributeError, KeyError,):
                 outdated.append(dict(id = node.get('id'),
                                      deletenode = True))
@@ -129,14 +138,26 @@ class DNDView(AjaxView):
     """
     
     def __call__(self):
+        
+        dnd = json.loads(self.request.form.get('dnd'))
+        dryrun = dnd.get('dryrun')
+        drag = [self.context.restrictedTraverse(str(i)) for i in dnd.get('drag')]
+        drop = self.context.restrictedTraverse(str(dnd.get('drop')))
+        ids = [i.getId() for i in drag]
+        parent = aq_parent(drag[0])
+        ms_tool = getToolByName(self.context, 'portal_membership')
+        
+        
+        if parent == drop:
+            return self.response(False)
+        
+        if not IFolderish.providedBy(drop):
+            return self.response(False)
+        
+        if not ms_tool.checkPermission(config.PERMISSIONS['dnd'], self.context):
+            return self.response(False)
+        
         try:
-            dnd = json.loads(self.request.form.get('dnd'))
-            dryrun = dnd.get('dryrun')
-            drag = [self.context.unrestrictedTraverse(str(i)) for i in dnd.get('drag')]
-            drop = self.context.unrestrictedTraverse(str(dnd.get('drop')))
-            ids = [i.getId() for i in drag]
-            
-            parent = aq_parent(drag[0])
             parent.manage_cutObjects(ids, self.request)
             drop.manage_pasteObjects(self.request['__cp'])
             drag_old_new = [(i, drop[i.getId()],) for i in drag]
