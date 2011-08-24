@@ -336,7 +336,6 @@ raptus_navexplorer = {
     
     
     dndAjax: function(dnd, dryrun){
-        console.log(dnd);
         var li = [];
         dnd.o.each(function(){
             var path = $(this).data('path');
