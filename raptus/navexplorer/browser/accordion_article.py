@@ -21,7 +21,7 @@ class Article(Base):
         adapter = queryAdapter(self.context, IComponents)
         if adapter is None:
             return []
-        return dict(adapter.activeComponents().values())
+        return dict(adapter.activeComponents()).values()
         
     def selections(self):
         try:
