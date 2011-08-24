@@ -32,7 +32,12 @@
   <i18n:registerTranslations directory="locales"/>
 
   <adapter
-      factory=".contextmenu.DefaultContextMenu" />
+      factory=".contextmenu.DefaultContextMenu"
+      for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot" />
+
+  <adapter
+      factory=".contextmenu.DefaultContextMenu"
+      for="Products.ATContentTypes.interfaces.interfaces.IATContentType" />
 
   <adapter
       name="raptus.navexplorer.accordion.plone"

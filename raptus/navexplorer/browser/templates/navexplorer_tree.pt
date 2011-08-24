@@ -54,6 +54,13 @@
             <div id="navexplorer_info" class="accordion">
             </div>
         </div>
+        <div id="navexplorer_info_error" class="ui-widget hidden">
+            <div class="ui-state-error ui-corner-all">
+                <p i18n:translate="">
+                    error while rendering template.
+                </p>
+            </div>
+        </div>
     </div>
     <div id="manual-message" title="Navigation Explorer Manual">
         

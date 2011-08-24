@@ -1,4 +1,7 @@
 from Acquisition import aq_parent
+
+from zope.component import queryAdapter
+
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from raptus.article.core.interfaces import IComponents
@@ -15,14 +18,20 @@ class Article(Base):
         self.container = context
     
     def components(self):
-        return dict(IComponents(self.context).activeComponents()).values()
-
+        adapter = queryAdapter(self.context, IComponents)
+        if adapter is None:
+            return []
+        return dict(adapter.activeComponents().values())
+        
     def selections(self):
         try:
             selections = self.context.Schema()['components'].get(self.context)
         except:
             selections = []
-        components = dict(IComponents(self.container).getComponents())
+        adapter = queryAdapter(self.container, IComponents)
+        if adapter is None:
+            return []
+        components = dict(adapter.getComponents())
         return [components[i] for i in selections]
 
 

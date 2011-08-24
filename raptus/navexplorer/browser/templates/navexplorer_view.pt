@@ -12,7 +12,7 @@
 <head>
     <title></title>
 </head>
-<frameset cols="435px, 100%"
+<frameset cols="500px, 100%"
  tal:define="portal_state context/@@plone_portal_state;
              portal_url portal_state/portal_url;">
   <frameset>

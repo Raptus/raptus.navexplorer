@@ -280,11 +280,18 @@ raptus_navexplorer = {
     
     reloadAccordion : function(event, data){
         var url = data.rslt.obj.data('url') + '/navexplorer_accordion';
-        $.get(url, function(data) {
-              $('#navexplorer_info_wrap').html(data);
-              raptus_navexplorer.initAccordion();
-              raptus_navexplorer.resizeAccordion();
-        });
+        $.ajax({url: url,
+                success: function(data) {
+                  $('#navexplorer_info_wrap').html(data);
+                  raptus_navexplorer.initAccordion();
+                  raptus_navexplorer.resizeAccordion();
+                  $( "#navexplorer_info_error" ).hide(0);
+                },
+                error: function(){
+                    $('#navexplorer_info_wrap>*').remove();
+                    $( "#navexplorer_info_error" ).show( 'bounce', {}, 500);
+                }
+        })
     },
     
     

@@ -5,6 +5,7 @@ from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from Products.ATContentTypes.interfaces.interfaces import IATContentType
 
 from raptus.navexplorer import _
+from raptus.navexplorer import config
 from raptus.navexplorer.browser import accordion
 from raptus.navexplorer.interfaces import IAccordionItem
 
@@ -17,7 +18,7 @@ class AccordionBase(object):
     view_class = None
     
     order = 0
-    permission = 'raptus.navexplorer.accordion.default'
+    permission = config.PERMISSIONS['accordion.default']
 
     def __init__(self, context):
         self.context = context

@@ -3,7 +3,6 @@ from zope import interface, component
 from zope.component import getMultiAdapter
 from zope.app.publisher.browser.menu import getMenu
 
-from Products.ATContentTypes.interfaces.interfaces import IATContentType
 from Products.CMFPlone import PloneMessageFactory as _p
 
 from raptus.navexplorer import _
@@ -13,7 +12,6 @@ from raptus.navexplorer.interfaces import IContextMenu
 class DefaultContextMenu(object):
     
     interface.implements(IContextMenu)
-    component.adapts(IATContentType)
     
     
     def __init__(self, context):

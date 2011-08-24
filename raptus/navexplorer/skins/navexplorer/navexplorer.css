@@ -53,6 +53,23 @@ body{
   padding:0;
 }
 
+.accordion td {
+  vertical-align: top;
+}
+
+.accordion ul {
+  margin:0;
+  padding-left:13px;
+}
+
+.hidden {
+  display:none;
+}
+
+#navexplorer_info_error div {
+  margin: 10px;
+  padding:10px;
+}
 
 /* jstree custom */
 #vakata-dragged.jstree-apple img {
