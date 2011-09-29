@@ -73,8 +73,8 @@ class AjaxView(BrowserView):
         else:
             icon = obj.icon
         if not icon:
-            icon = 'folder_icon.png'
-        return '%s/%s' % (self.portal.absolute_url(), icon,)
+            icon =  '%s/folder_icon.png' % self.portal.absolute_url(True)
+        return '%s/%s' % (self.request.other.get('SERVER_URL', ''), icon,)
 
     def id(self, obj):
         return unicode(hash(obj.getPhysicalPath()))

@@ -19,7 +19,7 @@
     <script type="text/javascript" src="/++resource++jquery-ui.min.js"
             tal:attributes="src string:${portal_url}/raptus.navexplorer-jquery-ui-1.8.15.custom.min.js"></script>
     <script type="text/javascript" src="/raptus.navexplorer-jquery-ui-1.8.15.custom.min.js"
-            tal:attributes="src string:${portal_url}/++resource++jquery-ui-i18n.js"></script>
+            tal:attributes="src string:${portal_url}/raptus.navexplorer-jquery-ui-i18n.js"></script>
     <script type="text/javascript" src="/jquery.cookie.js"
             tal:attributes="src string:${portal_url}/jquery.cookie.js"></script>
     <script type="text/javascript" src="/jquery.hotkeys.js"

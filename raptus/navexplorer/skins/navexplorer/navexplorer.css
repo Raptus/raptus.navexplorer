@@ -20,15 +20,13 @@ body{
   margin:53px 8px 8px 8px;
 }
 
-#navexplorer_info_wrap{
-  height: 100%;
-  /*position: relative;*/
+
+#navexplorer_tree {
+  overflow:auto;
+  height:200px;
 }
 
 #navexplorer_info {
-  position: absolute;
-  width:95%;
-  bottom: 5px;
   margin-top: 25px;
 }
 
@@ -80,6 +78,15 @@ body{
   height: 12px;
 }
 
+#navexplorer_content .jstree .jstree-hovered {
+  background-color:#beebff;
+  border-color: #99defd;
+}
+
+#navexplorer_content .jstree .jstree-clicked {
+  background-color:#5b91ec;
+  border-color: #2b61bc;
+}
 
 /* jquery ui */
 #header .ui-button {

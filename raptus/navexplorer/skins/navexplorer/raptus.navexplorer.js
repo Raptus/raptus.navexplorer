@@ -91,6 +91,8 @@ raptus_navexplorer = {
             }
         }, inst.jstree('')));
         // force to reset all value and make a new check
+        
+        inst.undelegate('a', 'mouseleave.jstree');
         inst.delegate('a', 'mouseleave.jstree', $.proxy(function (event){
             if($.vakata.dnd.is_drag && $.vakata.dnd.user_data.jstree)
                 this.dnd_leave(event);
@@ -265,16 +267,10 @@ raptus_navexplorer = {
     
     resizeAccordion: function(){
         var size_window= $(window).height();
-        var info = $('#navexplorer_info');
-        var margin_info = info.data('margin_info') ? info.data('margin_info') : parseInt(info.css('margin-top'));
-        info.data('margin_info', margin_info);
-        info.css('margin-top','0px');
-        var size_info = $('#navexplorer_info').height();
-        var size_tree = $('#navexplorer_tree').height() + margin_info + parseInt($('#navexplorer_content').css('margin-top'));
-        var absolute = size_window - size_info;
-        if (absolute <= size_tree)
-            absolute = size_tree;
-        $('#navexplorer_info').css('bottom', 'auto').css('top', absolute + 'px');
+        var space = 25;
+        var margin = parseInt($('#navexplorer_content').css('margin-top')) + parseInt($('#navexplorer_content').css('margin-bottom'));
+        var size_info = $('#navexplorer_info, #navexplorer_info_error').height();
+        $('#navexplorer_tree').height(size_window - margin - size_info - space);
     },
     
     
@@ -363,7 +359,7 @@ raptus_navexplorer = {
                         $.vakata.dnd.helper.children('ins').attr('class', 'jstree-ok');
                         var tree = $('.jstree').jstree('');
                         tree.data.dnd.inside = true;
-                        var pn = tree._get_move();
+                        tree.dnd_show()
                     }
                     if (data.permission && !dryrun) {
                         $.each(data.sync, function(){
