@@ -5,6 +5,8 @@ from zope.app.publisher.browser.menu import getMenu
 
 from Products.CMFPlone import PloneMessageFactory as _p
 
+from ordereddict import OrderedDict
+
 from raptus.navexplorer import _
 from raptus.navexplorer.interfaces import IContextMenu
 
@@ -30,20 +32,20 @@ class DefaultContextMenu(object):
             action_list = context_state.actions('folder')
         action_list.extend(context_state.actions('object'))
         
-        contentaction = dict()
+        contentaction = OrderedDict()
         for action in action_list:
-            di = dict( label = translate(_p(action.get('title')),context=self.request),
+            di = OrderedDict( label = translate(_p(action.get('title')),context=self.request),
                        action = self._action(action.get('url')),
                        icon = action.get('id'),
                       )
             contentaction[action.get('id')] = di
         
-        results['contentaction'] = dict(label=translate(_('Content Actions'),context=self.request),
+        results['contentaction'] = OrderedDict(label=translate(_('Content Actions'),context=self.request),
                                         submenu=contentaction)
         return results
     
     def _parse(self, menu):
-        di = dict()
+        di = OrderedDict()
         for value in menu:
             id = value.get('id', value.get('title'))
             extra = value.get('extra', None)
@@ -51,7 +53,7 @@ class DefaultContextMenu(object):
             if extra:
                 separator = extra.get('separator', None)
             
-            su = dict( label = translate(_p(value.get('title')),context=self.request),
+            su = OrderedDict( label = translate(_p(value.get('title')),context=self.request),
                        action = self._action(value.get('action','')),
                        icon = value.get('icon',''),
                        _class = value.get('class',''),
@@ -60,7 +62,7 @@ class DefaultContextMenu(object):
                       )
                 
             if value.get('submenu', None):
-                       su.update(dict(submenu = self._parse(value.get('submenu'))))
+                       su.update(OrderedDict(submenu = self._parse(value.get('submenu'))))
             di[id] = su
         
         return di

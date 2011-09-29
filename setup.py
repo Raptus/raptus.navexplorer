@@ -27,6 +27,7 @@ setup(name='raptus.navexplorer',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'ordereddict'
           # -*- Extra requirements: -*-
       ],
       entry_points="""

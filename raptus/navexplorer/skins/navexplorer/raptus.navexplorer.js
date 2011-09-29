@@ -278,10 +278,12 @@ raptus_navexplorer = {
         var url = data.rslt.obj.data('url') + '/navexplorer_accordion';
         $.ajax({url: url,
                 success: function(data) {
+                  var tabindex = $('#navexplorer_info').accordion('option','active');
                   $('#navexplorer_info_wrap').html(data);
                   raptus_navexplorer.initAccordion();
                   raptus_navexplorer.resizeAccordion();
                   $( "#navexplorer_info_error" ).hide(0);
+                  $('#navexplorer_info').accordion('option','active', tabindex);
                 },
                 error: function(){
                     $('#navexplorer_info_wrap>*').remove();
