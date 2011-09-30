@@ -191,11 +191,30 @@ raptus_navexplorer = {
     
     urlChanged: function(){
         if (!raptus_navexplorer.getPloneFrame())
-            return;
+          return;
+        raptus_navexplorer.urlPatches();
         parent.document.title = raptus_navexplorer.getPloneFrame().document.title;
         raptus_navexplorer.sync();
         if (raptus_navexplorer.getPloneFrame().jq)
             raptus_navexplorer.getPloneFrame().jq('#contentview-open_navexplorer').remove();
+    },
+    
+    
+    urlPatches: function(){
+      var url = $.url.parse(raptus_navexplorer.getPloneFrame().location);
+      if ('params' in url &&
+          'orig_template' in url.params &&
+          url.params['orig_template'].search('navexplorer_tree') != -1){
+              delete url['path'];
+              delete url['ralative'];
+              delete url['source'];
+              delete url['query'];
+              url.params.orig_template = raptus_navexplorer.referrer;
+              alert($.url.build(url));
+              console.log(url);
+              raptus_navexplorer.goToLocation($.url.build(url));
+          }
+        
     },
     
     
@@ -284,6 +303,7 @@ raptus_navexplorer = {
                   raptus_navexplorer.resizeAccordion();
                   $( "#navexplorer_info_error" ).hide(0);
                   $('#navexplorer_info').accordion('option','active', tabindex);
+                  $('#navexplorer_tree').jstree('').set_focus();
                 },
                 error: function(){
                     $('#navexplorer_info_wrap>*').remove();
@@ -384,8 +404,15 @@ raptus_navexplorer = {
 
     goToLocation: function(url){
         if (raptus_navexplorer.getPloneFrame())
+            raptus_navexplorer.referrer = raptus_navexplorer.getPloneFrame().location;
+        else
+            raptus_navexplorer.referrer = '';
+        if (raptus_navexplorer.getPloneFrame()){
             raptus_navexplorer.getPloneFrame().location = url;
-    }
+            
+        }
+    },
+    
 }
 
 jQuery(document).ready(raptus_navexplorer.init);
