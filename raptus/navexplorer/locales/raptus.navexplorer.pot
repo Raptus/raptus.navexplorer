@@ -1,0 +1,178 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2011-10-03 07:45+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: raptus.navexplorer\n"
+
+#: ./raptus/navexplorer/browser/templates/accordion_folder.pt:15
+msgid "Allowed Content types"
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/accordion_folder.pt:11
+msgid "Amount items"
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/navexplorer_tree.pt:84
+msgid "Arrow keys: Navigation through the tree and open/close treenodes."
+msgstr ""
+
+#: ./raptus/navexplorer/accordion_article.py:21
+msgid "Article"
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/accordion_article.pt:10
+msgid "Components"
+msgstr ""
+
+#: ./raptus/navexplorer/contextmenu.py:43
+msgid "Content Actions"
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/accordion_archetypes.pt:27
+msgid "Created"
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/accordion_archetypes.pt:23
+msgid "Creator"
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/accordion_archetypes.pt:15
+#: ./raptus/navexplorer/browser/templates/accordion_plone.pt:19
+msgid "Default Page"
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/navexplorer_tree.pt:90
+msgid "Drag and Drop: Move one or more treenodes in a other."
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/accordion_plone.pt:23
+msgid "Email from address"
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/accordion_plone.pt:27
+msgid "Email from name"
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/navexplorer_tree.pt:87
+msgid "Enter key: Open content in the right frame."
+msgstr ""
+
+#: ./raptus/navexplorer/accordion.py:70
+msgid "Folder"
+msgstr ""
+
+#: ./raptus/navexplorer/accordion.py:58
+msgid "General Information"
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/navexplorer_tree.pt:99
+msgid "Information:<br /> <a href=\"http://www.raptus.com\" target=\"_BLANK\">raptus.com</a><br /> <a href=\"http://plone.org/products/raptus.navexplorer\" target=\"_BLANK\">plone.org/products/raptus.navexplorer</a><br /> <a href=\"http://www.jstree.com\" target=\"_BLANK\">jstree.com</a><br /> <a href=\"mailto:sriolo@raptus.com\">sriolo@raptus.com</a><br />"
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/accordion_archetypes.pt:31
+msgid "Last Editor"
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/accordion_archetypes.pt:35
+msgid "Modified"
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/navexplorer_tree.pt:75
+msgid "Mouse click: Show information about the selected content."
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/navexplorer_tree.pt:78
+msgid "Mouse double click: Open content in the right frame"
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/navexplorer_tree.pt:81
+msgid "Mouse right click: Open contextmenu with additional actions."
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/navexplorer_tree.pt:93
+msgid "Multiselection: keep the key 'shift' or 'alt' and press with the mouse all desired treenodes."
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/accordion_article.pt:13
+msgid "No components selected"
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/accordion_article.pt:19
+msgid "No selection selected"
+msgstr ""
+
+#: ./raptus/navexplorer/profiles/default/actions.xml
+msgid "Open Navigation Explorer"
+msgstr ""
+
+#: ./raptus/navexplorer/accordion.py:46
+msgid "Plone Site"
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/accordion_plone.pt:15
+msgid "Plone version"
+msgstr ""
+
+#: ./raptus/navexplorer/accordion.py:82
+msgid "Security"
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/accordion_article.pt:16
+msgid "Selection"
+msgstr ""
+
+#: ./raptus/navexplorer/accordion_article.py:33
+msgid "Subcontent"
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/accordion_archetypes.pt:11
+#: ./raptus/navexplorer/browser/templates/accordion_plone.pt:11
+msgid "Title"
+msgstr ""
+
+#: ./raptus/navexplorer/profiles/default/actions.xml
+msgid "Tree"
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/accordion_archetypes.pt:19
+msgid "Type"
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/accordion_archetypes.pt:39
+msgid "URL"
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/navexplorer_tree.pt:43
+msgid "close navexplorer"
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/navexplorer_tree.pt:61
+msgid "error while rendering template."
+msgstr ""
+
+#. Default: "Inherit permissions from higher levels"
+#: ./raptus/navexplorer/browser/templates/accordion_security.pt:78
+msgid "label_inherit_local_roles"
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/navexplorer_tree.pt:46
+msgid "open manual box"
+msgstr ""
+
+#: ./raptus/navexplorer/browser/templates/navexplorer_tree.pt:44
+msgid "open navexplorer as new window"
+msgstr ""
+
