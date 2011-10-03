@@ -63,6 +63,11 @@ raptus_navexplorer = {
         inst.bind('before.jstree',raptus_navexplorer.resizeAccordion);
         inst.bind('move_node.jstree', raptus_navexplorer.dndMoved);
 
+        // keep referer for url patch. keep only id because of loosing
+        // referenz while object changes
+        inst.delegate('a', 'mousedown.jstree', function(event){
+            raptus_navexplorer.referer_id = $(event.target).parent().attr('id');
+        });
         // overriding default click function
         inst.undelegate('a', 'click.jstree');
         inst.delegate('a', 'dblclick.jstree', $.proxy(function (event) {
@@ -96,7 +101,8 @@ raptus_navexplorer = {
         inst.delegate('a', 'mouseleave.jstree', $.proxy(function (event){
             if($.vakata.dnd.is_drag && $.vakata.dnd.user_data.jstree)
                 this.dnd_leave(event);
-        },inst.jstree('')))
+        },inst.jstree('')));
+
         
         // set interval to sync
         window.setInterval(raptus_navexplorer.sync,
@@ -201,6 +207,8 @@ raptus_navexplorer = {
     
     
     urlPatches: function(){
+      // url referer dosen't work at this time. we need to remove
+      // the params orig_template from the redirect.
       var url = $.url.parse(raptus_navexplorer.getPloneFrame().location);
       if ('params' in url &&
           'orig_template' in url.params &&
@@ -209,12 +217,13 @@ raptus_navexplorer = {
               delete url['ralative'];
               delete url['source'];
               delete url['query'];
-              url.params.orig_template = raptus_navexplorer.referrer;
-              alert($.url.build(url));
-              console.log(url);
+              delete url.params['orig_template'];
               raptus_navexplorer.goToLocation($.url.build(url));
-          }
-        
+      }
+      if (raptus_navexplorer.getPloneFrame() && 
+          raptus_navexplorer.getPloneFrame().location.href.search('navexplorer_tree') != -1){
+          $('#'+raptus_navexplorer.referer_id).trigger('dblclick.jstree');
+      }
     },
     
     
@@ -403,12 +412,8 @@ raptus_navexplorer = {
 
 
     goToLocation: function(url){
-        if (raptus_navexplorer.getPloneFrame())
-            raptus_navexplorer.referrer = raptus_navexplorer.getPloneFrame().location;
-        else
-            raptus_navexplorer.referrer = '';
         if (raptus_navexplorer.getPloneFrame()){
-            raptus_navexplorer.getPloneFrame().location = url;
+            raptus_navexplorer.getPloneFrame().location.href = url;
             
         }
     },

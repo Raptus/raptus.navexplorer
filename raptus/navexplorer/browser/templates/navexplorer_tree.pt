@@ -26,6 +26,8 @@
             tal:attributes="src string:${portal_url}/jquery.hotkeys.js"></script>
     <script type="text/javascript" src="/jquery.jstree.js"
             tal:attributes="src string:${portal_url}/jquery.jstree.js"></script>
+    <script type="text/javascript" src="/jquery.urldecoder.min.js"
+            tal:attributes="src string:${portal_url}/jquery.urldecoder.min.js"></script>
     <script type="text/javascript" src="/plone_javascript_variables"
             tal:attributes="src string:${portal_url}/plone_javascript_variables.js"></script>
     <script type="text/javascript" src="/raptus.navexplorer.js"
