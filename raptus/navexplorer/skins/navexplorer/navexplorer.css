@@ -99,3 +99,8 @@ body{
   padding:2.5px 16px;
 }
 
+.ui-accordion-content {
+  max-height: 300px;
+}
+
+
