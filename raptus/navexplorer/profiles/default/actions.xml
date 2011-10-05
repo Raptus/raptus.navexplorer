@@ -14,7 +14,7 @@
           <property name="icon_expr"></property>
           <property name="available_expr"></property>
           <property name="permissions">
-            <element value="raptus.navexplorer.view"/>
+            <element value="raptus.navexplorer: View"/>
           </property>
           <property name="visible">True</property>
         </object>
