@@ -20,6 +20,8 @@
             tal:attributes="src string:${portal_url}/raptus.navexplorer-jquery-ui-1.8.15.custom.min.js"></script>
     <script type="text/javascript" src="/raptus.navexplorer-jquery-ui-1.8.15.custom.min.js"
             tal:attributes="src string:${portal_url}/raptus.navexplorer-jquery-ui-i18n.js"></script>
+    <script type="text/javascript" src="/jquery.urldecoder.min.js"
+            tal:attributes="src string:${portal_url}/jquery.urldecoder.min.js"></script>
     <script type="text/javascript" src="/jquery.cookie.js"
             tal:attributes="src string:${portal_url}/jquery.cookie.js"></script>
     <script type="text/javascript" src="/jquery.hotkeys.js"
@@ -40,10 +42,10 @@
 <body>
     
     <div id="header">
-        <button id="header_close" i18n:translate="">close navexplorer</button>
-        <label for="header_newwin" i18n:translate="">open navexplorer as new window</label>
+        <button id="header_close" i18n:translate="">Close navigantion explorer</button>
+        <label for="header_newwin" i18n:translate="">Open navexplorer as new window</label>
         <input type="checkbox" id="header_newwin"/>
-        <button id="header_notice" i18n:translate="">open manual box</button>
+        <button id="header_notice" i18n:translate="">Open manual box</button>
     </div>
     
     <div id="navexplorer_content">
@@ -59,7 +61,7 @@
         <div id="navexplorer_info_error" class="ui-widget hidden">
             <div class="ui-state-error ui-corner-all">
                 <p i18n:translate="">
-                    error while rendering template.
+                    Error while rendering template.
                 </p>
             </div>
         </div>
@@ -73,25 +75,25 @@
             </ul>
             <div id="tabs-1">
                 <p i18n:translate="">
-                    Mouse click: Show information about the selected content.
+                    Single click: show information about the selected content.
                 </p>
                 <p i18n:translate="">
-                    Mouse double click: Open content in the right frame
+                    Double click: open content in the right frame.
                 </p>
                 <p i18n:translate="">
-                    Mouse right click: Open contextmenu with additional actions.
+                    Right click: Open context menu with additional actions.
                 </p>
                 <p i18n:translate="">
-                    Arrow keys: Navigation through the tree and open/close treenodes.
+                    Arrow keys: navigate tree and open/close treenodes.
                 </p>
                 <p i18n:translate="">
                     Enter key: Open content in the right frame.
                 </p>
                 <p i18n:translate="">
-                    Drag and Drop: Move one or more treenodes in a other.
+                    Drag and drop: move one or more treenodes into another
                 </p>
                 <p i18n:translate="">
-                    Multiselection: keep the key 'shift' or 'alt' and press with the mouse all desired treenodes.
+                    Multiselection: keep the key 'shift' or 'alt' and select all desired treenodes by clicking them.
                 </p>
             </div>
             <div id="tabs-2">

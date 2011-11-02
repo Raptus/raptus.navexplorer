@@ -1,66 +1,67 @@
 Introduction
 ============
 
-This plone product is developed for support our customer and webmasters in
-overlook, control and manipulating a plone site. All content of the plone site is represented as
-a tree. The tree are strict separated in frames do not disrupt the main plone site. In addition
-many information are displayed for each contenttype.
+This plone product has been developed to support customers and webmasters in keeping an overview of their plone site and helping them control and manipulate it. The complete content of the plone site is represented as a structured tree. This tree is presented in a separated frame not to compromise the display of the plone site itself. In addition, much information is shown for each content-type.
 
-For manipulating a content, all regular actions are visible through a contextmenu available on
-each treenode. With any few mouse click you can navigate miscellaneous views.
+To allow easy manipulation of a content item, all the regular actions are accessible in a context menu available on the repsective node of the tree. With only a few mouse clicks one can navigate miscellaneous views.
 
-The tree supports drag and drop! This means, to move one or multiple contenttype to a other a 
-simple mouse movement is sufficient.
+The tree supports **drag&drop**, allowing single or multiple content-types to be moved into others.
 
 
-User manual and feature
-=======================
+User manual and features
+========================
 
-:Mouse click:           Show information about the selected content.
+:Single click:          Display information about the selected content.
 
-:Mouse double click:    Open content in the right frame
+:Double click:          Open content in the right frame.
 
-:Mouse right click:     Open contextmenu with additional actions.
+:Right click:           Open context menu with additional actions.
 
-:Arrow keys:            Navigation through the tree and open/close treenodes.
+:Arrow keys:            Navigate tree and open/close treenodes.
 
-:Enter key:             Open content in the right frame.
+:Enter key:             Open highlighted content in the right frame.
 
-:Drag and Drop:         Move one or more treenodes in a other.
+:Drag and Drop:         Move one or multiple treenodes into another.
 
-:Multiselection:        keep the key 'shift' or 'alt' and press with the mouse all desired treenodes.
-
-
-
-Developer Manual
-================
-
-contextmenu
------------
-
-The default contextmenu for archetypes are the full plone menu named "plone_contentmenu". For customizing
-the contextmenu use a new Adapter implementing IContextMenu.
+:Multiselection:        Select desired treenodes by left-click holding the 'shift' or 'alt' key pressed.
 
 
-accordion
+Supported Languages
+===================
+ * English
+ * German
+ * French
+
+
+Developer's Manual
+==================
+
+Context menu
+------------
+
+The default context menu for archetypes shows the Plone menu named "plone_contentmenu". To customize
+this context menu create a new Adapter implementing IContextMenu.
+
+
+Accordion
 ---------
 
-Additional information of a contenttype are displayed in separated jqueryui accordion item. For more
-information please read the interface description: IAccordionItem. 
+The additional information on any content-type is displayed in a separated jQueryUI accordion item. For more
+information please read the interface description: IAccordionItem.
 
 
-logo change
+Logo change
 -----------
-use the settings in portal_propertis at raptus_navexplorer/additional_development_info
+Change the logo by editing the settings in portal_properties at raptus_navexplorer/additional_development_info
 
 
-Future feature
-==============
-blup
+Future features
+===============
+- nothing at the moment
 
 Tests
 =====
-Currently, there are no automated tests (yet). This project was created on FireFox 5
+Currently, there are no automated tests. This project was created using Firefox 5
 
 
 Copyright and credits

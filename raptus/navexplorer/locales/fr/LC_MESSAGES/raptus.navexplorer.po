@@ -17,65 +17,65 @@ msgstr ""
 "X-Is-Fallback-For: fr-be fr-ca fr-lu fr-mc fr-ch fr-fr\n"
 
 #: raptus/navexplorer/browser/templates/accordion_folder.pt:15
-msgid "Allowed Content types"
-msgstr ""
+msgid "Allowed content types"
+msgstr "Types de contenu autorisés"
 
 #: raptus/navexplorer/browser/templates/accordion_folder.pt:11
-msgid "Amount items"
-msgstr ""
+msgid "Number of items"
+msgstr "Nombre d'éléments"
 
 #: raptus/navexplorer/browser/templates/navexplorer_tree.pt:84
-msgid "Arrow keys: Navigation through the tree and open/close treenodes."
-msgstr ""
+msgid "Arrow keys: navigate tree and open/close treenodes."
+msgstr "Touches à flèches: naviguer l'arborescence et ouvrir/fermer les noeuds"
 
 #: raptus/navexplorer/accordion_article.py:21
 msgid "Article"
-msgstr ""
+msgstr "Article"
 
 #: raptus/navexplorer/browser/templates/accordion_article.pt:10
 msgid "Components"
-msgstr ""
+msgstr "Composants"
 
 #: raptus/navexplorer/contextmenu.py:43
-msgid "Content Actions"
-msgstr ""
+msgid "Content actions"
+msgstr "Actions contenu"
 
 #: raptus/navexplorer/browser/templates/accordion_archetypes.pt:27
 msgid "Created"
-msgstr ""
+msgstr "Créé le"
 
 #: raptus/navexplorer/browser/templates/accordion_archetypes.pt:23
 msgid "Creator"
-msgstr ""
+msgstr "Créé par"
 
 #: raptus/navexplorer/browser/templates/accordion_archetypes.pt:15
 #: raptus/navexplorer/browser/templates/accordion_plone.pt:19
 msgid "Default Page"
-msgstr ""
+msgstr "Page par défaut"
 
 #: raptus/navexplorer/browser/templates/navexplorer_tree.pt:90
-msgid "Drag and Drop: Move one or more treenodes in a other."
-msgstr ""
+msgid "Drag and drop: move one or more treenodes into another."
+msgstr "Cliquer-glisser: déplacer un ou plusieurs éléments dans un autre"
 
 #: raptus/navexplorer/browser/templates/accordion_plone.pt:23
-msgid "Email from address"
-msgstr ""
+msgid "E-mail from address"
+msgstr "Adresse expéditeur courriel"
 
 #: raptus/navexplorer/browser/templates/accordion_plone.pt:27
-msgid "Email from name"
-msgstr ""
+msgid "E-mail from name"
+msgstr "Nom expéditeur courriel "
 
 #: raptus/navexplorer/browser/templates/navexplorer_tree.pt:87
 msgid "Enter key: Open content in the right frame."
-msgstr ""
+msgstr "Touche entrée: afficher le contenu dans la partie droite"
 
 #: raptus/navexplorer/accordion.py:70
 msgid "Folder"
-msgstr ""
+msgstr "Répertoire"
 
 #: raptus/navexplorer/accordion.py:58
-msgid "General Information"
-msgstr ""
+msgid "General information"
+msgstr "Information générale"
 
 #: raptus/navexplorer/browser/templates/navexplorer_tree.pt:99
 msgid ""
@@ -85,99 +85,105 @@ msgid ""
 "a><br /> <a href=\"http://www.jstree.com\" target=\"_BLANK\">jstree.com</"
 "a><br /> <a href=\"mailto:sriolo@raptus.com\">sriolo@raptus.com</a><br />"
 msgstr ""
+"Informations:<br /> <a href=\"http://www.raptus.com\" target=\"_BLANK"
+"\">raptus.com</a><br /> <a href=\"http://plone.org/products/raptus."
+"navexplorer\" target=\"_BLANK\">plone.org/products/raptus.navexplorer</"
+"a><br /> <a href=\"http://www.jstree.com\" target=\"_BLANK\">jstree.com</"
+"a><br /> <a href=\"mailto:sriolo@raptus.com\">sriolo@raptus.com</a><br />"
 
 #: raptus/navexplorer/browser/templates/accordion_archetypes.pt:31
-msgid "Last Editor"
-msgstr ""
+msgid "Last editor"
+msgstr "Dernier éditeur"
 
 #: raptus/navexplorer/browser/templates/accordion_archetypes.pt:35
 msgid "Modified"
-msgstr ""
+msgstr "Modifié le"
 
 #: raptus/navexplorer/browser/templates/navexplorer_tree.pt:75
-msgid "Mouse click: Show information about the selected content."
-msgstr ""
+msgid "Single click: show information about the selected content."
+msgstr "Clic gauche: afficher les informations du contenu séléctionné."
 
 #: raptus/navexplorer/browser/templates/navexplorer_tree.pt:78
-msgid "Mouse double click: Open content in the right frame"
-msgstr ""
+msgid "Double click: open content in the right frame."
+msgstr "Double-clic: ouvrir le contenu dans la partie droite."
 
 #: raptus/navexplorer/browser/templates/navexplorer_tree.pt:81
-msgid "Mouse right click: Open contextmenu with additional actions."
-msgstr ""
+msgid "Right click: Open context menu with additional actions."
+msgstr "Clic droit: ouvrir le menu des actions supplémentaires."
 
 #: raptus/navexplorer/browser/templates/navexplorer_tree.pt:93
 msgid ""
-"Multiselection: keep the key 'shift' or 'alt' and press with the mouse all "
-"desired treenodes."
-msgstr ""
+"Multiselection: keep the key 'shift' or 'alt' and select all desired "
+"treenodes by clicking them."
+msgstr "Multiséléction: garder la touche 'MAJ' ou 'ALT' pressée et cliquer les "
+"éléments désirés."
 
 #: raptus/navexplorer/browser/templates/accordion_article.pt:13
 msgid "No components selected"
-msgstr ""
+msgstr "Aucun composant sélectionné"
 
 #: raptus/navexplorer/browser/templates/accordion_article.pt:19
 msgid "No selection selected"
-msgstr ""
+msgstr "Aucune sélection effectuée"
 
 #: raptus/navexplorer/profiles/default/actions.xml
-msgid "Open Navigation Explorer"
-msgstr ""
+msgid "Open navigation explorer"
+msgstr "Ouvrir le navigateur"
 
 #: raptus/navexplorer/accordion.py:46
 msgid "Plone Site"
-msgstr ""
+msgstr "Site Plone"
 
 #: raptus/navexplorer/browser/templates/accordion_plone.pt:15
 msgid "Plone version"
-msgstr ""
+msgstr "Version Plone"
 
 #: raptus/navexplorer/accordion.py:82
 msgid "Security"
-msgstr ""
+msgstr "Sécurité"
 
 #: raptus/navexplorer/browser/templates/accordion_article.pt:16
 msgid "Selection"
-msgstr ""
+msgstr "Sélection"
 
 #: raptus/navexplorer/accordion_article.py:33
 msgid "Subcontent"
-msgstr ""
+msgstr "Sous-contenu"
 
 #: raptus/navexplorer/browser/templates/accordion_archetypes.pt:11
 #: raptus/navexplorer/browser/templates/accordion_plone.pt:11
 msgid "Title"
-msgstr ""
+msgstr "Titre"
 
 #: raptus/navexplorer/profiles/default/actions.xml
 msgid "Tree"
-msgstr ""
+msgstr "Arborescence"
 
 #: raptus/navexplorer/browser/templates/accordion_archetypes.pt:19
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: raptus/navexplorer/browser/templates/accordion_archetypes.pt:39
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: raptus/navexplorer/browser/templates/navexplorer_tree.pt:43
-msgid "close navexplorer"
-msgstr ""
+msgid "Close navigantion explorer"
+msgstr "Fermer le navigateur"
 
 #: raptus/navexplorer/browser/templates/navexplorer_tree.pt:61
-msgid "error while rendering template."
-msgstr ""
+msgid "Error while rendering template."
+msgstr "Erreur de rendement du modèle."
 
 #. Default: "Inherit permissions from higher levels"
 #: raptus/navexplorer/browser/templates/accordion_security.pt:78
 msgid "label_inherit_local_roles"
-msgstr ""
+msgstr "Hériter les permissions des niveaux supérieurs"
 
 #: raptus/navexplorer/browser/templates/navexplorer_tree.pt:46
-msgid "open manual box"
-msgstr ""
+msgid "Open manual box"
+msgstr "Ouvrir la boîte aux manuels"
 
 #: raptus/navexplorer/browser/templates/navexplorer_tree.pt:44
-msgid "open navexplorer as new window"
-msgstr ""
+msgid "Open navexplorer as new window"
+msgstr "Ouvrir le navigateur dans une nouvelle fenêtre"

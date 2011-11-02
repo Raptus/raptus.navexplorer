@@ -28,7 +28,7 @@
             <td tal:content="python:plone.toLocalizedTime(view.created)">Fr 20.04.2001 - 21:05 </td>
         </tr>
         <tr>
-            <td i18n:translate="">Last Editor</td>
+            <td i18n:translate="">Last editor</td>
             <td tal:content="view/editor">The Notorious B.I.G.</td>
         </tr>
         <tr>

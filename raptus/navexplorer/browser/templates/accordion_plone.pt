@@ -20,11 +20,11 @@
             <td tal:content="view/defaultpage">Artikel XY</td>
         </tr>
         <tr>
-            <td i18n:translate="">Email from address</td>
+            <td i18n:translate="">E-mail from address</td>
             <td tal:content="view/emailfromaddress">info@raptus.com</td>
         </tr>
         <tr>
-            <td i18n:translate="">Email from name</td>
+            <td i18n:translate="">E-mail from name</td>
             <td tal:content="view/emailfromname">info@raptus.com</td>
         </tr>
     </table>

@@ -55,7 +55,7 @@ class AccordionArchetypes(AccordionBase):
     order = 200
 
     def title(self):
-        return _('General Information')
+        return _('General information')
 
 
 class AccordionFolder(AccordionBase):

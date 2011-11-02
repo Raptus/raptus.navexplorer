@@ -8,11 +8,11 @@
 
     <table>
         <tr>
-            <td i18n:translate="">Amount items</td>
+            <td i18n:translate="">Number of items</td>
             <td tal:content="view/amount">33</td>
         </tr>
         <tr>
-            <td i18n:translate="">Allowed Content types</td>
+            <td i18n:translate="">Allowed content types</td>
             <td><ul><li tal:repeat="type view/allowed_types" tal:content="type"/></ul></td>
         </tr>
     </table>

@@ -40,7 +40,7 @@ class DefaultContextMenu(object):
                       )
             contentaction[action.get('id')] = di
         
-        results['contentaction'] = OrderedDict(label=translate(_('Content Actions'),context=self.request),
+        results['contentaction'] = OrderedDict(label=translate(_('Content actions'),context=self.request),
                                         submenu=contentaction)
         return results
     
