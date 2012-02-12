@@ -1,6 +1,14 @@
 Changelog
 =========
 
+1.x (unreleased)
+----------------
+
+* added Italian translation [gborelli]
+* improved translations [gborelli]
+* added z3c.autoinclude.plugin [gborelli]
+
+
 1.0 (2011-11-02)
 ----------------
 

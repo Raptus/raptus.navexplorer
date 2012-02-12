@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-  
+
 <html xmlns="http://www.w3.org/1999/xhtml"
       lang="de"
       xml:lang="de"
@@ -13,7 +13,7 @@
           tal:attributes="href string:${portal_url}/navexplorer_jqueryui_themes/ui-lightness/jquery-ui-1.8.13.custom.css"/>
     <link href="navexplorer.css" media="screen" type="text/css" rel="stylesheet"
           tal:attributes="href string:${portal_url}/navexplorer.css"/>
-              
+
     <script type="text/javascript" src="/jquery.js"
             tal:attributes="src string:${portal_url}/jquery.js"></script>
     <script type="text/javascript" src="/++resource++jquery-ui.min.js"
@@ -37,23 +37,23 @@
     <title></title>
 <head>
 
-    
+
 </head>
 <body>
-    
+
     <div id="header">
         <button id="header_close" i18n:translate="">Close navigantion explorer</button>
         <label for="header_newwin" i18n:translate="">Open navexplorer as new window</label>
         <input type="checkbox" id="header_newwin"/>
         <button id="header_notice" i18n:translate="">Open manual box</button>
     </div>
-    
+
     <div id="navexplorer_content">
-        
-        
+
+
         <div id="navexplorer_tree"></div>
-        
-        
+
+
         <div id="navexplorer_info_wrap">
             <div id="navexplorer_info" class="accordion">
             </div>
@@ -66,12 +66,16 @@
             </div>
         </div>
     </div>
-    <div id="manual-message" title="Navigation Explorer Manual">
-        
+    <div id="manual-message"
+            title="Navigation Explorer Manual"
+            i18n:attributes="title">
+
         <div id="manual-message-tabs">
             <ul>
-                <li><a href="#tabs-1">Manual</a></li>
-                <li><a href="#tabs-2">Development</a></li>
+                <li><a href="#tabs-1"
+                    i18n:translate="">Manual</a></li>
+                <li><a href="#tabs-2"
+                    i18n:translate="">Development</a></li>
             </ul>
             <div id="tabs-1">
                 <p i18n:translate="">
@@ -98,8 +102,7 @@
             </div>
             <div id="tabs-2">
                 <p tal:replace="structure context/portal_properties/raptus_navexplorer/additional_development_info" />
-                <p i18n:translate="">
-                    Information:<br/>
+                <p i18n:translate="development_information">Information:<br/>
                     <a href="http://www.raptus.com" target="_BLANK">raptus.com</a><br/>
                     <a href="http://plone.org/products/raptus.navexplorer" target="_BLANK">plone.org/products/raptus.navexplorer</a><br/>
                     <a href="http://www.jstree.com" target="_BLANK">jstree.com</a><br/>

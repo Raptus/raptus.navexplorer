@@ -31,6 +31,7 @@ Supported Languages
  * English
  * German
  * French
+ * Italian
 
 
 Developer's Manual
