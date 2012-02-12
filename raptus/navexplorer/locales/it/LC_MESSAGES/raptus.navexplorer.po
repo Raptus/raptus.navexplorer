@@ -1,0 +1,190 @@
+# Giorgio Borelli <giorgio@giorgioborelli.it>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: raptus.navexplorer\n"
+"POT-Creation-Date: 2012-02-12 17:13+0000\n"
+"PO-Revision-Date: 2012-02-12 17:05+0100\n"
+"Last-Translator: Giorgio Borelli <giorgio@giorgioborelli.it>\n"
+"Language-Team: plone-italian-translation-discussion@lists.coactivate.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: it\n"
+"Language-Name: Italian\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: raptus.navexplorer\n"
+"X-Is-Fallback-For: it-it it-ch it-sm it-hr it-si\n"
+
+#: ../browser/templates/accordion_folder.pt:15
+msgid "Allowed content types"
+msgstr "Tipi di contenuto aggiungibili"
+
+#: ../browser/templates/navexplorer_tree.pt:90
+msgid "Arrow keys: navigate tree and open/close treenodes."
+msgstr "Tasti freccia: navigazione nell'albero e apertura/chiusura dei nodi"
+
+#: ../accordion_article.py:21
+msgid "Article"
+msgstr "Articolo"
+
+#: ../browser/templates/navexplorer_tree.pt:45
+msgid "Close navigantion explorer"
+msgstr "Chiudi il pannello di navigazione"
+
+#: ../browser/templates/accordion_article.pt:10
+msgid "Components"
+msgstr "Componenti"
+
+#: ../contextmenu.py:43
+msgid "Content actions"
+msgstr "Azioni sul contenuto"
+
+#: ../browser/templates/accordion_archetypes.pt:27
+msgid "Created"
+msgstr "Creato il"
+
+#: ../browser/templates/accordion_archetypes.pt:23
+msgid "Creator"
+msgstr "Autore"
+
+#: ../browser/templates/accordion_archetypes.pt:15
+#: ../browser/templates/accordion_plone.pt:19
+msgid "Default Page"
+msgstr "Pagina di default"
+
+#: ../browser/templates/navexplorer_tree.pt:77
+msgid "Development"
+msgstr "Sviluppo"
+
+#: ../browser/templates/navexplorer_tree.pt:84
+msgid "Double click: open content in the right frame."
+msgstr "Doppio click: apre il contenuto nel frame di destra"
+
+#: ../browser/templates/navexplorer_tree.pt:96
+msgid "Drag and drop: move one or more treenodes into another"
+msgstr "Drag and drop: muove uno o più nodi in un altro nodo"
+
+#: ../browser/templates/accordion_plone.pt:23
+msgid "E-mail from address"
+msgstr "Indirizzo email del mittente"
+
+#: ../browser/templates/accordion_plone.pt:27
+msgid "E-mail from name"
+msgstr "Nome del mittente"
+
+#: ../browser/templates/navexplorer_tree.pt:93
+msgid "Enter key: Open content in the right frame."
+msgstr "Tasto Invio: apre il contenuto nel frame di destra"
+
+#: ../browser/templates/navexplorer_tree.pt:63
+msgid "Error while rendering template."
+msgstr "Errore durante la visualizzazione del pannello"
+
+#: ../accordion.py:70
+msgid "Folder"
+msgstr "Cartella"
+
+#: ../accordion.py:58
+msgid "General information"
+msgstr "Informazioni generali"
+
+#: ../browser/templates/accordion_archetypes.pt:31
+msgid "Last editor"
+msgstr "Autore ultima modifica"
+
+#: ../browser/templates/navexplorer_tree.pt:75
+msgid "Manual"
+msgstr "Manuale"
+
+#: ../browser/templates/accordion_archetypes.pt:35
+msgid "Modified"
+msgstr "Modificato il"
+
+#: ../browser/templates/navexplorer_tree.pt:99
+msgid "Multiselection: keep the key 'shift' or 'alt' and select all desired treenodes by clicking them."
+msgstr "Selezione multipla: tieni premuto il tasto 'shift' o 'alt' e seleziona tutti i nodi desiderati con un click"
+
+#: ../browser/templates/navexplorer_tree.pt:69
+msgid "Navigation Explorer Manual"
+msgstr "Guida del pannello di navigazione"
+
+#: ../browser/templates/accordion_article.pt:13
+msgid "No components selected"
+msgstr "Nessun componente selezionata"
+
+#: ../browser/templates/accordion_article.pt:19
+msgid "No selection selected"
+msgstr "Nessuna selezione"
+
+#: ../browser/templates/accordion_folder.pt:11
+msgid "Number of items"
+msgstr "Numero di elemenri"
+
+#: ../browser/templates/navexplorer_tree.pt:48
+msgid "Open manual box"
+msgstr "April la guida"
+
+#: ../browser/templates/navexplorer_tree.pt:46
+msgid "Open navexplorer as new window"
+msgstr "April il pannello in una nuova finestra"
+
+#: ../profiles/default/actions.xml
+msgid "Open navigation explorer"
+msgstr "Apri il pannello di navigazione"
+
+#: ../accordion.py:46
+msgid "Plone Site"
+msgstr "Sito Plone"
+
+#: ../browser/templates/accordion_plone.pt:15
+msgid "Plone version"
+msgstr "Versione di Plone"
+
+#: ../browser/templates/navexplorer_tree.pt:87
+msgid "Right click: Open context menu with additional actions."
+msgstr "Tasto destro del mouse: apre un menu contestuale"
+
+#: ../accordion.py:82
+msgid "Security"
+msgstr "Sicurezza"
+
+#: ../browser/templates/accordion_article.pt:16
+msgid "Selection"
+msgstr "Selezione"
+
+#: ../browser/templates/navexplorer_tree.pt:81
+msgid "Single click: show information about the selected content."
+msgstr "Click del mouse: Visualizza le informazioni sull'elemento selezionato"
+
+#: ../accordion_article.py:33
+msgid "Subcontent"
+msgstr ""
+
+#: ../browser/templates/accordion_archetypes.pt:11
+#: ../browser/templates/accordion_plone.pt:11
+msgid "Title"
+msgstr "Titolo"
+
+#: ../profiles/default/actions.xml
+msgid "Tree"
+msgstr "Albero navigazione"
+
+#: ../browser/templates/accordion_archetypes.pt:19
+msgid "Type"
+msgstr "Tipo"
+
+#: ../browser/templates/accordion_archetypes.pt:39
+msgid "URL"
+msgstr ""
+
+#. Default: "Information:<br /> <a href=\"http://www.raptus.com\" target=\"_BLANK\">raptus.com</a><br /> <a href=\"http://plone.org/products/raptus.navexplorer\" target=\"_BLANK\">plone.org/products/raptus.navexplorer</a><br /> <a href=\"http://www.jstree.com\" target=\"_BLANK\">jstree.com</a><br /> <a href=\"mailto:sriolo@raptus.com\">sriolo@raptus.com</a><br />"
+#: ../browser/templates/navexplorer_tree.pt:105
+msgid "development_information"
+msgstr "Informazioni:<br /> <a href=\"http://www.raptus.com\" target=\"_BLANK\">raptus.com</a><br /> <a href=\"http://plone.org/products/raptus.navexplorer\" target=\"_BLANK\">plone.org/products/raptus.navexplorer</a><br /> <a href=\"http://www.jstree.com\" target=\"_BLANK\">jstree.com</a><br /> <a href=\"mailto:sriolo@raptus.com\">sriolo@raptus.com</a><br />"
+
+#. Default: "Inherit permissions from higher levels"
+#: ../browser/templates/accordion_security.pt:78
+msgid "label_inherit_local_roles"
+msgstr "Eredita i permessi dai livelli superiori"
+
