@@ -2,33 +2,34 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: raptus.navexplorer\n"
-"POT-Creation-Date: 2012-02-12 17:13+0000\n"
-"PO-Revision-Date: 2012-02-12 17:05+0100\n"
-"Last-Translator: Giorgio Borelli <giorgio@giorgioborelli.it>\n"
+"POT-Creation-Date: 2012-10-03 10:01+0000\n"
+"PO-Revision-Date: 2012-10-03 12:06+0100\n"
+"Last-Translator: Jonas Wagner <jwagner@raptus.com>\n"
 "Language-Team: plone-italian-translation-discussion@lists.coactivate.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 "Language-Code: it\n"
 "Language-Name: Italian\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: raptus.navexplorer\n"
+"Language: \n"
 "X-Is-Fallback-For: it-it it-ch it-sm it-hr it-si\n"
 
 #: ../browser/templates/accordion_folder.pt:15
 msgid "Allowed content types"
 msgstr "Tipi di contenuto aggiungibili"
 
-#: ../browser/templates/navexplorer_tree.pt:90
+#: ../browser/templates/navexplorer_tree.pt:88
 msgid "Arrow keys: navigate tree and open/close treenodes."
 msgstr "Tasti freccia: navigazione nell'albero e apertura/chiusura dei nodi"
 
-#: ../accordion_article.py:21
+#: ../accordion_article.py:19
 msgid "Article"
 msgstr "Articolo"
 
-#: ../browser/templates/navexplorer_tree.pt:45
+#: ../browser/templates/navexplorer_tree.pt:43
 msgid "Close navigantion explorer"
 msgstr "Chiudi il pannello di navigazione"
 
@@ -36,7 +37,7 @@ msgstr "Chiudi il pannello di navigazione"
 msgid "Components"
 msgstr "Componenti"
 
-#: ../contextmenu.py:43
+#: ../contextmenu.py:41
 msgid "Content actions"
 msgstr "Azioni sul contenuto"
 
@@ -53,15 +54,15 @@ msgstr "Autore"
 msgid "Default Page"
 msgstr "Pagina di default"
 
-#: ../browser/templates/navexplorer_tree.pt:77
+#: ../browser/templates/navexplorer_tree.pt:75
 msgid "Development"
 msgstr "Sviluppo"
 
-#: ../browser/templates/navexplorer_tree.pt:84
+#: ../browser/templates/navexplorer_tree.pt:82
 msgid "Double click: open content in the right frame."
 msgstr "Doppio click: apre il contenuto nel frame di destra"
 
-#: ../browser/templates/navexplorer_tree.pt:96
+#: ../browser/templates/navexplorer_tree.pt:94
 msgid "Drag and drop: move one or more treenodes into another"
 msgstr "Drag and drop: muove uno o più nodi in un altro nodo"
 
@@ -73,19 +74,19 @@ msgstr "Indirizzo email del mittente"
 msgid "E-mail from name"
 msgstr "Nome del mittente"
 
-#: ../browser/templates/navexplorer_tree.pt:93
+#: ../browser/templates/navexplorer_tree.pt:91
 msgid "Enter key: Open content in the right frame."
 msgstr "Tasto Invio: apre il contenuto nel frame di destra"
 
-#: ../browser/templates/navexplorer_tree.pt:63
+#: ../browser/templates/navexplorer_tree.pt:61
 msgid "Error while rendering template."
 msgstr "Errore durante la visualizzazione del pannello"
 
-#: ../accordion.py:70
+#: ../accordion.py:61
 msgid "Folder"
 msgstr "Cartella"
 
-#: ../accordion.py:58
+#: ../accordion.py:51
 msgid "General information"
 msgstr "Informazioni generali"
 
@@ -93,7 +94,7 @@ msgstr "Informazioni generali"
 msgid "Last editor"
 msgstr "Autore ultima modifica"
 
-#: ../browser/templates/navexplorer_tree.pt:75
+#: ../browser/templates/navexplorer_tree.pt:73
 msgid "Manual"
 msgstr "Manuale"
 
@@ -101,11 +102,11 @@ msgstr "Manuale"
 msgid "Modified"
 msgstr "Modificato il"
 
-#: ../browser/templates/navexplorer_tree.pt:99
+#: ../browser/templates/navexplorer_tree.pt:97
 msgid "Multiselection: keep the key 'shift' or 'alt' and select all desired treenodes by clicking them."
 msgstr "Selezione multipla: tieni premuto il tasto 'shift' o 'alt' e seleziona tutti i nodi desiderati con un click"
 
-#: ../browser/templates/navexplorer_tree.pt:69
+#: ../browser/templates/navexplorer_tree.pt:67
 msgid "Navigation Explorer Manual"
 msgstr "Guida del pannello di navigazione"
 
@@ -121,11 +122,11 @@ msgstr "Nessuna selezione"
 msgid "Number of items"
 msgstr "Numero di elemenri"
 
-#: ../browser/templates/navexplorer_tree.pt:48
+#: ../browser/templates/navexplorer_tree.pt:46
 msgid "Open manual box"
 msgstr "April la guida"
 
-#: ../browser/templates/navexplorer_tree.pt:46
+#: ../browser/templates/navexplorer_tree.pt:44
 msgid "Open navexplorer as new window"
 msgstr "April il pannello in una nuova finestra"
 
@@ -133,7 +134,7 @@ msgstr "April il pannello in una nuova finestra"
 msgid "Open navigation explorer"
 msgstr "Apri il pannello di navigazione"
 
-#: ../accordion.py:46
+#: ../accordion.py:41
 msgid "Plone Site"
 msgstr "Sito Plone"
 
@@ -141,11 +142,11 @@ msgstr "Sito Plone"
 msgid "Plone version"
 msgstr "Versione di Plone"
 
-#: ../browser/templates/navexplorer_tree.pt:87
+#: ../browser/templates/navexplorer_tree.pt:85
 msgid "Right click: Open context menu with additional actions."
 msgstr "Tasto destro del mouse: apre un menu contestuale"
 
-#: ../accordion.py:82
+#: ../accordion.py:71
 msgid "Security"
 msgstr "Sicurezza"
 
@@ -153,13 +154,13 @@ msgstr "Sicurezza"
 msgid "Selection"
 msgstr "Selezione"
 
-#: ../browser/templates/navexplorer_tree.pt:81
+#: ../browser/templates/navexplorer_tree.pt:79
 msgid "Single click: show information about the selected content."
 msgstr "Click del mouse: Visualizza le informazioni sull'elemento selezionato"
 
-#: ../accordion_article.py:33
+#: ../accordion_article.py:29
 msgid "Subcontent"
-msgstr ""
+msgstr "Contenuto secondario"
 
 #: ../browser/templates/accordion_archetypes.pt:11
 #: ../browser/templates/accordion_plone.pt:11
@@ -176,12 +177,12 @@ msgstr "Tipo"
 
 #: ../browser/templates/accordion_archetypes.pt:39
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
-#. Default: "Information:<br /> <a href=\"http://www.raptus.com\" target=\"_BLANK\">raptus.com</a><br /> <a href=\"http://plone.org/products/raptus.navexplorer\" target=\"_BLANK\">plone.org/products/raptus.navexplorer</a><br /> <a href=\"http://www.jstree.com\" target=\"_BLANK\">jstree.com</a><br /> <a href=\"mailto:sriolo@raptus.com\">sriolo@raptus.com</a><br />"
-#: ../browser/templates/navexplorer_tree.pt:105
+#. Default: "Information:<br /> <a href=\"http://www.raptus.com\" target=\"_BLANK\">raptus.com</a><br /> <a href=\"http://plone.org/products/raptus.navexplorer\" target=\"_BLANK\">plone.org/products/raptus.navexplorer</a><br /> <a href=\"http://www.jstree.com\" target=\"_BLANK\">jstree.com</a><br /> <a href=\"mailto:dev@raptus.com\">dev@raptus.com</a><br />"
+#: ../browser/templates/navexplorer_tree.pt:103
 msgid "development_information"
-msgstr "Informazioni:<br /> <a href=\"http://www.raptus.com\" target=\"_BLANK\">raptus.com</a><br /> <a href=\"http://plone.org/products/raptus.navexplorer\" target=\"_BLANK\">plone.org/products/raptus.navexplorer</a><br /> <a href=\"http://www.jstree.com\" target=\"_BLANK\">jstree.com</a><br /> <a href=\"mailto:sriolo@raptus.com\">sriolo@raptus.com</a><br />"
+msgstr "Informazioni:<br /> <a href=\"http://www.raptus.com\" target=\"_BLANK\">raptus.com</a><br /> <a href=\"http://plone.org/products/raptus.navexplorer\" target=\"_BLANK\">plone.org/products/raptus.navexplorer</a><br /> <a href=\"http://www.jstree.com\" target=\"_BLANK\">jstree.com</a><br /> <a href=\"mailto:dev@raptus.com\">dev@raptus.com</a><br />"
 
 #. Default: "Inherit permissions from higher levels"
 #: ../browser/templates/accordion_security.pt:78

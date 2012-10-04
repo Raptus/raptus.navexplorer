@@ -9,6 +9,7 @@
       i18n:domain="raptus.navexplorer"
       tal:define="portal_state context/@@plone_portal_state;
                   portal_url portal_state/portal_url;">
+<head>
     <link href="navexplorer_jqueryui_themes/ui-lightness/jquery-ui-1.8.13.custom.css" media="screen" type="text/css" rel="stylesheet"
           tal:attributes="href string:${portal_url}/navexplorer_jqueryui_themes/ui-lightness/jquery-ui-1.8.13.custom.css"/>
     <link href="navexplorer.css" media="screen" type="text/css" rel="stylesheet"
@@ -35,9 +36,6 @@
     <script type="text/javascript" src="/raptus.navexplorer.js"
             tal:attributes="src string:${portal_url}/raptus.navexplorer.js"></script>
     <title></title>
-<head>
-
-
 </head>
 <body>
 
@@ -106,7 +104,7 @@
                     <a href="http://www.raptus.com" target="_BLANK">raptus.com</a><br/>
                     <a href="http://plone.org/products/raptus.navexplorer" target="_BLANK">plone.org/products/raptus.navexplorer</a><br/>
                     <a href="http://www.jstree.com" target="_BLANK">jstree.com</a><br/>
-                    <a href="mailto:sriolo@raptus.com">sriolo@raptus.com</a><br/>
+                    <a href="mailto:dev@raptus.com">dev@raptus.com</a><br/>
                 </p>
                 <p>
                     Copyright and credits

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-02-12 17:13+0000\n"
+"POT-Creation-Date: 2012-10-03 10:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,15 +21,15 @@ msgstr ""
 msgid "Allowed content types"
 msgstr ""
 
-#: ../browser/templates/navexplorer_tree.pt:90
+#: ../browser/templates/navexplorer_tree.pt:88
 msgid "Arrow keys: navigate tree and open/close treenodes."
 msgstr ""
 
-#: ../accordion_article.py:21
+#: ../accordion_article.py:19
 msgid "Article"
 msgstr ""
 
-#: ../browser/templates/navexplorer_tree.pt:45
+#: ../browser/templates/navexplorer_tree.pt:43
 msgid "Close navigantion explorer"
 msgstr ""
 
@@ -37,7 +37,7 @@ msgstr ""
 msgid "Components"
 msgstr ""
 
-#: ../contextmenu.py:43
+#: ../contextmenu.py:41
 msgid "Content actions"
 msgstr ""
 
@@ -54,15 +54,15 @@ msgstr ""
 msgid "Default Page"
 msgstr ""
 
-#: ../browser/templates/navexplorer_tree.pt:77
+#: ../browser/templates/navexplorer_tree.pt:75
 msgid "Development"
 msgstr ""
 
-#: ../browser/templates/navexplorer_tree.pt:84
+#: ../browser/templates/navexplorer_tree.pt:82
 msgid "Double click: open content in the right frame."
 msgstr ""
 
-#: ../browser/templates/navexplorer_tree.pt:96
+#: ../browser/templates/navexplorer_tree.pt:94
 msgid "Drag and drop: move one or more treenodes into another"
 msgstr ""
 
@@ -74,19 +74,19 @@ msgstr ""
 msgid "E-mail from name"
 msgstr ""
 
-#: ../browser/templates/navexplorer_tree.pt:93
+#: ../browser/templates/navexplorer_tree.pt:91
 msgid "Enter key: Open content in the right frame."
 msgstr ""
 
-#: ../browser/templates/navexplorer_tree.pt:63
+#: ../browser/templates/navexplorer_tree.pt:61
 msgid "Error while rendering template."
 msgstr ""
 
-#: ../accordion.py:70
+#: ../accordion.py:61
 msgid "Folder"
 msgstr ""
 
-#: ../accordion.py:58
+#: ../accordion.py:51
 msgid "General information"
 msgstr ""
 
@@ -94,7 +94,7 @@ msgstr ""
 msgid "Last editor"
 msgstr ""
 
-#: ../browser/templates/navexplorer_tree.pt:75
+#: ../browser/templates/navexplorer_tree.pt:73
 msgid "Manual"
 msgstr ""
 
@@ -102,11 +102,11 @@ msgstr ""
 msgid "Modified"
 msgstr ""
 
-#: ../browser/templates/navexplorer_tree.pt:99
+#: ../browser/templates/navexplorer_tree.pt:97
 msgid "Multiselection: keep the key 'shift' or 'alt' and select all desired treenodes by clicking them."
 msgstr ""
 
-#: ../browser/templates/navexplorer_tree.pt:69
+#: ../browser/templates/navexplorer_tree.pt:67
 msgid "Navigation Explorer Manual"
 msgstr ""
 
@@ -122,11 +122,11 @@ msgstr ""
 msgid "Number of items"
 msgstr ""
 
-#: ../browser/templates/navexplorer_tree.pt:48
+#: ../browser/templates/navexplorer_tree.pt:46
 msgid "Open manual box"
 msgstr ""
 
-#: ../browser/templates/navexplorer_tree.pt:46
+#: ../browser/templates/navexplorer_tree.pt:44
 msgid "Open navexplorer as new window"
 msgstr ""
 
@@ -134,7 +134,7 @@ msgstr ""
 msgid "Open navigation explorer"
 msgstr ""
 
-#: ../accordion.py:46
+#: ../accordion.py:41
 msgid "Plone Site"
 msgstr ""
 
@@ -142,11 +142,11 @@ msgstr ""
 msgid "Plone version"
 msgstr ""
 
-#: ../browser/templates/navexplorer_tree.pt:87
+#: ../browser/templates/navexplorer_tree.pt:85
 msgid "Right click: Open context menu with additional actions."
 msgstr ""
 
-#: ../accordion.py:82
+#: ../accordion.py:71
 msgid "Security"
 msgstr ""
 
@@ -154,11 +154,11 @@ msgstr ""
 msgid "Selection"
 msgstr ""
 
-#: ../browser/templates/navexplorer_tree.pt:81
+#: ../browser/templates/navexplorer_tree.pt:79
 msgid "Single click: show information about the selected content."
 msgstr ""
 
-#: ../accordion_article.py:33
+#: ../accordion_article.py:29
 msgid "Subcontent"
 msgstr ""
 
@@ -179,8 +179,8 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
-#. Default: "Information:<br /> <a href=\"http://www.raptus.com\" target=\"_BLANK\">raptus.com</a><br /> <a href=\"http://plone.org/products/raptus.navexplorer\" target=\"_BLANK\">plone.org/products/raptus.navexplorer</a><br /> <a href=\"http://www.jstree.com\" target=\"_BLANK\">jstree.com</a><br /> <a href=\"mailto:sriolo@raptus.com\">sriolo@raptus.com</a><br />"
-#: ../browser/templates/navexplorer_tree.pt:105
+#. Default: "Information:<br /> <a href=\"http://www.raptus.com\" target=\"_BLANK\">raptus.com</a><br /> <a href=\"http://plone.org/products/raptus.navexplorer\" target=\"_BLANK\">plone.org/products/raptus.navexplorer</a><br /> <a href=\"http://www.jstree.com\" target=\"_BLANK\">jstree.com</a><br /> <a href=\"mailto:dev@raptus.com\">dev@raptus.com</a><br />"
+#: ../browser/templates/navexplorer_tree.pt:103
 msgid "development_information"
 msgstr ""
 

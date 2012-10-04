@@ -10,20 +10,17 @@ from raptus.navexplorer.browser import accordion
 from raptus.navexplorer.interfaces import IAccordionItem
 
 
-
 class AccordionBase(object):
-
     interface.implements(IAccordionItem)
-    
+
     view_class = None
-    
     order = 0
     permission = config.PERMISSIONS['accordion.default']
 
     def __init__(self, context):
         self.context = context
         self.request = context.REQUEST
-        
+
     def suffix(self):
         return None
 
@@ -35,11 +32,9 @@ class AccordionBase(object):
 
 
 class AccordionPlone(AccordionBase):
-    
     component.adapts(IPloneSiteRoot)
 
     view_class = accordion.Plone
-
     order = 100
 
     def title(self):
@@ -47,11 +42,9 @@ class AccordionPlone(AccordionBase):
 
 
 class AccordionArchetypes(AccordionBase):
-    
     component.adapts(IATContentType)
 
     view_class = accordion.Archetypes
-
     order = 200
 
     def title(self):
@@ -59,11 +52,9 @@ class AccordionArchetypes(AccordionBase):
 
 
 class AccordionFolder(AccordionBase):
-    
     component.adapts(IFolderish)
 
     view_class = accordion.Folder
-
     order = 500
 
     def title(self):
@@ -71,15 +62,10 @@ class AccordionFolder(AccordionBase):
 
 
 class AccordionSecurity(AccordionBase):
-    
     component.adapts(IFolderish)
 
     view_class = accordion.Security
-
     order = 600
 
     def title(self):
         return _('Security')
-
-
-

@@ -1,25 +1,24 @@
 body {
-  font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
-  font-size: 11px;
+  font-family:Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
+  font-size:11px;
 }
 
-body{
+body {
   margin:0;
 }
 
-#header{
+#header {
   background:url("navexplorer_background.gif") repeat-x scroll left top #333333;
   height:37px;
-  padding: 8px 8px 0 8px;
-  position: fixed;
+  padding:8px 8px 0 8px;
+  position:fixed;
   top:0;
-  width: 100%;
+  width:100%;
 }
 
-#navexplorer_content{
+#navexplorer_content {
   margin:53px 8px 8px 8px;
 }
-
 
 #navexplorer_tree {
   overflow:auto;
@@ -27,32 +26,33 @@ body{
 }
 
 #navexplorer_info {
-  margin-top: 25px;
+  margin-top:25px;
 }
 
 #navexplorer_info dt {
-  margin: 8px 0;
-  text-decoration: underline;
+  margin:8px 0;
+  text-decoration:underline;
 }
 
 #navexplorer_info dd {
-  margin-left: 0;
+  margin-left:0;
 }
 
 #navexplorer_info table td {
-  padding-right: 15px;
+  padding-right:15px;
 }
 
 #manual-message-tabs {
   margin-top:5px;
 }
+
 #manual-message-tabs,
 #manual-message {
   padding:0;
 }
 
 .accordion td {
-  vertical-align: top;
+  vertical-align:top;
 }
 
 .accordion ul {
@@ -65,34 +65,36 @@ body{
 }
 
 #navexplorer_info_error div {
-  margin: 10px;
+  margin:10px;
   padding:10px;
 }
 
+
 /* jstree custom */
 #vakata-dragged.jstree-apple img {
-  left: 0;
-  position: absolute;
-  top: 4px;
-  width: 12px;
-  height: 12px;
+  left:0;
+  position:absolute;
+  top:4px;
+  width:12px;
+  height:12px;
 }
 
 #navexplorer_content .jstree .jstree-hovered {
   background-color:#beebff;
-  border-color: #99defd;
+  border-color:#99defd;
 }
 
 #navexplorer_content .jstree .jstree-clicked {
   background-color:#5b91ec;
-  border-color: #2b61bc;
+  border-color:#2b61bc;
 }
+
 
 /* jquery ui */
 #header .ui-button {
-  width: 20px;
-  height: 20px;
-  border: 0;
+  width:20px;
+  height:20px;
+  border:0;
 }
 
 .ui-tabs .ui-tabs-nav li a {
@@ -100,7 +102,5 @@ body{
 }
 
 .ui-accordion-content {
-  max-height: 300px;
+  max-height:300px;
 }
-
-

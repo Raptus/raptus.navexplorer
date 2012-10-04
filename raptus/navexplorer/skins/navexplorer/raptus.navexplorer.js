@@ -1,27 +1,43 @@
 raptus_navexplorer = {
 
-    //default configuration
-    settings : { refreshtime: 30000,
+    // Default configuration
+    settings : { refreshtime: 5000,
                  observetime: 33,
                  manual_expires: 300,
-                 standaloneWindow: 'width=800,height=1000,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes, copyhistory=no, resizable=yes',
+                 standaloneWindow: 'width=800,height=1000,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes',
                  theme: { theme : 'apple',
                           dots : false,
                           icons : true}
                 },
 
+    elements : { navexplorer_content: undefined,
+                 navexplorer_info: undefined,
+                 navexplorer_info_wrap: undefined,
+                 navexplorer_info_error: undefined,
+                 navexplorer_tree: undefined,
+                },
 
     init: function($){
         
+        // Fill elements
+        raptus_navexplorer.elements.navexplorer_content = $('#navexplorer_content');
+        raptus_navexplorer.elements.navexplorer_info = $('#navexplorer_info');
+        raptus_navexplorer.elements.navexplorer_info_wrap = $('#navexplorer_info_wrap');
+        raptus_navexplorer.elements.navexplorer_info_error = $('#navexplorer_info_error');
+        raptus_navexplorer.elements.navexplorer_tree = $('#navexplorer_tree');
+
+
         // jstree
         $.jstree._themes = 'navexplorer_tree_themes/';
         
-        var inst = raptus_navexplorer.treeinst = $('#navexplorer_tree');
+        var inst = raptus_navexplorer.treeinst = raptus_navexplorer.elements.navexplorer_tree;
         inst.jstree({
             json_data: {
                 progressive_unload : true,
                 ajax: {
                     url: portal_url + '/navexplorer_ajax',
+                    async_data: function () { return { "ts": new Date().getTime()} },
+                    cache: false,
                     data: function(n){
                         return {
                             path: n.data ? n.data('path') : '',
@@ -52,23 +68,25 @@ raptus_navexplorer = {
 
             plugins: ['themes', 'json_data', 'crrm', 'dnd', 'ui', 'hotkeys', 'contextmenu', 'cookies']
 
-        });
+        })
         
-        //events notifications
-        inst.bind('select_node.jstree', function (event, data) {
-            $('#navexplorer_tree').resize(raptus_navexplorer.resizeAccordion());
-            raptus_navexplorer.goToLocation(data.rslt.obj.data('url'));
-        });
-        inst.bind('hover_node.jstree', raptus_navexplorer.reloadAccordion);
-        inst.bind('before.jstree',raptus_navexplorer.resizeAccordion);
-        inst.bind('move_node.jstree', raptus_navexplorer.dndMoved);
+        // Event notifications
+        inst.bind({
+            'select_node.jstree': function (event, data) {
+                raptus_navexplorer.elements.navexplorer_tree.resize(raptus_navexplorer.resizeAccordion());
+                raptus_navexplorer.goToLocation(data.rslt.obj.data('url'));
+            },
+            'hover_node.jstree': raptus_navexplorer.reloadAccordion,
+            'before.jstree': raptus_navexplorer.resizeAccordion,
+            'move_node.jstree': raptus_navexplorer.dndMoved,
+        })
 
-        // keep referer for url patch. keep only id because of loosing
-        // referenz while object changes
+        // Keep a referer, this is necessary because the reference gets lost if the object changes.
         inst.delegate('a', 'mousedown.jstree', function(event){
             raptus_navexplorer.referer_id = $(event.target).parent().attr('id');
         });
-        // overriding default click function
+
+        // Overwrite default click function
         inst.undelegate('a', 'click.jstree');
         inst.delegate('a', 'dblclick.jstree', $.proxy(function (event) {
             event.preventDefault();
@@ -77,8 +95,9 @@ raptus_navexplorer = {
                 this.select_node(event.currentTarget, true, event);
             }
         }, inst.jstree('')));
-        // restore selection function from ui plugin
-        // and check first of key down event
+
+        // Restore selection function from ui plugin.
+        // First, check for a key down event.
         inst.delegate('a', 'click.jstree', $.proxy(function (event) {
             var settings = this.get_settings().ui;
             if (!(event[settings.select_multiple_modifier + 'Key'] || event[settings.select_range_modifier + 'Key']))
@@ -95,8 +114,8 @@ raptus_navexplorer = {
                 this.hover_node(event.target);
             }
         }, inst.jstree('')));
-        // force to reset all value and make a new check
-        
+
+        // Force a reset of all values and initiate a new check
         inst.undelegate('a', 'mouseleave.jstree');
         inst.delegate('a', 'mouseleave.jstree', $.proxy(function (event){
             if($.vakata.dnd.is_drag && $.vakata.dnd.user_data.jstree)
@@ -104,17 +123,17 @@ raptus_navexplorer = {
         },inst.jstree('')));
 
         
-        // set interval to sync
+        // Set sync interval
         window.setInterval(raptus_navexplorer.sync,
                            raptus_navexplorer.settings.refreshtime);
                            
-        // set interval to url change notification
+        // Set url change notification interval
         window.setInterval(raptus_navexplorer.urlObserve, raptus_navexplorer.settings.observetime);
        
-        //info box
+        // Info box
         raptus_navexplorer.initAccordion();
         
-        // init buttons
+        // Init buttons
         raptus_navexplorer.initButtons();
         
     },
@@ -131,13 +150,13 @@ raptus_navexplorer = {
             if (!($(this).hasClass('jstree-closed') || $(this).hasClass('jstree-leaf'))){
                 children = new Array();
                 $(this).children('ul').children('li').each(function(){
-                    children.push($(this).attr('id'));
+                    children.push(this.id);
                 });
             }
             
             li.push({path:$(this).data('path'),
                      mtime:$(this).data('mtime'),
-                     id:$(this).attr('id'),
+                     id:$(this).id,
                      children:children});
         });
         var data = {tree: JSON.stringify(li)};
@@ -207,8 +226,8 @@ raptus_navexplorer = {
     
     
     urlPatches: function(){
-      // url referer dosen't work at this time. we need to remove
-      // the params orig_template from the redirect.
+      // URL referer does not work at this time.
+      // Remove the params orig_template from the redirect.
       var url = $.url.parse(raptus_navexplorer.getPloneFrame().location);
       if ('params' in url &&
           'orig_template' in url.params &&
@@ -238,7 +257,7 @@ raptus_navexplorer = {
                 parent.location = raptus_navexplorer.getPloneFrame().document.location;
         });
         if (!parent.frames.tree_frame)
-            $('#header_newwin').attr('checked',true);
+            $('#header_newwin').attr('checked', 'checked');
         $('#header_newwin').button({
             icons: { primary: 'ui-icon-newwin' },
             text: false
@@ -256,7 +275,7 @@ raptus_navexplorer = {
         });
         $('#manual-message').dialog({
             modal: true,
-            autoOpen: $.cookie('raptus_navexplorer_manual')?false:true,
+            autoOpen: $.cookie('raptus_navexplorer_manual') ? false : true,
             draggable: false,
             buttons: {
                 Ok: function() {
@@ -265,7 +284,7 @@ raptus_navexplorer = {
             }
         });
         $('#manual-message-tabs').tabs();
-        $.cookie('raptus_navexplorer_manual', true,{
+        $.cookie('raptus_navexplorer_manual', true, {
             expires: raptus_navexplorer.settings.manual_expires,
         });
     },
@@ -273,7 +292,7 @@ raptus_navexplorer = {
     
     openStandalone: function(){
         $('body>*').remove();
-        var tree_window = window.open(document.location,'own_window_tree', raptus_navexplorer.settings.standaloneWindow);
+        var tree_window = window.open(document.location, 'own_window_tree', raptus_navexplorer.settings.standaloneWindow);
         parent.location = raptus_navexplorer.getPloneFrame().location
         tree_window.parent.frames.plone_frame = parent;
     },
@@ -295,10 +314,13 @@ raptus_navexplorer = {
     
     resizeAccordion: function(){
         var size_window= $(window).height();
-        var space = 25;
-        var margin = parseInt($('#navexplorer_content').css('margin-top')) + parseInt($('#navexplorer_content').css('margin-bottom'));
-        var size_info = $('#navexplorer_info, #navexplorer_info_error').height();
-        $('#navexplorer_tree').height(size_window - margin - size_info - space);
+        var space = 30;
+        var margin = parseInt(raptus_navexplorer.elements.navexplorer_content.css('margin-top')) + 
+                     parseInt(raptus_navexplorer.elements.navexplorer_content.css('margin-bottom'));
+        var size_info = raptus_navexplorer.elements.navexplorer_info_wrap.height();
+        var size_error = raptus_navexplorer.elements.navexplorer_info_error.is(':visible') ? 
+                         raptus_navexplorer.elements.navexplorer_info_error.height() : 0;
+        raptus_navexplorer.elements.navexplorer_tree.height(size_window - margin - size_info - size_error - space);
     },
     
     
@@ -306,22 +328,22 @@ raptus_navexplorer = {
         var url = data.rslt.obj.data('url') + '/navexplorer_accordion';
         $.ajax({url: url,
                 success: function(data) {
-                  var tabindex = $('#navexplorer_info').accordion('option','active');
-                  $('#navexplorer_info_wrap').html(data);
+                  var tabindex = raptus_navexplorer.elements.navexplorer_info.accordion('option','active');
+                  raptus_navexplorer.elements.navexplorer_info_wrap.html(data);
                   raptus_navexplorer.initAccordion();
                   raptus_navexplorer.resizeAccordion();
-                  $( "#navexplorer_info_error" ).hide(0);
-                  $('#navexplorer_info').accordion('option','active', tabindex);
-                  $('#navexplorer_tree').jstree('').set_focus();
+                  raptus_navexplorer.elements.navexplorer_info_error.hide(0);
+                  raptus_navexplorer.elements.navexplorer_info.accordion('option','active', tabindex);
+                  raptus_navexplorer.elements.navexplorer_tree.jstree('').set_focus();
                 },
                 error: function(){
                     $('#navexplorer_info_wrap>*').remove();
-                    $( "#navexplorer_info_error" ).show( 'bounce', {}, 500);
+                    raptus_navexplorer.elements.navexplorer_info_error.show('bounce', {}, 500);
                 }
         })
     },
     
-    
+
     customContextMenu : function(node){
         
         var eval_action = function(menu){
@@ -352,7 +374,7 @@ raptus_navexplorer = {
         raptus_navexplorer.dndAjax(data.rslt, false);
     },
     
-    
+
     dndCheck: function(dnd){
         if ((!$.vakata.dnd.helper.hasClass('jstree-loading') &&
             $.vakata.dnd.helper.children('ins').hasClass('jstree-ok')))
@@ -361,7 +383,7 @@ raptus_navexplorer = {
         return false;
     },
     
-    
+
     dndAjax: function(dnd, dryrun){
         var li = [];
         dnd.o.each(function(){
@@ -406,15 +428,23 @@ raptus_navexplorer = {
         });
     },
 
+
     getPloneFrame: function(){
         return parent.frames.plone_frame;
     },
 
 
     goToLocation: function(url){
-        if (raptus_navexplorer.getPloneFrame()){
-            raptus_navexplorer.getPloneFrame().location.href = url;
-            
+        var frame = raptus_navexplorer.getPloneFrame();
+        if (frame) {
+            frame.location.href = url;
+
+            // Ajax requests can lead to an invalid redirection, check again in 200ms and redirect correctly.
+            // This might happen while copying or cutting content.
+            window.setTimeout(function() {
+                if (frame.location.href.match(/navexplorer_tree$/))
+                    frame.location.href = url.substring(0, url.lastIndexOf("/") + 1);
+            }, 500);
         }
     },
     

@@ -1,4 +1,4 @@
-from zope import interface, component
+from zope import component
 
 from Products.ATContentTypes.interfaces.interfaces import IATContentType
 
@@ -10,11 +10,9 @@ from raptus.navexplorer.accordion import AccordionBase
 
 
 class AccordionArticle(AccordionBase):
-    
     component.adapts(IArticle)
 
     view_class = Article
-
     order = 300
 
     def title(self):
@@ -22,16 +20,14 @@ class AccordionArticle(AccordionBase):
 
 
 class AccordionArticleContent(AccordionArticle):
-    
     component.adapts(IATContentType)
 
     view_class = ArticleContent
-    
     order = 400
-    
+
     def suffix(self):
         return _('Subcontent')
-    
+
     def available(self):
         if IArticle.providedBy(self.context):
             return False
@@ -40,7 +36,3 @@ class AccordionArticleContent(AccordionArticle):
         except:
             return False
         return True
-        
-        
-        
-        

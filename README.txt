@@ -60,15 +60,16 @@ Future features
 ===============
 - nothing at the moment
 
+
 Tests
 =====
-Currently, there are no automated tests. This project was created using Firefox 5
+Currently, there are no automated tests. This project was created using Firefox 5.
 
 
 Copyright and credits
 =====================
 
-raptus.navexplorer is copyright 2011 by samuel riolo and raptus ag, and is licensed under the GPL.
+raptus.navexplorer is copyright 2011-2012 by samuel riolo and raptus ag, and is licensed under the GPL.
 See LICENSE.txt for details.
 
 .. _raptus: http://www.raptus.com/

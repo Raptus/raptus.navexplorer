@@ -15,11 +15,9 @@
 <frameset cols="500px, 100%"
  tal:define="portal_state context/@@plone_portal_state;
              portal_url portal_state/portal_url;">
-  <frameset>
-      <frame src="contents_of_frame1.html"
+  <frame src="contents_of_frame1.html"
              name="tree_frame"
              tal:attributes="src string:${portal_url}/navexplorer_tree;">
-  </frameset>
   <frame src="contents_of_frame2.html"
          id="frame_plone_content"
          name="plone_frame"
@@ -27,8 +25,5 @@
   <noframes>
     <p>your browser dosen't support frames. Please upgrade to a new version.</p>
   </noframes>
-  
-
 </frameset>
 </html>
-

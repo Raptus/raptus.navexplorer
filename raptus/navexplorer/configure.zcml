@@ -56,7 +56,7 @@
       factory=".accordion.AccordionSecurity" />
 
 
-  <!-- spezial stuff only available if installed !!-->
+  <!-- special stuff, only available if installed !!-->
   <adapter
       zcml:condition="installed raptus.article.core"
       name="raptus.navexplorer.accordion.article"

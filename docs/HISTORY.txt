@@ -1,15 +1,19 @@
 Changelog
 =========
 
-1.x (unreleased)
+1.1 (2012-10-04)
 ----------------
 
-* added Italian translation [gborelli]
-* improved translations [gborelli]
-* added z3c.autoinclude.plugin [gborelli]
+* Added Italian translation [gborelli]
+* Improved translations [gborelli, raptus]
+* Added z3c.autoinclude.plugin [gborelli]
+* Fixed frames for IE
+* Fixed redirection bug while copying or cutting objects
+* Fixed translations on labels
+* PEP8
 
 
 1.0 (2011-11-02)
 ----------------
 
-- Initial release
+* Initial release
