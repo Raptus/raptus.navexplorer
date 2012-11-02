@@ -6,7 +6,7 @@ version = '1.1'
 setup(name='raptus.navexplorer',
       version=version,
       description='Provide a navigation to explore and manage plone content',
-      long_description=open("README.txt").read() + "\n" +
+      long_description=open("README.rst").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from
       # http://pypi.python.org/pypi?%3Aaction=list_classifiers
@@ -19,7 +19,7 @@ setup(name='raptus.navexplorer',
       keywords='plone navigation manage explore',
       author='Raptus AG',
       author_email='dev@raptus.com',
-      url='https://svn.plone.org/svn/collective/raptus.navexplorer',
+      url='https://github.com/Raptus/raptus.navexplorer',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['raptus'],
