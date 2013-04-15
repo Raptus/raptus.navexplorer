@@ -1,0 +1,103 @@
+/*
+ * jsTree raptus theme 1.0
+ * Supported features: dots/no-dots, icons/no-icons, focused, loading
+ * Supported plugins: ui (hovered, clicked), checkbox, contextmenu, search
+ */
+
+/* jquery.jstree.js overwrites */
+.jstree-raptus a { color:#d9d9d9; /*height:25px;*/ }
+.jstree-raptus a:hover { color:#ffffff; font-weight:bold; }
+.jstree-raptus a > .jstree-icon { margin-right:5px; }
+/* --- */
+
+.jstree-raptus { overflow-x: hidden; overflow-y: auto; }
+.jstree-raptus .jstree-node-clicked { background:#333333; color:white; font-weight:bold; cursor: pointer; }
+.jstree-raptus .jstree-node-hovered { background:#333333; color:white; font-weight:bold; cursor: pointer; }
+.jstree-raptus .jstree-node { position: relative; }
+
+.jstree-raptus li { margin-left:0px; }
+.jstree-raptus li a ins { margin-left:0px !important; }
+.jstree-raptus ul li ins { margin-left:0px; }
+.jstree-raptus ul li li ins { margin-left:18px; }
+.jstree-raptus ul li li li ins { margin-left:36px; }
+.jstree-raptus ul li li li li ins { margin-left:54px; }
+.jstree-raptus ul li li li li li ins { margin-left:72px; }
+.jstree-raptus ul li li li li li li ins { margin-left:90px; }
+.jstree-raptus ul li li li li li li li ins { margin-left:108px; }
+.jstree-raptus ul li li li li li li li li ins { margin-left:126px; }
+.jstree-raptus ul li li li li li li li li li ins { margin-left:144px; }
+.jstree-raptus ul li li li li li li li li li li ins { margin-left:162px; }
+.jstree-raptus ul li li li li li li li li li li li ins { margin-left:180px; }
+.jstree-raptus li,
+.jstree-raptus ins { background-image:url("d4.png"); background-repeat:no-repeat; background-color:transparent; }
+.jstree-raptus li { background-position:-90px 0; background-repeat:repeat-y;  }
+.jstree-raptus li.jstree-last { background:transparent; }
+.jstree-raptus .jstree-open > div > ins { background-position:-72px 0; }
+.jstree-raptus .jstree-closed > div > ins { background-position:-54px 0; }
+.jstree-raptus .jstree-leaf > div > ins { background-position:-36px 0; }
+
+.jstree-raptus .jstree-hovered { background:#333333; border:1px solid #333333; padding:0 2px 0 1px; color:white; font-weight:bold; }
+.jstree-raptus .jstree-clicked { background:#333333; border:1px solid #333333; padding:0 2px 0 1px; color:white; }
+.jstree-raptus a .jstree-icon { background-position:-56px -19px; }
+.jstree-raptus .jstree-open > div > a .jstree-icon { background-position:-56px -36px; }
+.jstree-raptus a.jstree-loading .jstree-icon { background:url("throbber.gif") center center no-repeat !important; }
+
+.jstree-raptus.jstree-focused { /*background:white;*/ }
+
+.jstree-raptus .jstree-no-dots li,
+.jstree-raptus .jstree-no-dots .jstree-leaf > div > ins { background:transparent; }
+.jstree-raptus .jstree-no-dots .jstree-open > div > ins { background-position:-18px 0; }
+.jstree-raptus .jstree-no-dots .jstree-closed > div > ins { background-position:0 0; }
+
+.jstree-raptus .jstree-no-icons a .jstree-icon { display:none; }
+
+.jstree-raptus .jstree-search { font-style:italic; }
+
+.jstree-raptus .jstree-no-icons .jstree-checkbox { display:inline-block; }
+.jstree-raptus .jstree-no-checkboxes .jstree-checkbox { display:none !important; }
+.jstree-raptus .jstree-checked > a > .jstree-checkbox { background-position:-38px -19px; }
+.jstree-raptus .jstree-unchecked > a > .jstree-checkbox { background-position:-2px -19px; }
+.jstree-raptus .jstree-undetermined > a > .jstree-checkbox { background-position:-20px -19px; }
+.jstree-raptus .jstree-checked > a > .jstree-checkbox:hover { background-position:-38px -37px; }
+.jstree-raptus .jstree-unchecked > a > .jstree-checkbox:hover { background-position:-2px -37px; }
+.jstree-raptus .jstree-undetermined > a > .jstree-checkbox:hover { background-position:-20px -37px; }
+
+#vakata-dragged.jstree-raptus ins { background:transparent !important; }
+#vakata-dragged.jstree-raptus .jstree-ok { background:url("d4.png") -2px -53px no-repeat !important; }
+#vakata-dragged.jstree-raptus .jstree-invalid { background:url("d4.png") -18px -53px no-repeat !important; }
+#jstree-marker.jstree-raptus { background:url("d4.png") -41px -57px no-repeat !important; text-indent:-100px; }
+
+.jstree-raptus a.jstree-search { color:aqua; }
+.jstree-raptus .jstree-locked a { color:silver; cursor:default; }
+
+#vakata-contextmenu.jstree-raptus-context { position: fixed; }
+#vakata-contextmenu.jstree-raptus-context li ul { position: absolute; }
+#vakata-contextmenu.jstree-raptus-context,
+#vakata-contextmenu.jstree-raptus-context li ul { background:#333333; border:none; }
+#vakata-contextmenu.jstree-raptus-context li { }
+#vakata-contextmenu.jstree-raptus-context a { color:#a3a3a3; }
+#vakata-contextmenu.jstree-raptus-context a:hover,
+/*#vakata-contextmenu.jstree-raptus-context .vakata-hover > a { padding:0 5px; background:#e8eff7; border:1px solid #aecff7; color:black; -moz-border-radius:2px; -webkit-border-radius:2px; border-radius:2px; }*/
+#vakata-contextmenu.jstree-raptus-context li.jstree-contextmenu-disabled a,
+#vakata-contextmenu.jstree-raptus-context li.jstree-contextmenu-disabled a:hover { color:silver; background:transparent; border:0; padding:1px 4px; }
+#vakata-contextmenu.jstree-raptus-context li.vakata-separator { margin:0; }
+#vakata-contextmenu.jstree-raptus-context li ul { margin-left:-4px; }
+
+/* IE6 BEGIN */
+.jstree-raptus li,
+.jstree-raptus ins,
+#vakata-dragged.jstree-raptus .jstree-invalid,
+#vakata-dragged.jstree-raptus .jstree-ok,
+#jstree-marker.jstree-raptus { _background-image:url("d.gif"); }
+.jstree-raptus .jstree-open ins { _background-position:-72px 0; }
+.jstree-raptus .jstree-closed ins { _background-position:-54px 0; }
+.jstree-raptus .jstree-leaf ins { _background-position:-36px 0; }
+.jstree-raptus .jstree-open a ins.jstree-icon { _background-position:-56px -36px; }
+.jstree-raptus .jstree-closed a ins.jstree-icon { _background-position:-56px -19px; }
+.jstree-raptus .jstree-leaf a ins.jstree-icon { _background-position:-56px -19px; }
+#vakata-contextmenu.jstree-raptus-context ins { _display:none; }
+#vakata-contextmenu.jstree-raptus-context li { _zoom:1; }
+.jstree-raptus .jstree-undetermined a .jstree-checkbox { _background-position:-20px -19px; }
+.jstree-raptus .jstree-checked a .jstree-checkbox { _background-position:-38px -19px; }
+.jstree-raptus .jstree-unchecked a .jstree-checkbox { _background-position:-2px -19px; }
+/* IE6 END */

@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      lang="de"
+      xml:lang="de"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="raptus.navexplorer"
+      tal:define="portal_state context/@@plone_portal_state;
+                  portal_url portal_state/portal_url;">
+<head>
+    <title>NavExplorer Raptus</title>
+
+    <link href="navexplorer.css" media="screen" type="text/css" rel="stylesheet"
+          tal:attributes="href string:++resource++raptus.navexplorer.stylesheets/navexplorer_sidebar.css"/>
+    <link href="navexplorer.css" media="screen" type="text/css" rel="stylesheet"
+          tal:attributes="href string:++resource++raptus.navexplorer.stylesheets/navexplorer_window.css"/>
+
+    <script type="text/javascript" src="/jquery.js"
+            tal:attributes="src string:${portal_url}/jquery.js"></script>
+    <script type="text/javascript" src="/plone_javascript_variables"
+            tal:attributes="src string:${portal_url}/plone_javascript_variables.js"></script>
+
+    <script type="text/javascript" src="/jquery.cookie.js"
+            tal:attributes="src string:++resource++raptus.navexplorer.javascript/jquery.cookie.js"></script>
+    <script type="text/javascript" src="/jquery.hotkeys.js"
+            tal:attributes="src string:++resource++raptus.navexplorer.javascript/jquery.hotkeys.js"></script>
+    <script type="text/javascript" src="/jquery.jstree.js"
+            tal:attributes="src string:++resource++raptus.navexplorer.javascript/jquery.jstree.js"></script>
+    <script type="text/javascript" src="/raptus.navexplorer.js"
+            tal:attributes="src string:++resource++raptus.navexplorer.javascript/navexplorer_sidebar.js"></script>
+</head>
+<body>
+
+    <div id="navexplorer_window"
+       tal:define="ploneview context/@@plone;"
+       tal:condition="ploneview/showEditableBorder">
+        <div id="navexplorer_sidebar">
+
+            <div id="navexplorer_content">
+                <div id="header">
+                    <ul>
+                        <li class="title">
+                            <span>Raptus NavExplorer</span>
+                        </li>
+                        <li class="icon">
+                            <a href="#" id="header_help" i18n:attributes="title" title="Open manual box"></a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="navexplorer_tree">
+                </div>
+
+                <div id="navexplorer_info_wrap">
+                    <div id="navexplorer_info" class="accordion"></div>
+                </div>
+
+                <div id="navexplorer_info_error" class="ui-widget hidden">
+                    <div class="ui-state-error ui-corner-all">
+                        <p i18n:translate="">
+                            Error while rendering template.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="manual_message"
+                title="Navigation Explorer Manual"
+                i18n:attributes="title"
+                class="hidden">
+                <div id="manual_message_tabs">
+                    <div id="header">
+                        <ul>
+                            <li class="nav">
+                                <a href="#" id="tab_manual_link" class="active" i18n:translate="">Manual</a>
+                            </li>
+                            <li class="nav">
+                                <a href="#" id="tab_development_link" i18n:translate="">Development</a>
+                            </li>
+                            <li class="icon">
+                                <a href="#" id="tab_manual_close" i18n:translate=""></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="tab_manual">
+                        <p>
+                            <strong i18n:translate="">Single click</strong><br />
+                            <span i18n:translate="">Show information about the selected content</span>
+                        </p>
+                        <p>
+                            <strong i18n:translate="">Double click</strong><br />
+                            <span i18n:translate="">Open content in the right frame</span>
+                        </p>
+                        <p>
+                            <strong i18n:translate="">Right click</strong><br />
+                            <span i18n:translate="">Open context menu with additional actions</span>
+                        </p>
+                        <p>
+                            <strong i18n:translate="">Arrow keys</strong><br />
+                            <span i18n:translate="">Navigate tree and open/close treenodes</span>
+                        </p>
+                        <p>
+                            <strong i18n:translate="">Enter key</strong><br />
+                            <span i18n:translate="">Open content in the right frame</span>
+                        </p>
+                        <p>
+                            <strong i18n:translate="">Drag and drop</strong><br />
+                            <span i18n:translate="">Move one or more treenodes into another</span>
+                        </p>
+                        <p>
+                            <strong i18n:translate="">Multiselection</strong><br />
+                            <span i18n:translate="">Keep the key 'shift' or 'alt' and select all desired treenodes by clicking them</span>
+                        </p>
+                    </div>
+                    <div id="tab_development" class="hidden">
+                        <a href="http://raptus.com" target="_BLANK">
+                            <img src="++resource++raptus.navexplorer.images/raptus.png" alt="logo" />
+                        </a>
+                        <p i18n:translate="development_information">Information:<br/>
+                            <a href="http://www.raptus.com" target="_BLANK">raptus.com</a><br/>
+                            <a href="http://plone.org/products/raptus.navexplorer" target="_BLANK">plone.org/products/raptus.navexplorer</a><br/>
+                            <a href="http://www.jstree.com" target="_BLANK">jstree.com</a><br/>
+                            <a href="mailto:dev@raptus.com">dev@raptus.com</a><br/>
+                        </p>
+                        <p>
+                            Copyright and credits
+                            raptus.navexplorer is copyright 2011 by raptus , and is licensed under the GPL. See LICENSE.txt for details.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>

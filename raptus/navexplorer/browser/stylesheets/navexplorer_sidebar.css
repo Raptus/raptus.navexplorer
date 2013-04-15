@@ -1,0 +1,262 @@
+/* sidebar */
+
+#navexplorer_sidebar {
+  position: fixed;
+  height: 100%;
+  width: 300px;
+  background-color: #262626;
+  top: 75px;
+  z-index: 11;
+}
+
+#navexplorer_sidebar #header {
+  text-align: right;
+  /*padding-right: 3px;*/
+  height: 40px;
+  color: #ffffff;
+}
+
+#navexplorer_sidebar #header button {
+  text-indent: -999px;
+  width: 20px;
+  border: none;
+}
+
+#navexplorer_sidebar #header ul {
+  padding: 0px;
+  margin: 0px;
+}
+
+#navexplorer_sidebar #header li {
+  display: block;
+  float: left;
+  position: relative;
+  width: 20px;
+  height: 30px;
+  padding-top: 10px;
+  margin: 0px;
+}
+
+#navexplorer_sidebar #header li.title {
+  padding-left: 20px;
+  width: 220px;
+  text-align: left;
+  font-size: 110%;
+  line-height: 20px;
+}
+
+#navexplorer_sidebar #header li.icon a {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+#navexplorer_sidebar #header #header_close {
+  background:url("++resource++raptus.navexplorer.images/hide.png") no-repeat center center;
+}
+
+#navexplorer_sidebar.hiddenPanel #header #header_close {
+  background:url("++resource++raptus.navexplorer.images/show.png") no-repeat center center;
+}
+
+#navexplorer_sidebar.hiddenPanel #navexplorer_tree,
+#navexplorer_sidebar.hiddenPanel #navexplorer_info_wrap {
+  display: none;
+}
+
+#navexplorer_sidebar #header #header_newwin {
+  background:url("++resource++raptus.navexplorer.images/detach.png") no-repeat center center;
+}
+
+#navexplorer_sidebar #header #header_help {
+  background:url("++resource++raptus.navexplorer.images/help.png") no-repeat center center;
+}
+
+#navexplorer_sidebar #header #header_close:hover,
+#navexplorer_sidebar #header #header_newwin:hover,
+#navexplorer_sidebar #header #header_help:hover {
+  background-color: #333333;
+}
+
+#navexplorer_sidebar #navexplorer_content .hidden {
+  display: none;
+}
+
+#navexplorer_info_toggle {
+  background:url("++resource++raptus.navexplorer.images/show.png") no-repeat center center;
+  height: 18px;
+  width: 20px;
+  position: absolute;
+  left: 280px;
+  background-color: #262626;
+}
+
+#navexplorer_sidebar #navexplorer_info_wrap {
+  position: absolute;
+  top: 100px;
+  left: 315px;
+  width: 600px;
+  background-color: #262626;
+}
+
+#navexplorer_sidebar #navexplorer_info_wrap #info_spacer {
+  position: absolute;
+  background: #333333 url("++resource++raptus.navexplorer.images/show.png") no-repeat center center;
+  height: 18px;
+  width: 15px;
+  top: 10px;
+  left: -15px;
+}
+
+#navexplorer_sidebar #navexplorer_info_wrap a {
+  color: #a6a6a6;
+  text-decoration: none;
+}
+
+#navexplorer_sidebar #navexplorer_info_wrap a:hover {
+
+}
+
+#navexplorer_sidebar #navexplorer_info_wrap a.active {
+  color: #ffffff;
+}
+
+#navexplorer_sidebar #navexplorer_info_wrap #navexplorer_info>ul {
+  margin: 0px;
+  height: 35px;
+  background-color: #333333;
+}
+
+#navexplorer_sidebar #navexplorer_info_wrap #navexplorer_info>ul>li:first-child {
+  padding-left: 20px;
+}
+
+#navexplorer_sidebar #navexplorer_info_wrap #navexplorer_info>ul>li {
+  display: block;
+  float: left;
+  position: relative;
+  text-align: center;
+  padding: 10px 10px 0px;
+  margin: 0px;
+}
+
+#navexplorer_sidebar #navexplorer_info_wrap #navexplorer_info div {
+  padding: 5px 5px 5px 10px;
+}
+
+#navexplorer_sidebar #navexplorer_info_wrap #navexplorer_info div th,
+#navexplorer_sidebar #navexplorer_info_wrap #navexplorer_info div td:first-child,
+#navexplorer_sidebar #navexplorer_info_wrap #navexplorer_info div dt {
+  vertical-align: top;
+  color: #b2b2b2;
+  padding-right: 10px;
+}
+
+#navexplorer_sidebar #navexplorer_info_wrap #navexplorer_info div td {
+  color: #f2f2f2;
+}
+
+#navexplorer_sidebar #navexplorer_info_wrap #navexplorer_info div ul {
+  list-style: none;
+  margin-top: 0px;
+}
+
+#navexplorer_sidebar #navexplorer_info_wrap #navexplorer_info table.listing {
+  border-collapse: collapse;
+  font-size: 85%;
+  margin: 1em 0em 1em 0em;
+}
+
+#navexplorer_sidebar #navexplorer_info_wrap #navexplorer_info table.listing th,
+#navexplorer_sidebar #navexplorer_info_wrap #navexplorer_info table.listing td {
+  background-color: transparent;
+  text-transform: none;
+  border: none;
+}
+
+#navexplorer_sidebar #navexplorer_info_wrap #navexplorer_info .listingCheckbox {
+  text-align: center;
+}
+
+#navexplorer_sidebar #navexplorer_info_wrap #navexplorer_info .odd {
+  background-color: #333333;
+}
+
+#navexplorer_sidebar #navexplorer_info_wrap #navexplorer_info .even {
+  background-color: #262626;
+}
+
+#navexplorer_sidebar #manual_message {
+  position: absolute;
+  top: 0px;
+  z-index: 100;
+  background-color: #262626;
+  height: 100%;
+}
+
+#navexplorer_sidebar #manual_message #manual_message_header span {
+  font-size: 110%;
+  padding: 5px;
+}
+
+#navexplorer_sidebar #manual_message.hidden {
+  display: none;
+}
+
+#navexplorer_sidebar #manual_message ul {
+  margin: 0px;
+}
+
+#navexplorer_sidebar #manual_message li {
+  display: block;
+  float: left;
+  position: relative;
+  height: 30px;
+  text-align: center;
+  background-color: #333333;
+  padding-top: 10px;
+  margin: 0px;
+}
+
+#navexplorer_sidebar #manual_message li.nav {
+  width: 125px;
+}
+
+#navexplorer_sidebar #manual_message li.nav a {
+  font-size: 110%;
+  line-height: 20px;
+  color: #a6a6a6;
+}
+
+#navexplorer_sidebar #manual_message li.nav a.active {
+  color: #ffffff;
+}
+
+#navexplorer_sidebar #manual_message li.icon {
+  width: 50px;
+}
+
+#navexplorer_sidebar #manual_message li.icon a {
+  background:url("++resource++raptus.navexplorer.images/close.png") no-repeat center center;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}
+
+#navexplorer_sidebar #manual_message li span {
+  color: #cccccc;
+}
+
+#navexplorer_sidebar #manual_message li span:hover {
+  color: #ffffff;
+}
+
+#navexplorer_sidebar #manual_message #manual_message_tabs .hidden {
+  display: none;
+}
+
+#navexplorer_sidebar #manual_message #manual_message_tabs #tab_manual p,
+#navexplorer_sidebar #manual_message #manual_message_tabs #tab_development p {
+  padding: 10px;
+}
+

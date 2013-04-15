@@ -1,0 +1,60 @@
+/* sidebar */
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    font-size: 11px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    font-family: Arial,Helvetica,Verdana,sans-serif;
+    color: #d9d9d9;
+}
+
+a {
+    text-decoration: none;
+    color: #4F85AD;
+}
+
+#navexplorer_window {
+  height: 100%;
+  width: 100%;
+}
+
+#navexplorer_window #navexplorer_sidebar {
+  position: static;
+  width: 100%;
+  background-color: #262626;
+}
+
+#navexplorer_window #navexplorer_sidebar #header {
+  /*text-align: right;*/
+  /*height: 40px;*/
+  color: #8c8c8c;
+}
+
+#navexplorer_window #navexplorer_sidebar #manual_message {
+    width: 100%;
+}
+
+#navexplorer_window #navexplorer_sidebar #manual_message li.nav {
+    width: 45%;
+}
+
+#navexplorer_window #navexplorer_sidebar #manual_message li.icon {
+    width: 10%;
+}
+
+#navexplorer_window #navexplorer_sidebar #navexplorer_info_wrap {
+    top: 0px;
+    right: 15px;
+    left: auto;
+}
+
+#navexplorer_window #navexplorer_sidebar.hiddenPanel #navexplorer_tree {
+    display: block !important;
+}
+
