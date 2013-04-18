@@ -26,22 +26,21 @@ a {
 
 #navexplorer_window #navexplorer_sidebar {
   position: static;
-  width: 100%;
+  width: 100% !important;
   background-color: #262626;
 }
 
 #navexplorer_window #navexplorer_sidebar #header {
-  /*text-align: right;*/
-  /*height: 40px;*/
   color: #8c8c8c;
+}
+
+#navexplorer_window #navexplorer_sidebar #header #header_newwin,
+#navexplorer_window #navexplorer_sidebar #header #header_close {
+  display: none;
 }
 
 #navexplorer_window #navexplorer_sidebar #manual_message {
     width: 100%;
-}
-
-#navexplorer_window #navexplorer_sidebar #manual_message li.nav {
-    width: 45%;
 }
 
 #navexplorer_window #navexplorer_sidebar #manual_message li.icon {
@@ -51,7 +50,7 @@ a {
 #navexplorer_window #navexplorer_sidebar #navexplorer_info_wrap {
     top: 0px;
     right: 15px;
-    left: auto;
+    left: auto !important;
 }
 
 #navexplorer_window #navexplorer_sidebar.hiddenPanel #navexplorer_tree {

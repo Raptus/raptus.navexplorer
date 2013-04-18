@@ -4,6 +4,7 @@ raptus_navexplorer = {
     settings : { refreshtime: 5000,
                  observetime: 33,
                  hidden_expires: 300,
+                 width_expires: 300,
                  standaloneWindow: 'width=1000,height=600,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=no',
                  theme: { theme : 'raptus',
                           dots : false,
@@ -20,10 +21,7 @@ raptus_navexplorer = {
     timeout : null,
 
     init: function($){
-        if($.cookie('raptus_navexplorer_hidden') == 'true') {
-            $('#navexplorer_sidebar').addClass('hiddenPanel')
-            $('#navexplorer_sidebar').css('left', '-280px')
-        }
+
 
         // Fill elements
         raptus_navexplorer.elements.navexplorer_content = $('#navexplorer_content');
@@ -32,6 +30,8 @@ raptus_navexplorer = {
         raptus_navexplorer.elements.navexplorer_info_error = $('#navexplorer_info_error');
         raptus_navexplorer.elements.navexplorer_tree = $('#navexplorer_tree');
 
+        // Disabling text selection
+        raptus_navexplorer.elements.navexplorer_content.disableTextSelect();
 
         // jstree
         $.jstree._themes = 'navexplorer_tree_themes/';
@@ -80,6 +80,7 @@ raptus_navexplorer = {
         inst.bind({
             'select_node.jstree': function (event, data) {
                 raptus_navexplorer.elements.navexplorer_tree.resize(raptus_navexplorer.resizeAccordion());
+                console.log(data.rslt.e);
                 if(typeof data.rslt.e != 'undefined')
                     raptus_navexplorer.goToLocation(data.rslt.obj.data('url'));
             },
@@ -130,33 +131,42 @@ raptus_navexplorer = {
 
 
         inst.delegate('div', 'click.jstree', $.proxy(function (event){
-            inst.find('div').removeClass('jstree-node-clicked')
             this.hover_node(event.target);
-            $('#navexplorer_info_toggle').css('top', $('.jstree-hovered').offset().top - 75);
+            $('#vakata-contextmenu').fadeOut('fast');
         }, inst.jstree('')));
 
-        $('body').delegate('.jstree-node, #navexplorer_info_wrap', 'mouseleave', function (event){
+        $('body').delegate('.jstree-node, #navexplorer_info_wrap, #vakata-contextmenu', 'mouseleave', function (event){
             inst.timeout = setTimeout(function(){
-                $('#navexplorer_info_wrap').fadeOut('fast')
-                inst.find('div').removeClass('jstree-node-hovered');
+                $('#navexplorer_info_wrap').fadeOut('fast');
+                $('#vakata-contextmenu').fadeOut('fast');
+                inst.find('div').removeClass('jstree-node-hovered jstree-node-clicked');
                 inst.find('a').removeClass('jstree-hovered');
             }, 500);
         });
 
         $('body').delegate('.jstree-node', 'mouseenter', function (event){
             clearTimeout(inst.timeout)
-            inst.find('div').removeClass('jstree-node-hovered')
-            inst.find('a').removeClass('jstree-hovered')
+            inst.find('div').removeClass('jstree-node-hovered');
+            inst.find('a').removeClass('jstree-hovered');
             $(this).addClass('jstree-node-hovered');
             $(this).children('a').addClass('jstree-hovered');
         });
 
         $('body').delegate('#navexplorer_info_wrap', 'mouseenter', function (event){
-            clearTimeout(inst.timeout)
+            clearTimeout(inst.timeout);
+        });
+
+        $('body').delegate('#vakata-contextmenu', 'mouseenter', function (event){
+            clearTimeout(inst.timeout);
         });
 
 
+        raptus_navexplorer.makeDraggable();
 
+        if($.cookie('raptus_navexplorer_hidden') == 'true') {
+            $('#navexplorer_sidebar').addClass('hiddenPanel')
+            $('#navexplorer_sidebar').css('left', '-'+(raptus_navexplorer.elements.navexplorer_content.width()-20)+'px')
+        }
 
 
         inst.undelegate('li > div > ins', 'click.jstree');
@@ -252,7 +262,7 @@ raptus_navexplorer = {
                     path: '/',
                 });
                 $('#navexplorer_sidebar').animate({
-                    left: '-280px'
+                    left: '-'+(raptus_navexplorer.elements.navexplorer_content.width()-20)+'px'
                 }, 250);
             }
             $('#navexplorer_sidebar').toggleClass('hiddenPanel');
@@ -316,20 +326,20 @@ raptus_navexplorer = {
         });
 
         $('#navexplorer_sidebar').animate({
-            left: '-280px'
+            left: '-'+(raptus_navexplorer.elements.navexplorer_content.width()-20)+'px'
         }, 250);
 
         $('#navexplorer_sidebar').toggleClass('hiddenPanel');
 
-        target = portal_url + '/navexplorer_window'
+        target = portal_url + '/navexplorer_window';
         var tree_window = window.open(target, 'own_window_tree', raptus_navexplorer.settings.standaloneWindow);
-        parent.location = raptus_navexplorer.getPloneFrame().location;
-        tree_window.parent.frames.plone_frame = parent;
+        //parent.location = raptus_navexplorer.getPloneFrame().location;
+        //tree_window.parent.frames.plone_frame = parent;
     },
 
 
     resizeAccordion: function(){
-        var size_window= $(window).height();
+        var size_window = $(window).height();
         var offsetTop = raptus_navexplorer.elements.navexplorer_tree.offset().top;
         var margin = parseInt(raptus_navexplorer.elements.navexplorer_content.css('margin-top')) +
                      parseInt(raptus_navexplorer.elements.navexplorer_content.css('margin-bottom'));
@@ -340,39 +350,49 @@ raptus_navexplorer = {
 
 
     reloadAccordion : function(event, data){
-        var url = data.rslt.obj.data('url') + '/navexplorer_accordion';
-        $.ajax({url: url,
-                success: function(data) {
-                  raptus_navexplorer.elements.navexplorer_info_wrap.html(data);
-                  $('.infoTitle').click(function(e){
-                    raptus_navexplorer.elements.navexplorer_info_wrap.find('a').removeClass('active')
-                    $(this).addClass('active')
-                    e.preventDefault();
-                    $('#info-'+$(this).attr('id')).siblings("div").addClass("hidden");
-                    $('#info-'+$(this).attr('id')).removeClass("hidden");
-                  });
-                  if($('.jstree-hovered').length) {
-                      top_ = $('.jstree-hovered').offset().top
-                      height = raptus_navexplorer.elements.navexplorer_info_wrap.height()
-                      window_height = $(window).height()
-                      if((top_+height) > window_height) {
-                          top_ = window_height - height
-                      }
-                      if(top_ < 0)
-                          top_ = 0
-                      margin = raptus_navexplorer.elements.navexplorer_content.offset().top + 10
-                      raptus_navexplorer.elements.navexplorer_info_wrap.css('top', top_ - margin)
-                      raptus_navexplorer.elements.navexplorer_info_wrap.prepend("<div id='info_spacer' />")
-                      raptus_navexplorer.elements.navexplorer_info_wrap.show()
-                  }
-                  raptus_navexplorer.elements.navexplorer_info_error.hide(0);
+        if($('div.jstree-node-clicked').length > 0) {
+            var url = data.rslt.obj.data('url') + '/navexplorer_accordion';
+            $.ajax({url: url,
+                    success: function(data) {
+                      raptus_navexplorer.elements.navexplorer_info_wrap.html(data);
+                      $('.infoTitle').click(function(e){
+                        raptus_navexplorer.elements.navexplorer_info_wrap.find('a').removeClass('active');
+                        $(this).addClass('active');
+                        e.preventDefault();
+                        $('#info-'+$(this).attr('id')).siblings("div").addClass("hidden");
+                        $('#info-'+$(this).attr('id')).removeClass("hidden");
+                      });
 
-                },
-                error: function(){
-                    $('#navexplorer_info_wrap>*').remove();
-                    //raptus_navexplorer.elements.navexplorer_info_error.show('bounce', {}, 500);
-                }
-        })
+                      top_ = $('.jstree-hovered').offset().top;
+                      height = raptus_navexplorer.elements.navexplorer_info_wrap.height();
+                      window_height = $(window).height();
+                      spacer_offset = 0;
+                      if((top_+height) > window_height) {
+                          spacer_offset = (top_ + height) - window_height;
+                          top_ = window_height - height;
+                      }
+                      if(top_ < 0) {
+                          top_ = 0;
+                      }
+                      margin = raptus_navexplorer.elements.navexplorer_content.offset().top + 6;
+                      raptus_navexplorer.elements.navexplorer_info_wrap.css('top', top_ - margin);
+                      raptus_navexplorer.elements.navexplorer_info_wrap.css('left', raptus_navexplorer.elements.navexplorer_content.width()+15);
+                      raptus_navexplorer.elements.navexplorer_info_wrap.prepend("<div id='info_spacer' />");
+                      $('#info_spacer', raptus_navexplorer.elements.navexplorer_info_wrap).css('top', spacer_offset);
+
+                      raptus_navexplorer.elements.navexplorer_info_wrap.show();
+
+                      raptus_navexplorer.elements.navexplorer_info_error.hide(0);
+
+                    },
+                    error: function(){
+                        $('#navexplorer_info_wrap>*').remove();
+                        //raptus_navexplorer.elements.navexplorer_info_error.show('bounce', {}, 500);
+                    }
+            })
+        } else {
+            raptus_navexplorer.elements.navexplorer_info_wrap.hide();
+        }
     },
 
 
@@ -443,7 +463,7 @@ raptus_navexplorer = {
                         $.vakata.dnd.helper.children('ins').attr('class', 'jstree-ok');
                         var tree = $('.jstree').jstree('');
                         tree.data.dnd.inside = true;
-                        tree.dnd_show()
+                        tree.dnd_show();
                     }
                     if (data.permission && !dryrun) {
                         $.each(data.sync, function(){
@@ -466,6 +486,7 @@ raptus_navexplorer = {
 
     goToLocation: function(url){
         var frame = raptus_navexplorer.getPloneFrame();
+        url = url + '/#';
         if (frame) {
             frame.location.href = url;
 
@@ -475,6 +496,44 @@ raptus_navexplorer = {
                 if (frame.location.href.match(/navexplorer_window$/))
                     frame.location.href = url.substring(0, url.lastIndexOf("/") + 1);
             }, 500);
+        }
+    },
+
+    makeDraggable: function(){
+        var dragging = false;
+        $('#dragbar').mousedown(function(e){
+            e.preventDefault();
+
+            dragging = true;
+            var ghostbar = $('<div>',
+                    {id:'ghostbar',
+                        css: {
+                        height: raptus_navexplorer.elements.navexplorer_content.outerHeight(),
+                        top: raptus_navexplorer.elements.navexplorer_content.offset().top,
+                        left: raptus_navexplorer.elements.navexplorer_content.offset().right
+                    }
+            }).appendTo('body');
+
+            $(document).mousemove(function(e){
+                ghostbar.css("left",e.pageX+2);
+            });
+        });
+
+        $(document).mouseup(function(e){
+            if (dragging) {
+                $('#navexplorer_sidebar').css("width",e.pageX+2);
+                $('#ghostbar').remove();
+                $(document).unbind('mousemove');
+                dragging = false;
+                $.cookie('raptus_navexplorer_width', e.pageX+2, {
+                    expires: raptus_navexplorer.settings.width_expires,
+                    path: '/',
+                });
+            }
+        });
+
+        if($.cookie('raptus_navexplorer_width')) {
+            $('#navexplorer_sidebar').css("width", $.cookie('raptus_navexplorer_width'));
         }
     },
 

@@ -17,20 +17,12 @@
 
     <script type="text/javascript" src="/jquery.js"
             tal:attributes="src string:${portal_url}/jquery.js"></script>
-    <script type="text/javascript" src="/++resource++jquery-ui.min.js"
-            tal:attributes="src string:${portal_url}/raptus.navexplorer-jquery-ui-1.8.15.custom.min.js"></script>
-    <script type="text/javascript" src="/raptus.navexplorer-jquery-ui-1.8.15.custom.min.js"
-            tal:attributes="src string:${portal_url}/raptus.navexplorer-jquery-ui-i18n.js"></script>
-    <script type="text/javascript" src="/jquery.urldecoder.min.js"
-            tal:attributes="src string:${portal_url}/jquery.urldecoder.min.js"></script>
     <script type="text/javascript" src="/jquery.cookie.js"
             tal:attributes="src string:${portal_url}/jquery.cookie.js"></script>
     <script type="text/javascript" src="/jquery.hotkeys.js"
             tal:attributes="src string:${portal_url}/jquery.hotkeys.js"></script>
     <script type="text/javascript" src="/jquery.jstree.js"
             tal:attributes="src string:${portal_url}/jquery.jstree.js"></script>
-    <script type="text/javascript" src="/jquery.urldecoder.min.js"
-            tal:attributes="src string:${portal_url}/jquery.urldecoder.min.js"></script>
     <script type="text/javascript" src="/plone_javascript_variables"
             tal:attributes="src string:${portal_url}/plone_javascript_variables.js"></script>
     <script type="text/javascript" src="/raptus.navexplorer.js"
@@ -46,7 +38,7 @@
         <button id="header_notice" i18n:translate="">Open manual box</button>
     </div>
 
-    <div id="navexplorer_content">
+    <div id="navexplorer_content" class="hiddenPanel">
 
 
         <div id="navexplorer_tree"></div>

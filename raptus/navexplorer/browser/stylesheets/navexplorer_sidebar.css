@@ -9,53 +9,72 @@
   z-index: 11;
 }
 
-#navexplorer_sidebar #header {
-  text-align: right;
+#navexplorer_sidebar.hiddenPanel #dragbar {
+  display: none;
+}
+
+#navexplorer_sidebar #dragbar {
+  background-color: #333333;
+  height: 100%;
+  float: right;
+  width: 5px;
+  cursor: col-resize;
+}
+
+#navexplorer_sidebar #dragbar:hover {
+  background-color: #d9d9d9;
+}
+
+#ghostbar{
+  width: 3px;
+  background-color: #000;
+  opacity: 0.5;
+  position: absolute;
+  cursor: col-resize;
+  z-index: 999;
+}
+
+#navexplorer_sidebar #navexplorer_content #header {
   /*padding-right: 3px;*/
   height: 40px;
   color: #ffffff;
 }
 
-#navexplorer_sidebar #header button {
-  text-indent: -999px;
-  width: 20px;
-  border: none;
+#navexplorer_sidebar #navexplorer_content #header div.title {
+  padding-left: 20px;
+  padding-top: 14px;
+  font-size: 120%;
+  height: 26px;
 }
 
-#navexplorer_sidebar #header ul {
+#navexplorer_sidebar #navexplorer_content #header ul {
   padding: 0px;
   margin: 0px;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
-#navexplorer_sidebar #header li {
+#navexplorer_sidebar #navexplorer_content #header li {
   display: block;
   float: left;
   position: relative;
   width: 20px;
-  height: 30px;
   padding-top: 10px;
   margin: 0px;
 }
 
-#navexplorer_sidebar #header li.title {
-  padding-left: 20px;
-  width: 220px;
-  text-align: left;
-  font-size: 110%;
-  line-height: 20px;
-}
-
-#navexplorer_sidebar #header li.icon a {
+#navexplorer_sidebar #navexplorer_content #header li a {
   display: inline-block;
   width: 20px;
   height: 20px;
 }
 
-#navexplorer_sidebar #header #header_close {
+#navexplorer_sidebar #navexplorer_content #header #header_close {
   background:url("++resource++raptus.navexplorer.images/hide.png") no-repeat center center;
 }
 
-#navexplorer_sidebar.hiddenPanel #header #header_close {
+#navexplorer_sidebar.hiddenPanel #navexplorer_content #header #header_close {
   background:url("++resource++raptus.navexplorer.images/show.png") no-repeat center center;
 }
 
@@ -64,31 +83,22 @@
   display: none;
 }
 
-#navexplorer_sidebar #header #header_newwin {
+#navexplorer_sidebar #navexplorer_content #header #header_newwin {
   background:url("++resource++raptus.navexplorer.images/detach.png") no-repeat center center;
 }
 
-#navexplorer_sidebar #header #header_help {
+#navexplorer_sidebar #navexplorer_content #header #header_help {
   background:url("++resource++raptus.navexplorer.images/help.png") no-repeat center center;
 }
 
-#navexplorer_sidebar #header #header_close:hover,
-#navexplorer_sidebar #header #header_newwin:hover,
-#navexplorer_sidebar #header #header_help:hover {
+#navexplorer_sidebar #navexplorer_content #header #header_close:hover,
+#navexplorer_sidebar #navexplorer_content #header #header_newwin:hover,
+#navexplorer_sidebar #navexplorer_content #header #header_help:hover {
   background-color: #333333;
 }
 
 #navexplorer_sidebar #navexplorer_content .hidden {
   display: none;
-}
-
-#navexplorer_info_toggle {
-  background:url("++resource++raptus.navexplorer.images/show.png") no-repeat center center;
-  height: 18px;
-  width: 20px;
-  position: absolute;
-  left: 280px;
-  background-color: #262626;
 }
 
 #navexplorer_sidebar #navexplorer_info_wrap {
@@ -97,15 +107,16 @@
   left: 315px;
   width: 600px;
   background-color: #262626;
+  border-left: 5px solid #333333;
 }
 
 #navexplorer_sidebar #navexplorer_info_wrap #info_spacer {
   position: absolute;
   background: #333333 url("++resource++raptus.navexplorer.images/show.png") no-repeat center center;
-  height: 18px;
+  height: 30px;
   width: 15px;
-  top: 10px;
-  left: -15px;
+  top: 0px;
+  left: -20px;
 }
 
 #navexplorer_sidebar #navexplorer_info_wrap a {
@@ -123,7 +134,7 @@
 
 #navexplorer_sidebar #navexplorer_info_wrap #navexplorer_info>ul {
   margin: 0px;
-  height: 35px;
+  height: 30px;
   background-color: #333333;
 }
 
@@ -192,11 +203,7 @@
   z-index: 100;
   background-color: #262626;
   height: 100%;
-}
-
-#navexplorer_sidebar #manual_message #manual_message_header span {
-  font-size: 110%;
-  padding: 5px;
+  width: 100%;
 }
 
 #navexplorer_sidebar #manual_message.hidden {
@@ -211,20 +218,19 @@
   display: block;
   float: left;
   position: relative;
-  height: 30px;
+  height: 26px;
   text-align: center;
   background-color: #333333;
-  padding-top: 10px;
+  padding-top: 14px;
   margin: 0px;
 }
 
 #navexplorer_sidebar #manual_message li.nav {
-  width: 125px;
+  width: 50%;
 }
 
 #navexplorer_sidebar #manual_message li.nav a {
-  font-size: 110%;
-  line-height: 20px;
+  font-size: 120%;
   color: #a6a6a6;
 }
 
@@ -232,11 +238,14 @@
   color: #ffffff;
 }
 
-#navexplorer_sidebar #manual_message li.icon {
-  width: 50px;
+#navexplorer_sidebar #manual_message div.icon {
+  padding-top: 10px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
 }
 
-#navexplorer_sidebar #manual_message li.icon a {
+#navexplorer_sidebar #manual_message div.icon a {
   background:url("++resource++raptus.navexplorer.images/close.png") no-repeat center center;
   width: 20px;
   height: 20px;
@@ -253,6 +262,10 @@
 
 #navexplorer_sidebar #manual_message #manual_message_tabs .hidden {
   display: none;
+}
+
+#navexplorer_sidebar #manual_message #manual_message_tabs #header {
+  height: 40px;
 }
 
 #navexplorer_sidebar #manual_message #manual_message_tabs #tab_manual p,

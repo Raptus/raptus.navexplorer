@@ -3,17 +3,26 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="raptus.navexplorer">
 
-    <browser:page
-        name="navexplorer_view"
-        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
-        template="templates/navexplorer_view.pt"
-        permission="raptus.navexplorer.view"
-        />
+    <!-- Resource directory for images -->
+    <browser:resourceDirectory
+      name="raptus.navexplorer.images"
+      directory="images" />
+
+    <!-- Resource directory for javascript -->
+    <browser:resourceDirectory
+      name="raptus.navexplorer.javascript"
+      directory="javascript" />
+
+    <!-- Resource directory for stylesheets -->
+    <browser:resourceDirectory
+      name="raptus.navexplorer.stylesheets"
+      directory="stylesheets" />
+
 
     <browser:page
-        name="navexplorer_tree"
-        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
-        template="templates/navexplorer_tree.pt"
+        name="navexplorer_accordion"
+        for="*"
+        class=".accordion.AjaxAccordion"
         permission="raptus.navexplorer.view"
         />
 
@@ -39,10 +48,17 @@
         />
 
     <browser:page
-        name="navexplorer_accordion"
-        for="*"
-        class=".accordion.AjaxAccordion"
+        name="navexplorer_window"
+        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        template="templates/navexplorer_window.pt"
         permission="raptus.navexplorer.view"
         />
-  
+
+    <browser:viewlet
+        name="raptus.navexplorer.sidebar"
+        manager="plone.app.layout.viewlets.interfaces.IPortalTop"
+        template="templates/navexplorer_sidebar.pt"
+        class=".sidebar.SidebarView"
+        permission="zope2.View"
+        />
 </configure>

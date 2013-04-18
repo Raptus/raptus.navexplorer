@@ -5,6 +5,7 @@
  */
 
 /* jquery.jstree.js overwrites */
+.jstree-raptus ::selection { background: transparent; }
 .jstree-raptus a { color:#d9d9d9; /*height:25px;*/ }
 .jstree-raptus a:hover { color:#ffffff; font-weight:bold; }
 .jstree-raptus a > .jstree-icon { margin-right:5px; }
@@ -13,7 +14,7 @@
 .jstree-raptus { overflow-x: hidden; overflow-y: auto; }
 .jstree-raptus .jstree-node-clicked { background:#333333; color:white; font-weight:bold; cursor: pointer; }
 .jstree-raptus .jstree-node-hovered { background:#333333; color:white; font-weight:bold; cursor: pointer; }
-.jstree-raptus .jstree-node { position: relative; }
+.jstree-raptus .jstree-node { position: relative; padding: 6px; }
 
 .jstree-raptus li { margin-left:0px; }
 .jstree-raptus li a ins { margin-left:0px !important; }
@@ -74,13 +75,16 @@
 #vakata-contextmenu.jstree-raptus-context li ul { position: absolute; }
 #vakata-contextmenu.jstree-raptus-context,
 #vakata-contextmenu.jstree-raptus-context li ul { background:#333333; border:none; }
-#vakata-contextmenu.jstree-raptus-context li { }
+#vakata-contextmenu.jstree-raptus-context li { padding: 6px; }
+#vakata-contextmenu.jstree-raptus-context li:hover { background: #444444; }
+#vakata-contextmenu.jstree-raptus-context li:hover a { color: #ffffff; }
 #vakata-contextmenu.jstree-raptus-context a { color:#a3a3a3; }
-#vakata-contextmenu.jstree-raptus-context a:hover,
+#vakata-contextmenu.jstree-raptus-context a:hover { background: transparent; }
+/*#vakata-contextmenu.jstree-raptus-context a:hover,
 /*#vakata-contextmenu.jstree-raptus-context .vakata-hover > a { padding:0 5px; background:#e8eff7; border:1px solid #aecff7; color:black; -moz-border-radius:2px; -webkit-border-radius:2px; border-radius:2px; }*/
 #vakata-contextmenu.jstree-raptus-context li.jstree-contextmenu-disabled a,
 #vakata-contextmenu.jstree-raptus-context li.jstree-contextmenu-disabled a:hover { color:silver; background:transparent; border:0; padding:1px 4px; }
-#vakata-contextmenu.jstree-raptus-context li.vakata-separator { margin:0; }
+#vakata-contextmenu.jstree-raptus-context li.vakata-separator { margin:0; padding:0; }
 #vakata-contextmenu.jstree-raptus-context li ul { margin-left:-4px; }
 
 /* IE6 BEGIN */

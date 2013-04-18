@@ -662,7 +662,6 @@
             },
             after_close : function (obj) { this.__callback({ "obj" : obj }); },
             toggle_node : function (obj) {
-                console.log("toggggggle")
                 obj = this._get_node(obj);
                 if(obj.hasClass("jstree-closed")) { return this.open_node(obj); }
                 if(obj.hasClass("jstree-open")) { return this.close_node(obj); }
@@ -1102,15 +1101,22 @@
                 obj = this._get_node(obj);
                 if(!obj.length) { return false; }
                 //if(this.data.ui.hovered && obj.get(0) === this.data.ui.hovered.get(0)) { return; }
-                if(!obj.hasClass("jstree-hovered")) { this.dehover_node(); }
-                this.data.ui.hovered = obj.children("div").addClass("jstree-node-clicked").addClass("hovered").children("a").addClass("jstree-hovered").parent().parent();
+                //if(!obj.hasClass("jstree-hovered")) { this.dehover_node(); }
+                if(obj.children("div").hasClass("jstree-node-clicked")) {
+                    obj.children("div").removeClass("jstree-node-clicked");
+                } else {
+                    $('body').find('div.jstree-node-clicked').removeClass("jstree-node-clicked");
+                    obj.children("div").addClass("jstree-node-clicked").children("a").addClass("jstree-hovered").parent().parent();
+                }
+                this.data.ui.hovered = obj;
+
                 this._fix_scroll(obj);
                 this.__callback({ "obj" : obj });
             },
             dehover_node : function () {
                 var obj = this.data.ui.hovered, p;
                 if(!obj || !obj.length) { return false; }
-                p = obj.children("div").removeClass("hovered").children("a").removeClass("jstree-hovered").parent().parent();
+                p = obj.children("div").children("a").removeClass("jstree-hovered").parent().parent();
                 if(this.data.ui.hovered[0] === p[0]) { this.data.ui.hovered = null; }
                 this.__callback({ "obj" : obj });
             },

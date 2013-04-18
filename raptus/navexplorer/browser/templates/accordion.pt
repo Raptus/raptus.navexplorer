@@ -5,15 +5,24 @@
       lang="en"
       i18n:domain="raptus.navexplorer"
       tal:omit-tag="">
-    
-    <div id="navexplorer_info"
-         class="accordion">
+
+    <div id="navexplorer_info">
+        <ul>
+            <tal:repeat tal:repeat="item view/items">
+                <li tal:define="id repeat/item/index;
+                                start repeat/item/start;">
+                    <a href="#" tal:attributes="id string:tab-$id; class python: 'infoTitle active' if start else 'infoTitle'">
+                        <span tal:replace="item/title">General Infos</span>
+                        <em tal:condition="item/suffix" tal:content="item/suffix">suffix</em>
+                    </a>
+                </li>
+            </tal:repeat>
+        </ul>
         <tal:repeat tal:repeat="item view/items">
-          <h3><a href="#">
-            <span tal:replace="item/title">General Infos</span>
-            <em tal:condition="item/suffix" tal:content="item/suffix">suffix</em></a></h3>
-          <div tal:content="structure item/content">Content informations</div>
+            <div tal:define="id repeat/item/index;
+                             start repeat/item/start;"
+                 tal:content="structure item/content"
+                 tal:attributes="id string:info-tab-$id; class python: '' if start else 'hidden'">Content informations</div>
         </tal:repeat>
     </div>
-
 </html>

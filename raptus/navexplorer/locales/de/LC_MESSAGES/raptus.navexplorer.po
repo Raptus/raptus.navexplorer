@@ -20,6 +20,14 @@ msgstr ""
 msgid "Allowed content types"
 msgstr "Erlaubte Inhaltstypen"
 
+#: ..
+msgid "Arrow keys"
+msgstr "Pfeiltasten"
+
+#: ..
+msgid "Navigate tree and open/close treenodes"
+msgstr "Navigieren durch die Treeansicht"
+
 #: ../browser/templates/navexplorer_tree.pt:88
 msgid "Arrow keys: navigate tree and open/close treenodes."
 msgstr "Pfeiltasten: Navigieren durch die Treeansicht"
@@ -57,9 +65,21 @@ msgstr "Standard Ansicht"
 msgid "Development"
 msgstr "Entwicklung"
 
+#: ..
+msgid "Double click"
+msgstr "Doppelklick"
+
 #: ../browser/templates/navexplorer_tree.pt:82
-msgid "Double click: open content in the right frame."
-msgstr "Doppelklick: Öffnen des Inhaltstyps in der rechten Fensterspalte."
+msgid "Double click: open content in the right frame"
+msgstr "Doppelklick: Öffnen des Inhaltstyps in der rechten Fensterspalte"
+
+#: ..
+msgid "Drag and drop"
+msgstr "Drag and drop"
+
+#: ..
+msgid "Move one or more treenodes into another"
+msgstr "Bewegen von einem oder mehreren Tree-Element(en) in ein Anderes"
 
 #: ../browser/templates/navexplorer_tree.pt:94
 msgid "Drag and drop: move one or more treenodes into another"
@@ -72,6 +92,14 @@ msgstr "Email des Absenders"
 #: ../browser/templates/accordion_plone.pt:27
 msgid "E-mail from name"
 msgstr "Email des Absenders"
+
+#: ..
+msgid "Enter key"
+msgstr "Enter Taste"
+
+#: ..
+msgid "Open content in the right frame"
+msgstr "Öffnen des Inhaltes in die rechte Fensterspalte"
 
 #: ../browser/templates/navexplorer_tree.pt:91
 msgid "Enter key: Open content in the right frame."
@@ -101,6 +129,14 @@ msgstr "Anleitung"
 msgid "Modified"
 msgstr "Änderungsdatum"
 
+#: ..
+msgid "Multiselection"
+msgstr "Mehrfachselektieren"
+
+#: ..
+msgid "Keep the key 'shift' or 'alt' and select all desired treenodes by clicking them"
+msgstr "'shift' oder 'alt' gedrückt halten und die gewünschten Elemente auswählen"
+
 #: ../browser/templates/navexplorer_tree.pt:97
 msgid "Multiselection: keep the key 'shift' or 'alt' and select all desired treenodes by clicking them."
 msgstr "Mehrfachselektieren: 'shift' oder 'alt' gedrückt halten und die gewünschten Elemente auswählen."
@@ -108,6 +144,10 @@ msgstr "Mehrfachselektieren: 'shift' oder 'alt' gedrückt halten und die gewüns
 #: ../browser/templates/navexplorer_tree.pt:67
 msgid "Navigation Explorer Manual"
 msgstr "Explorer Anleitung"
+
+#: ../browser/templates/navexplorer_sidebar.pt:
+msgid "Close manual"
+msgstr "Hilfe schliessen"
 
 #: ../browser/templates/accordion_article.pt:13
 msgid "No components selected"
@@ -141,6 +181,14 @@ msgstr "Plone Seite"
 msgid "Plone version"
 msgstr "Plone Version"
 
+#: ..
+msgid "Right click"
+msgstr "Rechtsklick"
+
+#: ..
+msgid "Open context menu with additional actions"
+msgstr "Kontextmenü mit zusätzlichen Aktionen öffnen"
+
 #: ../browser/templates/navexplorer_tree.pt:85
 msgid "Right click: Open context menu with additional actions."
 msgstr "Rechtsklick: Kontextmenü mit zusätzlichen Aktionen öffnen."
@@ -152,6 +200,14 @@ msgstr "Sicherheit"
 #: ../browser/templates/accordion_article.pt:16
 msgid "Selection"
 msgstr "Selektion"
+
+#: ..
+msgid "Single click"
+msgstr "Einzelklick"
+
+#: ..
+msgid "Show information about the selected content"
+msgstr "Informationen über den Inhaltstyp anzeigen"
 
 #: ../browser/templates/navexplorer_tree.pt:79
 msgid "Single click: show information about the selected content."

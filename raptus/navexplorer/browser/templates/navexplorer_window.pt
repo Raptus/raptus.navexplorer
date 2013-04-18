@@ -22,6 +22,8 @@
     <script type="text/javascript" src="/plone_javascript_variables"
             tal:attributes="src string:${portal_url}/plone_javascript_variables.js"></script>
 
+    <script type="text/javascript" src="/jquery.noselect.js"
+            tal:attributes="src string:++resource++raptus.navexplorer.javascript/jquery.noselect.js"></script>
     <script type="text/javascript" src="/jquery.cookie.js"
             tal:attributes="src string:++resource++raptus.navexplorer.javascript/jquery.cookie.js"></script>
     <script type="text/javascript" src="/jquery.hotkeys.js"
@@ -40,12 +42,16 @@
 
             <div id="navexplorer_content">
                 <div id="header">
+                    <div class="title">Raptus NavExplorer</div>
                     <ul>
-                        <li class="title">
-                            <span>Raptus NavExplorer</span>
-                        </li>
-                        <li class="icon">
+                        <li>
                             <a href="#" id="header_help" i18n:attributes="title" title="Open manual box"></a>
+                        </li>
+                        <li>
+                            <a href="#" id="header_newwin" i18n:attributes="title" title="Open navexplorer as new window"></a>
+                        </li>
+                        <li>
+                            <a href="#" id="header_close" i18n:attributes="title" title="Close navigantion explorer"></a>
                         </li>
                     </ul>
                 </div>
@@ -79,10 +85,10 @@
                             <li class="nav">
                                 <a href="#" id="tab_development_link" i18n:translate="">Development</a>
                             </li>
-                            <li class="icon">
-                                <a href="#" id="tab_manual_close" i18n:translate=""></a>
-                            </li>
                         </ul>
+                        <div class="icon">
+                            <a href="#" id="tab_manual_close" i18n:translate=""></a>
+                        </div>
                     </div>
                     <div id="tab_manual">
                         <p>
