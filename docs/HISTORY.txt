@@ -1,6 +1,14 @@
 Changelog
 =========
 
+1.2 (2013-04-18)
+----------------
+
+* Complete UI overhaul
+* Removed jQuery UI dependency
+* Removed Frames
+
+
 1.1 (2012-10-04)
 ----------------
 

@@ -47,7 +47,7 @@ this context menu create a new Adapter implementing IContextMenu.
 Accordion
 ---------
 
-The additional information on any content-type is displayed in a separated jQueryUI accordion item. For more
+The additional information on any content-type is displayed in a separated box. For more
 information please read the interface description: IAccordionItem.
 
 
@@ -69,7 +69,7 @@ Currently, there are no automated tests. This project was created using Firefox 
 Copyright and credits
 =====================
 
-raptus.navexplorer is copyright 2011-2012 by samuel riolo and raptus ag, and is licensed under the GPL.
+raptus.navexplorer is copyright 2011-2012 by raptus ag, and is licensed under the GPL.
 See LICENSE.txt for details.
 
 .. _raptus: http://www.raptus.com/
