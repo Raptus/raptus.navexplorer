@@ -80,7 +80,6 @@ raptus_navexplorer = {
         inst.bind({
             'select_node.jstree': function (event, data) {
                 raptus_navexplorer.elements.navexplorer_tree.resize(raptus_navexplorer.resizeAccordion());
-                console.log(data.rslt.e);
                 if(typeof data.rslt.e != 'undefined')
                     raptus_navexplorer.goToLocation(data.rslt.obj.data('url'));
             },
@@ -96,6 +95,11 @@ raptus_navexplorer = {
 
         // Overwrite default click function
         inst.undelegate('a', 'click.jstree');
+        inst.delegate('a', 'click.jstree', $.proxy(function (event) {
+          event.preventDefault();
+          event.currentTarget.blur();
+        }, inst.jstree('')));
+
         inst.delegate('div', 'dblclick.jstree', $.proxy(function (event) {
             event.preventDefault();
             event.currentTarget.blur();
@@ -486,7 +490,6 @@ raptus_navexplorer = {
 
     goToLocation: function(url){
         var frame = raptus_navexplorer.getPloneFrame();
-        url = url + '/#';
         if (frame) {
             frame.location.href = url;
 
