@@ -30,7 +30,7 @@ class Article(Base):
         if adapter is None:
             return []
         components = dict(adapter.getComponents())
-        return [components[i] for i in selections]
+        return [components[i] for i in selections if i in components]
 
 
 class ArticleContent(Article):
