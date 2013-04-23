@@ -22,6 +22,8 @@ raptus_navexplorer = {
 
     init: function($){
 
+        if(!$('#navexplorer_sidebar').size())
+          return;
 
         // Fill elements
         raptus_navexplorer.elements.navexplorer_content = $('#navexplorer_content');

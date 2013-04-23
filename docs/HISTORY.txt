@@ -4,6 +4,7 @@ Changelog
 1.4 (unreleased)
 --------------
 
+* Include navexplorer javascript files only for authenticated users
 * Be more defensive when reading out article components
 
 

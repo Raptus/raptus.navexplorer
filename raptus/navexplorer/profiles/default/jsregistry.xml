@@ -9,7 +9,8 @@
               enabled="on"
               expression=""
               id="++resource++raptus.navexplorer.javascript/jquery.noselect.js"
-              inline="False"/>
+              inline="False"
+              authenticated="True" />
 
   <javascript cacheable="True"
               compression="safe"
@@ -18,7 +19,8 @@
               enabled="on"
               expression=""
               id="++resource++raptus.navexplorer.javascript/navexplorer_sidebar.js"
-              inline="False"/>
+              inline="False"
+              authenticated="True"/>
 
   <javascript cacheable="True"
               compression="safe"
@@ -27,7 +29,8 @@
               enabled="on"
               expression=""
               id="++resource++raptus.navexplorer.javascript/jquery.jstree.js"
-              inline="False"/>
+              inline="False"
+              authenticated="True"/>
 
   <javascript cacheable="True"
               compression="safe"
@@ -36,7 +39,8 @@
               enabled="on"
               expression=""
               id="++resource++raptus.navexplorer.javascript/jquery.hotkeys.js"
-              inline="False"/>
+              inline="False"
+              authenticated="True"/>
 
   <javascript cacheable="True"
               compression="safe"
@@ -45,6 +49,7 @@
               enabled="on"
               expression=""
               id="++resource++raptus.navexplorer.javascript/jquery.cookie.js"
-              inline="False"/>
+              inline="False"
+              authenticated="True"/>
 
 </object>
