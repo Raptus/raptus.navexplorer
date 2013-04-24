@@ -15,7 +15,6 @@
         <div id="navexplorer_content">
 
             <div id="header">
-                <div class="title">Raptus NavExplorer</div>
                 <ul>
                     <li class="">
                         <a href="#" id="header_help" i18n:attributes="title" title="Open manual box"></a>
@@ -95,8 +94,8 @@
                     </p>
                 </div>
                 <div id="tab_development" class="hidden">
-                    <a href="http://raptus.com" target="_BLANK">
-                        <img src="++resource++raptus.navexplorer.images/raptus.png" alt="logo" />
+                    <a href="http://raptus.com" target="_BLANK" class="logo">
+                        <img src="++resource++raptus.navexplorer.images/raptus.png" alt="Logo Raptus AG" />
                     </a>
                     <p i18n:translate="development_information">Information:<br/>
                         <a href="http://www.raptus.com" target="_BLANK">raptus.com</a><br/>

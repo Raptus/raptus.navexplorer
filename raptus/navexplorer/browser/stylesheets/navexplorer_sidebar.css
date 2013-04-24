@@ -5,7 +5,7 @@
   height: 100%;
   width: 300px;
   background-color: #262626;
-  z-index: 11;
+  z-index: 100;
   font: 12px Arial, Helvetica, Verdana, sans-serif;
 }
 
@@ -193,7 +193,6 @@
 #navexplorer_sidebar #manual_message {
   position: absolute;
   top: 0px;
-  z-index: 100;
   background-color: #262626;
   height: 100%;
   width: 100%;
@@ -264,4 +263,10 @@
 #navexplorer_sidebar #manual_message #manual_message_tabs #tab_manual p,
 #navexplorer_sidebar #manual_message #manual_message_tabs #tab_development p {
   padding: 10px;
+}
+
+#navexplorer_sidebar #manual_message #manual_message_tabs #tab_development a.logo {
+  display: block;
+  background-color: white;
+  overflow: hidden;
 }

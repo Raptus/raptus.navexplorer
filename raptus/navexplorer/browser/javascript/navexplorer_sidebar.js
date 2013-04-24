@@ -133,7 +133,7 @@ raptus_navexplorer = {
         inst.delegate('div', 'mouseleave.jstree', $.proxy(function (event){
             if($.vakata.dnd.is_drag && $.vakata.dnd.user_data.jstree)
                 this.dnd_leave(event);
-        },inst.jstree('')));
+        }, inst.jstree('')));
 
 
         inst.delegate('div', 'click.jstree', $.proxy(function (event){

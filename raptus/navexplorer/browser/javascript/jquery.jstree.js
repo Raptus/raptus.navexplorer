@@ -1101,7 +1101,7 @@
                 obj = this._get_node(obj);
                 if(!obj.length) { return false; }
                 //if(this.data.ui.hovered && obj.get(0) === this.data.ui.hovered.get(0)) { return; }
-                //if(!obj.hasClass("jstree-hovered")) { this.dehover_node(); }
+                if(!obj.hasClass("jstree-hovered")) { this.dehover_node(); }
                 if(obj.children("div").hasClass("jstree-node-clicked")) {
                     obj.children("div").removeClass("jstree-node-clicked");
                 } else {
@@ -1521,36 +1521,50 @@
         },
         defaults : {
             "up" : function () {
+                if($.cookie('raptus_navexplorer_hidden') == 'true')
+                    return true
                 var o = this.data.ui.hovered || this.data.ui.last_selected || -1;
                 this.hover_node(this._get_prev(o));
                 return false;
             },
             "ctrl+up" : function () {
+                if($.cookie('raptus_navexplorer_hidden') == 'true')
+                    return true
                 var o = this.data.ui.hovered || this.data.ui.last_selected || -1;
                 this.hover_node(this._get_prev(o));
                 return false;
             },
             "shift+up" : function () {
+                if($.cookie('raptus_navexplorer_hidden') == 'true')
+                    return true
                 var o = this.data.ui.hovered || this.data.ui.last_selected || -1;
                 this.hover_node(this._get_prev(o));
                 return false;
             },
             "down" : function () {
+                if($.cookie('raptus_navexplorer_hidden') == 'true')
+                    return true
                 var o = this.data.ui.hovered || this.data.ui.last_selected || -1;
                 this.hover_node(this._get_next(o));
                 return false;
             },
             "ctrl+down" : function () {
+                if($.cookie('raptus_navexplorer_hidden') == 'true')
+                    return true
                 var o = this.data.ui.hovered || this.data.ui.last_selected || -1;
                 this.hover_node(this._get_next(o));
                 return false;
             },
             "shift+down" : function () {
+                if($.cookie('raptus_navexplorer_hidden') == 'true')
+                    return true
                 var o = this.data.ui.hovered || this.data.ui.last_selected || -1;
                 this.hover_node(this._get_next(o));
                 return false;
             },
             "left" : function () {
+                if($.cookie('raptus_navexplorer_hidden') == 'true')
+                    return true
                 var o = this.data.ui.hovered || this.data.ui.last_selected;
                 if(o) {
                     if(o.hasClass("jstree-open")) { this.close_node(o); }
@@ -1559,6 +1573,8 @@
                 return false;
             },
             "ctrl+left" : function () {
+                if($.cookie('raptus_navexplorer_hidden') == 'true')
+                    return true
                 var o = this.data.ui.hovered || this.data.ui.last_selected;
                 if(o) {
                     if(o.hasClass("jstree-open")) { this.close_node(o); }
@@ -1567,6 +1583,8 @@
                 return false;
             },
             "shift+left" : function () {
+                if($.cookie('raptus_navexplorer_hidden') == 'true')
+                    return true
                 var o = this.data.ui.hovered || this.data.ui.last_selected;
                 if(o) {
                     if(o.hasClass("jstree-open")) { this.close_node(o); }
@@ -1575,6 +1593,8 @@
                 return false;
             },
             "right" : function () {
+                if($.cookie('raptus_navexplorer_hidden') == 'true')
+                    return true
                 var o = this.data.ui.hovered || this.data.ui.last_selected;
                 if(o && o.length) {
                     if(o.hasClass("jstree-closed")) { this.open_node(o); }
@@ -1583,6 +1603,8 @@
                 return false;
             },
             "ctrl+right" : function () {
+                if($.cookie('raptus_navexplorer_hidden') == 'true')
+                    return true
                 var o = this.data.ui.hovered || this.data.ui.last_selected;
                 if(o && o.length) {
                     if(o.hasClass("jstree-closed")) { this.open_node(o); }
@@ -1591,6 +1613,8 @@
                 return false;
             },
             "shift+right" : function () {
+                if($.cookie('raptus_navexplorer_hidden') == 'true')
+                    return true
                 var o = this.data.ui.hovered || this.data.ui.last_selected;
                 if(o && o.length) {
                     if(o.hasClass("jstree-closed")) { this.open_node(o); }
@@ -1599,15 +1623,21 @@
                 return false;
             },
             "space" : function () {
+                if($.cookie('raptus_navexplorer_hidden') == 'true')
+                    return true
                 if(this.data.ui.hovered) { this.data.ui.hovered.children("div").children("a:eq(0)").click(); }
                 return false;
             },
             "ctrl+space" : function (event) {
+                if($.cookie('raptus_navexplorer_hidden') == 'true')
+                    return true
                 event.type = "click";
                 if(this.data.ui.hovered) { this.data.ui.hovered.children("div").children("a:eq(0)").trigger(event); }
                 return false;
             },
             "shift+space" : function (event) {
+                if($.cookie('raptus_navexplorer_hidden') == 'true')
+                    return true
                 event.type = "click";
                 if(this.data.ui.hovered) { this.data.ui.hovered.children("div").children("a:eq(0)").trigger(event); }
                 return false;

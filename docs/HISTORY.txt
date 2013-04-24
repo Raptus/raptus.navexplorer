@@ -6,6 +6,8 @@ Changelog
 
 * Include navexplorer javascript files only for authenticated users
 * Be more defensive when reading out article components
+* CSS adjustments
+* Fixed arrowkeys when navexplorer is closed
 
 
 1.3 (2013-04-19)

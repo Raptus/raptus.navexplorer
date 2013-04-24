@@ -71,7 +71,7 @@
 .jstree-raptus a.jstree-search { color:aqua; }
 .jstree-raptus .jstree-locked a { color:silver; cursor:default; }
 
-#vakata-contextmenu.jstree-raptus-context { position:fixed; font:11px Helvetica, Verdana, sans-serif; }
+#vakata-contextmenu.jstree-raptus-context { position:fixed; font:11px Arial, Helvetica, Verdana, sans-serif; }
 #vakata-contextmenu.jstree-raptus-context li ul { position:absolute; }
 #vakata-contextmenu.jstree-raptus-context,
 #vakata-contextmenu.jstree-raptus-context li ul { background:#333333; border:none; }
