@@ -143,7 +143,7 @@ raptus_navexplorer = {
             inst.timeout = setTimeout(function(){
                 $('#navexplorer_info_wrap').fadeOut('fast');
                 $('#vakata-contextmenu').fadeOut('fast');
-                inst.find('div').removeClass('jstree-node-hovered jstree-node-clicked');
+                inst.find('div').removeClass('jstree-node-hovered');
                 inst.find('a').removeClass('jstree-hovered');
             }, 500);
         });

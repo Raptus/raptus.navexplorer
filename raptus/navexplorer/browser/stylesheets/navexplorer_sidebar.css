@@ -6,6 +6,7 @@
   width: 300px;
   background-color: #262626;
   z-index: 11;
+  font: 12px Arial, Helvetica, Verdana, sans-serif;
 }
 
 #navexplorer_sidebar.hiddenPanel #dragbar {
@@ -34,7 +35,6 @@
 }
 
 #navexplorer_sidebar #navexplorer_content #header {
-  /*padding-right: 3px;*/
   height: 40px;
   color: #ffffff;
 }
@@ -121,10 +121,6 @@
 #navexplorer_sidebar #navexplorer_info_wrap a {
   color: #a6a6a6;
   text-decoration: none;
-}
-
-#navexplorer_sidebar #navexplorer_info_wrap a:hover {
-
 }
 
 #navexplorer_sidebar #navexplorer_info_wrap a.active {
@@ -269,4 +265,3 @@
 #navexplorer_sidebar #manual_message #manual_message_tabs #tab_development p {
   padding: 10px;
 }
-

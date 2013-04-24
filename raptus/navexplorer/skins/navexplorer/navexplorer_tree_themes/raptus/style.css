@@ -5,16 +5,16 @@
  */
 
 /* jquery.jstree.js overwrites */
-.jstree-raptus ::selection { background: transparent; }
+.jstree-raptus ::selection { background:transparent; }
 .jstree-raptus a { color:#d9d9d9; /*height:25px;*/ }
-.jstree-raptus a:hover { color:#ffffff; font-weight:bold; }
+.jstree-raptus a:hover { color:#ffffff; }
 .jstree-raptus a > .jstree-icon { margin-right:5px; }
 /* --- */
 
-.jstree-raptus { overflow-x: hidden; overflow-y: auto; }
-.jstree-raptus .jstree-node-clicked { background:#333333; color:white; font-weight:bold; cursor: pointer; }
-.jstree-raptus .jstree-node-hovered { background:#333333; color:white; font-weight:bold; cursor: pointer; }
-.jstree-raptus .jstree-node { position: relative; padding: 6px; }
+.jstree-raptus { overflow-x:hidden; overflow-y:auto; }
+.jstree-raptus .jstree-node-clicked { background:#333333; color:white; cursor:pointer; }
+.jstree-raptus .jstree-node-hovered { background:#333333; color:white; cursor:pointer; }
+.jstree-raptus .jstree-node { position:relative; padding:6px; }
 
 .jstree-raptus li { margin-left:0px; }
 .jstree-raptus li a ins { margin-left:0px !important; }
@@ -37,8 +37,8 @@
 .jstree-raptus .jstree-closed > div > ins { background-position:-54px 0; }
 .jstree-raptus .jstree-leaf > div > ins { background-position:-36px 0; }
 
-.jstree-raptus .jstree-hovered { background:#333333; border:1px solid #333333; padding:0 2px 0 1px; color:white; font-weight:bold; }
-.jstree-raptus .jstree-clicked { background:#333333; border:1px solid #333333; padding:0 2px 0 1px; color:white; }
+.jstree-raptus .jstree-hovered { color:white; }
+.jstree-raptus .jstree-clicked { color:white; font-weight:bold; }
 .jstree-raptus a .jstree-icon { background-position:-56px -19px; }
 .jstree-raptus .jstree-open > div > a .jstree-icon { background-position:-56px -36px; }
 .jstree-raptus a.jstree-loading .jstree-icon { background:url("throbber.gif") center center no-repeat !important; }
@@ -71,15 +71,15 @@
 .jstree-raptus a.jstree-search { color:aqua; }
 .jstree-raptus .jstree-locked a { color:silver; cursor:default; }
 
-#vakata-contextmenu.jstree-raptus-context { position: fixed; }
-#vakata-contextmenu.jstree-raptus-context li ul { position: absolute; }
+#vakata-contextmenu.jstree-raptus-context { position:fixed; font:11px Helvetica, Verdana, sans-serif; }
+#vakata-contextmenu.jstree-raptus-context li ul { position:absolute; }
 #vakata-contextmenu.jstree-raptus-context,
 #vakata-contextmenu.jstree-raptus-context li ul { background:#333333; border:none; }
-#vakata-contextmenu.jstree-raptus-context li { padding: 6px; }
-#vakata-contextmenu.jstree-raptus-context li:hover { background: #444444; }
-#vakata-contextmenu.jstree-raptus-context li:hover a { color: #ffffff; }
+#vakata-contextmenu.jstree-raptus-context li { padding:6px; }
+#vakata-contextmenu.jstree-raptus-context li:hover { background:#444444; }
+#vakata-contextmenu.jstree-raptus-context li:hover a { color:#ffffff; }
 #vakata-contextmenu.jstree-raptus-context a { color:#a3a3a3; }
-#vakata-contextmenu.jstree-raptus-context a:hover { background: transparent; }
+#vakata-contextmenu.jstree-raptus-context a:hover { background:transparent; }
 /*#vakata-contextmenu.jstree-raptus-context a:hover,
 /*#vakata-contextmenu.jstree-raptus-context .vakata-hover > a { padding:0 5px; background:#e8eff7; border:1px solid #aecff7; color:black; -moz-border-radius:2px; -webkit-border-radius:2px; border-radius:2px; }*/
 #vakata-contextmenu.jstree-raptus-context li.jstree-contextmenu-disabled a,
