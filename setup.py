@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = 'y.dev0'
+version = '1.4.dev0'
 
 setup(name='raptus.navexplorer',
       version=version,
