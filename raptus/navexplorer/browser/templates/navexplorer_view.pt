@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      lang="de"
+      xml:lang="de"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="raptus.navexplorer"
+      tal:define="portal_state context/@@plone_portal_state;
+                  portal_url portal_state/portal_url;">
+
+<div metal:use-macro="context/@@navexplorer_window/navexplorer_header"></div>
+
+<div id="dragsurface"></div>
+
+<div metal:use-macro="context/@@navexplorer_window/navexplorer_sidebar"></div>
+<iframe src="../../../index.htm"
+        name="plone_site"
+        tal:attributes="src context/absolute_url"
+        id="navexplorer_plone_frame"
+        onload="raptus_navexplorer.urlChanged();">
+  <p>Ein ausf&uuml;hrlicher Warnhinweis</p>
+</iframe>
+</html>
