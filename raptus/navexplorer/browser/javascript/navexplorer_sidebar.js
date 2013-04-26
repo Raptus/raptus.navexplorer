@@ -1,11 +1,11 @@
 raptus_navexplorer = {
 
     // Default configuration
-    settings : { refreshtime: 5000,
-                 observetime: 33,
+    settings : { refreshtime: 2000,
+                 observetime: 100,
                  hidden_expires: 300,
                  width_expires: 300,
-                 standaloneWindow: 'width=1000,height=600,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=no',
+                 standaloneWindow: 'width=400,height=800,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=no',
                  theme: { theme : 'raptus',
                           dots : false,
                           icons : true}
@@ -81,12 +81,12 @@ raptus_navexplorer = {
         // Event notifications
         inst.bind({
             'select_node.jstree': function (event, data) {
-                raptus_navexplorer.elements.navexplorer_tree.resize(raptus_navexplorer.resizeAccordion());
+                raptus_navexplorer.elements.navexplorer_tree.resize(raptus_navexplorer.resizeElements());
                 if(typeof data.rslt.e != 'undefined')
                     raptus_navexplorer.goToLocation(data.rslt.obj.data('url'));
             },
             'hover_node.jstree': raptus_navexplorer.reloadAccordion,
-            'before.jstree': raptus_navexplorer.resizeAccordion,
+            'before.jstree': raptus_navexplorer.resizeElements,
             'move_node.jstree': raptus_navexplorer.dndMoved,
         })
 
@@ -166,9 +166,22 @@ raptus_navexplorer = {
             clearTimeout(inst.timeout);
         });
 
+        // Resize Event
+        timeout_resizeElements = false;
+        $(window).resize(function() {
+            if(timeout_resizeElements) {
+                return false;
+            }
+            timeout_resizeElements = setTimeout(function(){
+                timeout_resizeElements = false;
+                raptus_navexplorer.resizeElements();
+            }, 1000);
+        });
 
+        // Initiate dragbar
         raptus_navexplorer.makeDraggable();
 
+        // Hide sidebar if cookie says so
         if($.cookie('raptus_navexplorer_hidden') == 'true') {
             $('#navexplorer_sidebar').addClass('hiddenPanel')
             $('#navexplorer_sidebar').css('left', '-'+(raptus_navexplorer.elements.navexplorer_content.width()-20)+'px')
@@ -178,8 +191,25 @@ raptus_navexplorer = {
         inst.undelegate('li > div > ins', 'click.jstree');
 
         // Set sync interval
-        window.setInterval(raptus_navexplorer.sync,
-                           raptus_navexplorer.settings.refreshtime);
+        timeout_sync = false;
+        $(window).mousemove(function() {
+            if(timeout_sync)
+                return false;
+            timeout_sync = setTimeout(function(){
+                timeout_sync = false;
+                raptus_navexplorer.sync();
+            }, raptus_navexplorer.settings.refreshtime)
+        })
+
+        // ONLY ON STANDALONE WINDOW
+        if($('#navexplorer_window').length) {
+            $(window).bind("beforeunload", function() {
+                raptus_navexplorer.closeStandalone();
+            })
+        }
+
+        // Set url change notification interval
+        //window.setInterval(raptus_navexplorer.urlObserve, raptus_navexplorer.settings.observetime);
 
         // Init buttons
         raptus_navexplorer.initButtons();
@@ -251,27 +281,19 @@ raptus_navexplorer = {
 
 
     initButtons: function(){
-        $('#header_close').click(function (e){
+        $('#header_hide').click(function (e){
             e.preventDefault();
 
             if($('#navexplorer_sidebar').hasClass('hiddenPanel')){
-                $.cookie('raptus_navexplorer_hidden', 'false', {
-                    expires: raptus_navexplorer.settings.hidden_expires,
-                    path: '/',
-                });
-                $('#navexplorer_sidebar').animate({
-                    left: '0px'
-                }, 250);
+                raptus_navexplorer.slideOpenSidebar();
             } else {
-                $.cookie('raptus_navexplorer_hidden', 'true', {
-                    expires: raptus_navexplorer.settings.hidden_expires,
-                    path: '/',
-                });
-                $('#navexplorer_sidebar').animate({
-                    left: '-'+(raptus_navexplorer.elements.navexplorer_content.width()-20)+'px'
-                }, 250);
+                raptus_navexplorer.slideCloseSidebar();
             }
             $('#navexplorer_sidebar').toggleClass('hiddenPanel');
+        });
+
+        $('#header_close').click(function (e){
+            window.location = $('#navexplorer_plone_frame').attr('src');
         });
 
         $('#header_help').click(function (e){
@@ -279,7 +301,8 @@ raptus_navexplorer = {
             $('#manual_message').toggleClass('hidden');
         });
 
-        $('#header_newwin').click(function(){
+        $('#header_newwin').click(function(e){
+            e.preventDefault();
             raptus_navexplorer.openStandalone();
         });
 
@@ -326,36 +349,37 @@ raptus_navexplorer = {
 
     openStandalone: function(){
         //$('body>*').remove();
-        $.cookie('raptus_navexplorer_hidden', 'true', {
-            expires: raptus_navexplorer.settings.hidden_expires,
-            path: '/',
-        });
-
-        $('#navexplorer_sidebar').animate({
-            left: '-'+(raptus_navexplorer.elements.navexplorer_content.width()-20)+'px'
-        }, 250);
+        raptus_navexplorer.slideCloseSidebar();
 
         $('#navexplorer_sidebar').toggleClass('hiddenPanel');
 
         target = portal_url + '/navexplorer_window';
-        var tree_window = window.open(target, 'own_window_tree', raptus_navexplorer.settings.standaloneWindow);
-        //parent.location = raptus_navexplorer.getPloneFrame().location;
-        //tree_window.parent.frames.plone_frame = parent;
+        window.open(target, 'own_window_tree', raptus_navexplorer.settings.standaloneWindow);
+        window.location = $('#navexplorer_plone_frame').attr('src');
     },
 
+    closeStandalone: function(){
+        raptus_navexplorer.getPloneFrame().location = raptus_navexplorer.getPloneFrame().location.href + '/@@navexplorer_view';
+        self.close();
+    },
 
-    resizeAccordion: function(){
-        var size_window = $(window).height();
-        var offsetTop = raptus_navexplorer.elements.navexplorer_tree.offset().top;
-        var margin = parseInt(raptus_navexplorer.elements.navexplorer_content.css('margin-top')) +
-                     parseInt(raptus_navexplorer.elements.navexplorer_content.css('margin-bottom'));
-        var size_error = raptus_navexplorer.elements.navexplorer_info_error.is(':visible') ?
-                         raptus_navexplorer.elements.navexplorer_info_error.height() : 0;
-        raptus_navexplorer.elements.navexplorer_tree.height(size_window - margin - size_error - offsetTop);
+    resizeElements: function(){
+        offsetTop = raptus_navexplorer.elements.navexplorer_tree.offset().top
+        raptus_navexplorer.elements.navexplorer_tree.height($(window).height() - offsetTop);
+
+        sidebar_width = 20;
+        if($.cookie('raptus_navexplorer_hidden') !== 'true') {
+            sidebar_width = raptus_navexplorer.elements.navexplorer_content.width()
+        }
+        $('#navexplorer_plone_frame').height($(window).height());
+        $('#navexplorer_plone_frame').width($(window).width() - sidebar_width);
     },
 
 
     reloadAccordion : function(event, data){
+        //Temporary deactivated
+        return true;
+
         if($('div.jstree-node-clicked').length > 0) {
             var url = data.rslt.obj.data('url') + '/navexplorer_accordion';
             $.ajax({url: url,
@@ -493,44 +517,70 @@ raptus_navexplorer = {
     goToLocation: function(url){
         var frame = raptus_navexplorer.getPloneFrame();
         if (frame) {
-            frame.location.href = url;
+            if($('#navexplorer_plone_frame').length) {
+                $('#navexplorer_plone_frame').attr('src', url);
+            } else {
+                frame.location.href = url;
+            }
 
             // Ajax requests can lead to an invalid redirection, check again in 200ms and redirect correctly.
             // This might happen while copying or cutting content.
             window.setTimeout(function() {
                 if (frame.location.href.match(/navexplorer_window$/))
-                    frame.location.href = url.substring(0, url.lastIndexOf("/") + 1);
+                    url = url.substring(0, url.lastIndexOf("/") + 1)
+                    if($('#navexplorer_plone_frame').length) {
+                        $('#navexplorer_plone_frame').attr('src', url);
+                    } else {
+                        frame.location.href = url;
+                    }
             }, 500);
         }
+    },
+
+    urlChanged: function(){
+        if (!raptus_navexplorer.getPloneFrame())
+          return;
+        raptus_navexplorer.sync();
+        if (raptus_navexplorer.getPloneFrame().jQuery) {
+            iframe = raptus_navexplorer.getIframe();
+            document.title = iframe.find("title").html();
+            $('#contentview-open_navexplorer', iframe).remove();
+        }
+    },
+
+    getIframe: function(){
+        return raptus_navexplorer.getPloneFrame().jQuery('#navexplorer_plone_frame').contents();
     },
 
     makeDraggable: function(){
         var dragging = false;
         $('#dragbar').mousedown(function(e){
             e.preventDefault();
-
+            raptus_navexplorer.activateDragSurface();
             dragging = true;
             var ghostbar = $('<div>',
                     {id:'ghostbar',
                         css: {
-                        height: raptus_navexplorer.elements.navexplorer_content.outerHeight(),
+                        height: '100%',
                         top: raptus_navexplorer.elements.navexplorer_content.offset().top,
                         left: raptus_navexplorer.elements.navexplorer_content.offset().right
                     }
             }).appendTo('body');
 
             $(document).mousemove(function(e){
-                ghostbar.css("left",e.pageX+2);
+                ghostbar.css("left",e.pageX);
             });
         });
 
         $(document).mouseup(function(e){
             if (dragging) {
-                $('#navexplorer_sidebar').css("width",e.pageX+2);
+                $('#navexplorer_sidebar').css("width",e.pageX);
                 $('#ghostbar').remove();
+                $('#dragsurface').css("visibility", "hidden");
                 $(document).unbind('mousemove');
+                raptus_navexplorer.resizeElements();
                 dragging = false;
-                $.cookie('raptus_navexplorer_width', e.pageX+2, {
+                $.cookie('raptus_navexplorer_width', e.pageX, {
                     expires: raptus_navexplorer.settings.width_expires,
                     path: '/',
                 });
@@ -542,6 +592,59 @@ raptus_navexplorer = {
         }
     },
 
+    activateDragSurface: function() {
+        var surface = $('#dragsurface');
+        if ( surface == null ) return;
+
+        if ( typeof window.innerWidth != 'undefined' ) {
+            viewportheight = window.innerHeight;
+        } else {
+            viewportheight = document.documentElement.clientHeight;
+        }
+
+        if ( ( viewportheight > document.body.parentNode.scrollHeight ) && ( viewportheight > document.body.parentNode.clientHeight ) ) {
+            surface_height = viewportheight;
+        } else {
+            if ( document.body.parentNode.clientHeight > document.body.parentNode.scrollHeight ) {
+                surface_height = document.body.parentNode.clientHeight;
+            } else {
+                surface_height = document.body.parentNode.scrollHeight;
+            }
+        }
+
+        surface.height(surface_height);
+        surface.css("visibility", "visible");
+    },
+
+    slideOpenSidebar: function() {
+        $.cookie('raptus_navexplorer_hidden', 'false', {
+            expires: raptus_navexplorer.settings.hidden_expires,
+            path: '/',
+        });
+
+        $('#navexplorer_plone_frame').animate({
+            width: $(window).width() - raptus_navexplorer.elements.navexplorer_content.width()
+        }, 250);
+
+        $('#navexplorer_sidebar').animate({
+            left: '0px'
+        }, 250);
+    },
+
+    slideCloseSidebar: function() {
+        $.cookie('raptus_navexplorer_hidden', 'true', {
+            expires: raptus_navexplorer.settings.hidden_expires,
+            path: '/',
+        });
+
+        $('#navexplorer_plone_frame').animate({
+            width: '100%'
+        }, 250);
+
+        $('#navexplorer_sidebar').animate({
+            left: '-'+(raptus_navexplorer.elements.navexplorer_content.width()-20)+'px'
+        }, 250);
+    }
 }
 
 jQuery(document).ready(raptus_navexplorer.init);

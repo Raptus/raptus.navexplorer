@@ -4,11 +4,18 @@ from zope.component import getMultiAdapter
 from zope.app.publisher.browser.menu import getMenu
 
 from Products.CMFPlone import PloneMessageFactory as _p
+from Products.CMFCore.utils import getToolByName
 
 from ordereddict import OrderedDict
 
 from raptus.navexplorer import _
 from raptus.navexplorer.interfaces import IContextMenu
+
+try:
+    import raptus.article.core
+    RAPTUS_ARTICLE_INSTALLED = True
+except ImportError:
+    RAPTUS_ARTICLE_INSTALLED = False
 
 
 class DefaultContextMenu(object):
@@ -20,6 +27,8 @@ class DefaultContextMenu(object):
 
     def build(self):
         menu = getMenu('plone_contentmenu', self.context, self.request)
+
+        menu = self.separateMenu(menu)
         results = self._parse(menu)
 
         context_state = getMultiAdapter((self.context, self.request), name=u'plone_context_state')
@@ -68,6 +77,49 @@ class DefaultContextMenu(object):
                 su.update(OrderedDict(submenu=self._parse(value.get('submenu'))))
             di[id] = su
         return di
+
+    def separateMenu(self, menu):
+        if RAPTUS_ARTICLE_INSTALLED:
+            _menu = []
+            for value in menu:
+                extra = value.get('extra', None)
+                id = extra.get('id', None)
+                if id == 'plone-contentmenu-factories':
+                    if value.get('submenu', None):
+                        before_separator_list = []
+                        after_separator_list = []
+
+                        switch = False
+                        for element in value.get('submenu'):
+                            element_extra = element.get('extra', None)
+                            element_id = element_extra.get('id', None)
+                            if element_id == 'add-to-default':
+                                switch = True
+                                continue
+
+                            if switch:
+                                after_separator_list.append(element)
+                            else:
+                                before_separator_list.append(element)
+
+                    ptool = getToolByName(self.context, 'plone_utils', None)
+                    if ptool is None:
+                        return False
+
+                    actual_list = []
+                    if ptool.isDefaultPage(self.context):
+                        actual_list = after_separator_list
+                    else:
+                        actual_list = before_separator_list
+
+                    value['submenu'] = actual_list
+
+                _menu.append(value)
+
+        else:
+            _menu = menu
+
+        return _menu
 
     def _action(self, link):
         return "raptus_navexplorer.goToLocation('%s');" % link

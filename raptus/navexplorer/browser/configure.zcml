@@ -19,6 +19,7 @@
       directory="stylesheets" />
 
 
+
     <browser:page
         name="navexplorer_accordion"
         for="*"
@@ -50,15 +51,15 @@
     <browser:page
         name="navexplorer_window"
         for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
-        template="templates/navexplorer_window.pt"
+        template="templates/navexplorer_sidebar.pt"
         permission="raptus.navexplorer.view"
         />
 
-    <browser:viewlet
-        name="raptus.navexplorer.sidebar"
-        manager="plone.app.layout.viewlets.interfaces.IPortalTop"
-        template="templates/navexplorer_sidebar.pt"
-        class=".sidebar.SidebarView"
-        permission="zope2.View"
+    <browser:page
+        name="navexplorer_view"
+        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        template="templates/navexplorer_view.pt"
+        permission="raptus.navexplorer.view"
         />
+
 </configure>

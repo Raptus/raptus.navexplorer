@@ -33,8 +33,8 @@ a {
   color: #8c8c8c;
 }
 
-#navexplorer_window #navexplorer_sidebar #header #header_newwin,
-#navexplorer_window #navexplorer_sidebar #header #header_close {
+#navexplorer_window #navexplorer_sidebar #header li.newwin,
+#navexplorer_window #navexplorer_sidebar #header li.hide {
   display: none;
 }
 
@@ -54,5 +54,10 @@ a {
 
 #navexplorer_window #navexplorer_sidebar.hiddenPanel #navexplorer_tree {
     display: block !important;
+}
+
+#navexplorer_window #navexplorer_sidebar #dragbar,
+#navexplorer_window #navexplorer_sidebar #dragsurface {
+    display: none;
 }
 
