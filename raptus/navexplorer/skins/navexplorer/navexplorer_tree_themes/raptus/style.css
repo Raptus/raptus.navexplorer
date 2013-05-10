@@ -4,11 +4,25 @@
  * Supported plugins: ui (hovered, clicked), checkbox, contextmenu, search
  */
 
+
+.jstree-raptus a .jstree-icon.jstree-Article { background-position:0px -72px !important; }
+.jstree-raptus a .jstree-icon.jstree-Image { background-position:-18px -72px !important; }
+.jstree-raptus a .jstree-icon.jstree-File { background-position:-36px -72px !important; }
+.jstree-raptus a .jstree-icon.jstree-Topic { background-position:-54px -72px !important; }
+.jstree-raptus a .jstree-icon.jstree-Link { background-position:-72px -72px !important; }
+.jstree-raptus a .jstree-icon.jstree-News { background-position:-90px -72px !important; }
+.jstree-raptus a .jstree-icon.jstree-FormFolder { background-position:-108px -72px !important; }
+.jstree-raptus a .jstree-icon.jstree-Map { background-position:-126px -72px !important; }
+.jstree-raptus a .jstree-icon.jstree-Marker { background-position:-144px -72px !important; }
+.jstree-raptus a .jstree-icon.jstree-Event { background-position:-162px -72px !important; }
+
+.jstree-raptus .jstree-node.jstree-defaultPage:after { content:"*"; }
+
 /* jquery.jstree.js overwrites */
 .jstree-raptus ::selection { background:transparent; }
 .jstree-raptus a { color:#d9d9d9; /*height:25px;*/ }
 .jstree-raptus a:hover { color:#ffffff; }
-.jstree-raptus a > .jstree-icon { margin-right:5px; }
+.jstree-raptus a > .jstree-icon { margin-right:4px; }
 /* --- */
 
 .jstree-raptus { overflow-x:hidden; overflow-y:auto; }
@@ -30,12 +44,13 @@
 .jstree-raptus ul li li li li li li li li li li ins { margin-left:162px; }
 .jstree-raptus ul li li li li li li li li li li li ins { margin-left:180px; }
 .jstree-raptus li,
-.jstree-raptus ins { background-image:url("d4.png"); background-repeat:no-repeat; background-color:transparent; }
+.jstree-raptus ins { background-image:url("d.png"); background-repeat:no-repeat; background-color:transparent; }
 .jstree-raptus li { background-position:-90px 0; background-repeat:repeat-y;  }
 .jstree-raptus li.jstree-last { background:transparent; }
 .jstree-raptus .jstree-open > div > ins { background-position:-72px 0; }
 .jstree-raptus .jstree-closed > div > ins { background-position:-54px 0; }
 .jstree-raptus .jstree-leaf > div > ins { background-position:-36px 0; }
+.jstree-raptus .jstree a > ins { height:18px; width:18px; }
 
 .jstree-raptus .jstree-hovered { color:white; }
 .jstree-raptus .jstree-clicked { color:white; font-weight:bold; }
@@ -64,9 +79,9 @@
 .jstree-raptus .jstree-undetermined > a > .jstree-checkbox:hover { background-position:-20px -37px; }
 
 #vakata-dragged.jstree-raptus ins { background:transparent !important; }
-#vakata-dragged.jstree-raptus .jstree-ok { background:url("d4.png") -2px -53px no-repeat !important; }
-#vakata-dragged.jstree-raptus .jstree-invalid { background:url("d4.png") -18px -53px no-repeat !important; }
-#jstree-marker.jstree-raptus { background:url("d4.png") -41px -57px no-repeat !important; text-indent:-100px; }
+#vakata-dragged.jstree-raptus .jstree-ok { background:url("d.png") -2px -53px no-repeat !important; }
+#vakata-dragged.jstree-raptus .jstree-invalid { background:url("d.png") -18px -53px no-repeat !important; }
+#jstree-marker.jstree-raptus { background:url("d.png") -41px -57px no-repeat !important; text-indent:-100px; }
 
 .jstree-raptus a.jstree-search { color:aqua; }
 .jstree-raptus .jstree-locked a { color:silver; cursor:default; }

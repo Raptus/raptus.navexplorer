@@ -27,7 +27,6 @@ class DefaultContextMenu(object):
 
     def build(self):
         menu = getMenu('plone_contentmenu', self.context, self.request)
-
         menu = self.separateMenu(menu)
         results = self._parse(menu)
 
@@ -36,7 +35,7 @@ class DefaultContextMenu(object):
         action_list = []
         if context_state.is_structural_folder():
             action_list = actions('folder')
-        action_list.extend(actions('object'))
+        action_list.extend(self.filterActionlist(actions('object')))
 
         contentaction = OrderedDict()
 
@@ -78,6 +77,9 @@ class DefaultContextMenu(object):
             di[id] = su
         return di
 
+    # The method cuts the "Add new" contextmenu in two parts
+    # This is necessary because a folderish element (e.g. an Article) and its default_page
+    # share the same "Add new" menu since the parent element is not accessible anymore through plone
     def separateMenu(self, menu):
         if RAPTUS_ARTICLE_INSTALLED:
             _menu = []
@@ -120,6 +122,19 @@ class DefaultContextMenu(object):
             _menu = menu
 
         return _menu
+
+
+    def filterActionlist(self, actionlist):
+        _actionlist = []
+
+        for action in actionlist:
+            aid = action.get('id', None)
+            if aid == 'open_navexplorer':
+                continue
+
+            _actionlist.append(action)
+
+        return _actionlist
 
     def _action(self, link):
         return "raptus_navexplorer.goToLocation('%s');" % link

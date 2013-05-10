@@ -32,6 +32,8 @@
                     tal:attributes="src string:++resource++raptus.navexplorer.javascript/jquery.jstree.js"></script>
             <script type="text/javascript" src="/jquery.noselect.js"
                     tal:attributes="src string:++resource++raptus.navexplorer.javascript/jquery.noselect.js"></script>
+            <script type="text/javascript" src="/jquery.urldecoder.js"
+                    tal:attributes="src string:++resource++raptus.navexplorer.javascript/jquery.urldecoder.js"></script>
             <script type="text/javascript" src="/raptus.navexplorer.js"
                     tal:attributes="src string:++resource++raptus.navexplorer.javascript/navexplorer_sidebar.js"></script>
         </head>
@@ -49,6 +51,9 @@
 
                     <div id="header">
                         <ul>
+                            <li class="reload">
+                                <a href="#" id="header_reload" i18n:attributes="title" title="Reload tree"></a>
+                            </li>
                             <li class="help">
                                 <a href="#" id="header_help" i18n:attributes="title" title="Open manual box"></a>
                             </li>

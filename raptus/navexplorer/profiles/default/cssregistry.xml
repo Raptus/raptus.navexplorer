@@ -3,8 +3,13 @@
 
  <stylesheet title=""
     id="++resource++raptus.navexplorer.stylesheets/navexplorer_sidebar.css"
-    media="screen" rel="stylesheet" rendering="import"
-    cacheable="True" compression="safe" cookable="True"
-    enabled="1" expression=""/>
+    media="screen"
+    rel="stylesheet"
+    rendering="import"
+    cacheable="True"
+    compression="safe"
+    cookable="True"
+    enabled="1"
+    expression=""/>
 
 </object>

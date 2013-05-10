@@ -52,4 +52,14 @@
               inline="False"
               authenticated="True"/>
 
+  <javascript cacheable="True"
+              compression="safe"
+              conditionalcomment=""
+              cookable="True"
+              enabled="on"
+              expression=""
+              id="++resource++raptus.navexplorer.javascript/jquery.urldecoder.js"
+              inline="False"
+              authenticated="True"/>
+
 </object>

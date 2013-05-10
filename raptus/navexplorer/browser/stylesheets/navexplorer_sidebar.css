@@ -84,17 +84,19 @@
   height: 20px;
 }
 
-#navexplorer_sidebar #navexplorer_content #header #header_hide {
-  background:url("++resource++raptus.navexplorer.images/hide.png") no-repeat center center;
-}
 
-#navexplorer_sidebar.hiddenPanel #navexplorer_content #header #header_hide {
-  background:url("++resource++raptus.navexplorer.images/show.png") no-repeat center center;
-}
 
 #navexplorer_sidebar.hiddenPanel #navexplorer_tree,
 #navexplorer_sidebar.hiddenPanel #navexplorer_info_wrap {
   display: none;
+}
+
+#navexplorer_sidebar #navexplorer_content #header #header_reload {
+  background:url("++resource++raptus.navexplorer.images/reload.png") no-repeat center center;
+}
+
+#navexplorer_sidebar #navexplorer_content #header #header_hide {
+  background:url("++resource++raptus.navexplorer.images/hide.png") no-repeat center center;
 }
 
 #navexplorer_sidebar #navexplorer_content #header #header_close {
@@ -109,6 +111,11 @@
   background:url("++resource++raptus.navexplorer.images/help.png") no-repeat center center;
 }
 
+#navexplorer_sidebar.hiddenPanel #navexplorer_content #header #header_hide {
+  background:url("++resource++raptus.navexplorer.images/show.png") no-repeat center center;
+}
+
+#navexplorer_sidebar #navexplorer_content #header #header_reload:hover,
 #navexplorer_sidebar #navexplorer_content #header #header_hide:hover,
 #navexplorer_sidebar #navexplorer_content #header #header_close:hover,
 #navexplorer_sidebar #navexplorer_content #header #header_newwin:hover,
@@ -224,16 +231,17 @@
 
 #navexplorer_sidebar #manual_message ul {
   margin: 0px;
+  padding: 0px;
 }
 
 #navexplorer_sidebar #manual_message li {
   display: block;
   float: left;
   position: relative;
-  height: 26px;
+  height: 27px;
   text-align: center;
   background-color: #333333;
-  padding-top: 14px;
+  padding-top: 13px;
   margin: 0px;
 }
 

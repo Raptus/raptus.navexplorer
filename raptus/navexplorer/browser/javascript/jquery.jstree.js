@@ -351,7 +351,10 @@
                     this.get_container().addClass("jstree-rtl").css("direction", "rtl");
                 }
                 this.get_container().html("<ul><li class='jstree-last jstree-leaf'><ins>&#160;</ins><a class='jstree-loading' href='#'><ins class='jstree-icon'>&#160;</ins>" + this._get_string("loading") + "</a></li></ul>");
-                this.data.core.li_height = this.get_container_ul().find("li.jstree-closed, li.jstree-leaf").eq(0).height() || 18;
+
+                // Raptus fix
+                //this.data.core.li_height = this.get_container_ul().find("li.jstree-closed, li.jstree-leaf").eq(0).height() || 18;
+                this.data.core.li_height = 30;
 
                 this.get_container()
                     .bind("mousedown.jstree", $.proxy(function () {
@@ -1063,6 +1066,7 @@
             selected_parent_open : true,
             select_prev_on_delete : true,
             disable_selecting_children : false,
+            allow_only_siblings : false,
             initially_select : []
         },
         _fn : {
@@ -1138,6 +1142,15 @@
                     ) {
                         return false;
                     }
+                    if(s.allow_only_siblings && is_multiple &&
+                       (
+                            obj.parentsUntil('.jstree','li').find("a.jstree-clicked").closest('ul').length > 1 ||
+                            (obj.parentsUntil('.jstree','li').find("a.jstree-clicked").closest('ul').length &&
+                            obj.parentsUntil('.jstree','li').find("a.jstree-clicked").closest('ul')[0] != obj.closest('ul')[0])
+                       )
+                    ) {
+                        return false;
+                    }
                     proceed = false;
                     switch(!0) {
                         case (is_range):
@@ -1205,7 +1218,7 @@
                 obj = this._get_node(obj);
                 if(!obj.length) { return false; }
                 if(this.is_selected(obj)) {
-                    obj.children("div").children("a").removeClass("jstree-clicked");
+                    obj.children("div").removeClass("jstree-node-clicked").children("a").removeClass("jstree-clicked");
                     this.data.ui.selected = this.data.ui.selected.not(obj);
                     if(this.data.ui.last_selected.get(0) === obj.get(0)) { this.data.ui.last_selected = this.data.ui.selected.eq(0); }
                     this.__callback({ "obj" : obj });
@@ -1223,7 +1236,7 @@
             },
             deselect_all : function (context) {
                 var ret = context ? $(context).find("a.jstree-clicked").parent().parent() : this.get_container().find("a.jstree-clicked").parent().parent();
-                ret.children("div").children("a.jstree-clicked").removeClass("jstree-clicked");
+                ret.children("div").removeClass("jstree-node-clicked").children("a.jstree-clicked").removeClass("jstree-clicked");
                 this.data.ui.selected = $([]);
                 this.data.ui.last_selected = false;
                 this.__callback({ "obj" : ret });
@@ -1854,6 +1867,12 @@
                             if(m.icon.indexOf("/") === -1) { tmp.children("ins").addClass(m.icon); }
                             else { /* alt-images tmp.children("ins").css("background","url('" + m.icon + "') center center no-repeat"); */ }
                         }
+                        if(m.type) {
+                            tmp.children("ins").addClass("jstree-"+m.type);
+                        }
+                        if(m.defaultpage) {
+                            l.addClass("jstree-defaultPage");
+                        }
                         l.append(tmp);
                     });
                     l.prepend("<ins class='jstree-icon'>&#160;</ins>");
@@ -1985,7 +2004,7 @@
             this.get_container()
                 .one( ( this.data.ui ? "reselect" : "reopen" ) + ".jstree", $.proxy(function () {
                     this.get_container()
-                        .bind("open_node.jstree close_node.jstree select_node.jstree deselect_node.jstree", $.proxy(function (e) {
+                        .bind("open_node.jstree close_node.jstree select_node.jstree deselect_node.jstree deselect_all.jstree", $.proxy(function (e) {
                                 if(this._get_settings().cookies.auto_save) { this.save_cookie((e.handleObj.namespace + e.handleObj.type).replace("jstree","")); }
                             }, this));
                 }, this));
@@ -2018,6 +2037,7 @@
                 }
                 switch(c) {
                     case "open_node":
+                        break;
                     case "close_node":
                         if(!!s.save_opened) {
                             this.save_opened();
@@ -2028,6 +2048,7 @@
                             $.cookie(s.save_loaded, this.data.core.to_load.join(","), s.cookie_options);
                         }
                         break;
+                    case "deselect_all":
                     case "select_node":
                     case "deselect_node":
                         if(!!s.save_selected && this.data.ui) {
@@ -2071,7 +2092,7 @@
         user_data : {},
 
         drag_start : function (e, data, html) {
-            if($.vakata.dnd.is_drag) { $.vakata.drag_stop({}); }
+            if($.vakata.dnd.is_drag) { $.vakata.dnd.drag_stop({}); }
             try {
                 e.currentTarget.unselectable = "on";
                 e.currentTarget.onselectstart = function() { return false; };
@@ -2489,7 +2510,7 @@
                     }
                 }
                 else {
-                    this.dnd_prepare();
+                    //this.dnd_prepare();
                     this.move_node(o, r, last_pos, e[this._get_settings().dnd.copy_modifier + "Key"]);
                 }
                 o = false;
@@ -2669,8 +2690,11 @@
                         var w = $(document).width(),
                             h = $(document).height(),
                             ul = $(this).children("ul").show();
-                        if(w !== $(document).width()) { ul.toggleClass("right"); }
-                        if(h !== $(document).height()) { ul.toggleClass("bottom"); }
+                        y = ul.offset().top + ul.height();
+                        x = ul.offset().left + ul.width()
+
+                        if(x > $(document).width()) { ul.toggleClass("right"); }
+                        if(y > $(document).height()) { ul.toggleClass("bottom"); }
                     })
                     .bind("mouseleave", function (e) {
                         $(this).children("ul").hide();

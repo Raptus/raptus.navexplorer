@@ -53,7 +53,9 @@ class AjaxView(BrowserView):
         if len(self.children(obj)):
             state = 'closed'
         return dict(data=dict(title=self.title(obj),
-                               icon=self.icon(obj)),
+                               icon=self.icon(obj),
+                               type=self.type(obj),
+                               defaultpage=self.defaultpage(obj)),
                      state=state,
                      attr=self.attr(obj),
                      metadata=self.metadata(obj))
@@ -74,6 +76,21 @@ class AjaxView(BrowserView):
         if not icon:
             icon = '%s/folder_icon.png' % self.portal.absolute_url(True)
         return '%s/%s' % (self.request.other.get('SERVER_URL', ''), icon,)
+
+    def type(self, obj):
+        ptype = None
+        if hasattr(obj, 'portal_type'):
+            ptype = obj.portal_type
+        return ptype
+
+    def defaultpage(self, obj):
+        ptool = getToolByName(obj, 'plone_utils', None)
+        if ptool is None:
+            return False
+
+        if ptool.isDefaultPage(obj):
+            return True
+        return False
 
     def id(self, obj):
         return unicode(hash(obj.getPhysicalPath()))
@@ -139,34 +156,112 @@ class DNDView(AjaxView):
     def __call__(self):
         dnd = json.loads(self.request.form.get('dnd'))
         dryrun = dnd.get('dryrun')
+        place = dnd.get('place')
         drag = [self.context.restrictedTraverse(str(i)) for i in dnd.get('drag')]
         drop = self.context.restrictedTraverse(str(dnd.get('drop')))
-        ids = [i.getId() for i in drag]
-        parent = aq_parent(drag[0])
         ms_tool = getToolByName(self.context, 'portal_membership')
+        parent = None
 
-        if parent == drop:
+        # Check if all drag elements share the same parent
+        for element in drag:
+            if parent is None:
+                parent = aq_parent(element)
+                continue
+
+            if parent == aq_parent(element):
+                parent = aq_parent(element)
+            else:
+                return self.response(False)
+
+
+
+        if place in ['inside', 'last']:
+            if parent == drop:
+                return self.response(False)
+
+            if not IFolderish.providedBy(drop):
+                return self.response(False)
+
+            if not ms_tool.checkPermission(config.PERMISSIONS['dnd'], self.context):
+                return self.response(False)
+
+            copy_return = self.copy(drag, drop, parent, dryrun)
+            if copy_return != False:
+                return self.response(True, copy_return)
             return self.response(False)
 
-        if not IFolderish.providedBy(drop):
+        elif place in ['before', 'after']:
+            if parent == aq_parent(drop):
+
+                self.move(drag, drop, parent, place, dryrun)
+
+                return self.response(True)
+
+            else:
+                drop_parent = aq_parent(drop)
+
+                if not IFolderish.providedBy(drop_parent):
+                    return self.response(False)
+
+                if not ms_tool.checkPermission(config.PERMISSIONS['dnd'], self.context):
+                    return self.response(False)
+
+                copy_return = self.copy(drag, drop_parent, parent, dryrun)
+
+                if dryrun:
+                    if copy_return != False:
+                        return self.response(True, copy_return)
+                    return self.response(False)
+
+                new_drag = [i[1] for i in copy_return]
+                new_parent = aq_parent(new_drag[0])
+                self.move(new_drag, drop, new_parent, place, dryrun)
+
+                return copy_return
+
+        else:
             return self.response(False)
 
-        if not ms_tool.checkPermission(config.PERMISSIONS['dnd'], self.context):
-            return self.response(False)
-
+    def copy(self, drag, drop, parent, dryrun):
         try:
+            ids = [i.getId() for i in drag]
             parent.manage_cutObjects(ids, self.request)
             drop.manage_pasteObjects(self.request['__cp'])
             drag_old_new = [(i, drop[i.getId()],) for i in drag]
 
         except (CopyError, Unauthorized, ValueError):
             transaction.abort()
-            return self.response(False)
+            return False
+            #return self.response(False)
 
         if dryrun:
             transaction.abort()
 
-        return self.response(True, drag_old_new)
+        return drag_old_new
+        #return self.response(True, drag_old_new)
+
+    def move(self, drag, drop, parent, place, dryrun):
+        delta_list = []
+
+        for element in drag:
+            dragPos = parent.getObjectPosition(element.getId())
+            dropPos = aq_parent(drop).getObjectPosition(drop.getId())
+            delta = dropPos - dragPos
+
+            if (dropPos > dragPos and place == 'before'):
+                delta -= 1
+
+            if (dropPos < dragPos and place == 'after'):
+                delta += 1
+
+            delta_list.append(delta)
+
+        if not dryrun:
+            for idx, element in enumerate(drag):
+                parent.moveObjectsByDelta(element.getId(), delta_list[idx])
+            self.context.plone_utils.reindexOnReorder(self.context)
+            self.context.portal_catalog.reindexIndex(['getObjPositionInParent'], None)
+
 
     def response(self, permission, drag_old_new=[]):
         sync = list()

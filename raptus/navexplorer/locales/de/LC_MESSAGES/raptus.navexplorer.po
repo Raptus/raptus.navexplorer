@@ -40,6 +40,10 @@ msgstr "Artikel"
 msgid "Close navigantion explorer"
 msgstr "Explorer schliessen"
 
+#: ../browser/templates/navexplorer_tree.pt:43
+msgid "Reload tree"
+msgstr "Explorer neuladen"
+
 #: ../browser/templates/accordion_article.pt:10
 msgid "Components"
 msgstr "Komponente"

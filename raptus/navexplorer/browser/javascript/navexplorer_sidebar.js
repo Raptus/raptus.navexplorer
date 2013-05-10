@@ -57,7 +57,10 @@ raptus_navexplorer = {
             themes: raptus_navexplorer.settings.theme,
 
             ui: { select_limit : -1,
-                  select_multiple_modifier: 'alt'},
+                  select_multiple_modifier: 'alt',
+                  selected_parent_close: false,
+                  disable_selecting_children: true,
+                  allow_only_siblings: true},
 
             contextmenu: {items: raptus_navexplorer.customContextMenu },
 
@@ -82,8 +85,9 @@ raptus_navexplorer = {
         inst.bind({
             'select_node.jstree': function (event, data) {
                 raptus_navexplorer.elements.navexplorer_tree.resize(raptus_navexplorer.resizeElements());
-                if(typeof data.rslt.e != 'undefined')
+                if(typeof data.rslt.e != 'undefined' &&  data.rslt.e.type == 'dblclick') {
                     raptus_navexplorer.goToLocation(data.rslt.obj.data('url'));
+                }
             },
             'hover_node.jstree': raptus_navexplorer.reloadAccordion,
             'before.jstree': raptus_navexplorer.resizeElements,
@@ -97,9 +101,20 @@ raptus_navexplorer = {
 
         // Overwrite default click function
         inst.undelegate('a', 'click.jstree');
-        inst.delegate('a', 'click.jstree', $.proxy(function (event) {
-          event.preventDefault();
-          event.currentTarget.blur();
+        inst.delegate('div', 'click.jstree', $.proxy(function (event) {
+            event.preventDefault();
+            event.currentTarget.blur();
+
+            $('#vakata-contextmenu').fadeOut('fast');
+            var settings = this.get_settings().ui;
+            if (!(event[settings.select_multiple_modifier + 'Key'] || event[settings.select_range_modifier + 'Key'])) {
+                this.deselect_all(inst);
+                return;
+            }
+
+            if(!$(event.currentTarget).hasClass("jstree-loading")) {
+                this.select_node(event.currentTarget, true, event);
+            }
         }, inst.jstree('')));
 
         inst.delegate('div', 'dblclick.jstree', $.proxy(function (event) {
@@ -115,15 +130,6 @@ raptus_navexplorer = {
         inst.delegate('div > ins', 'click.jstree', $.proxy(function (event) {
             var trgt = $(event.target);
             this.toggle_node(trgt);
-
-            var settings = this.get_settings().ui;
-            if (!(event[settings.select_multiple_modifier + 'Key'] || event[settings.select_range_modifier + 'Key']))
-                return;
-            event.preventDefault();
-            event.currentTarget.blur();
-            if(!$(event.currentTarget).hasClass("jstree-loading")) {
-                this.select_node(event.currentTarget, true, event);
-            }
         }, inst.jstree('')));
 
         // Force a reset of all values and initiate a new check
@@ -133,12 +139,6 @@ raptus_navexplorer = {
         inst.delegate('div', 'mouseleave.jstree', $.proxy(function (event){
             if($.vakata.dnd.is_drag && $.vakata.dnd.user_data.jstree)
                 this.dnd_leave(event);
-        }, inst.jstree('')));
-
-
-        inst.delegate('div', 'click.jstree', $.proxy(function (event){
-            this.hover_node(event.target);
-            $('#vakata-contextmenu').fadeOut('fast');
         }, inst.jstree('')));
 
         $('body').delegate('.jstree-node, #navexplorer_info_wrap, #vakata-contextmenu', 'mouseleave', function (event){
@@ -292,6 +292,10 @@ raptus_navexplorer = {
             $('#navexplorer_sidebar').toggleClass('hiddenPanel');
         });
 
+        $('#header_reload').click(function (e){
+            raptus_navexplorer.treeinst.jstree('').refresh();
+        });
+
         $('#header_close').click(function (e){
             window.location = $('#navexplorer_plone_frame').attr('src');
         });
@@ -344,6 +348,7 @@ raptus_navexplorer = {
                 $(this).scrollTop(scrollTo + $(this).scrollTop());
             }
         });
+
     },
 
 
@@ -477,7 +482,8 @@ raptus_navexplorer = {
             return false;
         var data = { drag: li,
                      drop: dnd.r.data('path'),
-                     dryrun: dryrun}
+                     dryrun: dryrun,
+                     place: dnd.p}
         data = {dnd: JSON.stringify(data)};
         if(!$.vakata.dnd.helper.find('img').length)
             $.vakata.dnd.helper.append('<img src="++resource++raptus.navexplorer.images/throbber.gif">');
@@ -489,13 +495,16 @@ raptus_navexplorer = {
                 url: portal_url + '/navexplorer_dnd',
                 data: data,
                 success: function(data,textStatus, xhr){
+                    var tree = $('.jstree').jstree('');
+                    tree.data.dnd.before = true;
+                    tree.data.dnd.after = true;
                     if (data.permission) {
-                        $.vakata.dnd.helper.children('ins').attr('class', 'jstree-ok');
-                        var tree = $('.jstree').jstree('');
-                        tree.data.dnd.inside = true;
+                        if (dnd.p == 'inside') {
+                            tree.data.dnd.inside = true;
+                        }
                         tree.dnd_show();
                     }
-                    if (data.permission && !dryrun) {
+                    if ((data.permission_insert || data.permission_move) && !dryrun) {
                         $.each(data.sync, function(){
                             raptus_navexplorer.update(this.id, this);
                         });
@@ -526,30 +535,51 @@ raptus_navexplorer = {
             // Ajax requests can lead to an invalid redirection, check again in 200ms and redirect correctly.
             // This might happen while copying or cutting content.
             window.setTimeout(function() {
-                if (frame.location.href.match(/navexplorer_window$/))
+                if (frame.location.href.match(/navexplorer_view/))
                     url = url.substring(0, url.lastIndexOf("/") + 1)
                     if($('#navexplorer_plone_frame').length) {
                         $('#navexplorer_plone_frame').attr('src', url);
                     } else {
                         frame.location.href = url;
                     }
-            }, 500);
+            }, 200);
         }
     },
 
     urlChanged: function(){
         if (!raptus_navexplorer.getPloneFrame())
           return;
+        raptus_navexplorer.urlPatches();
         raptus_navexplorer.sync();
         if (raptus_navexplorer.getPloneFrame().jQuery) {
             iframe = raptus_navexplorer.getIframe();
-            document.title = iframe.find("title").html();
+            document.title = iframe.contents().find("title").html();
             $('#contentview-open_navexplorer', iframe).remove();
         }
     },
 
+    urlPatches: function(){
+      // URL referer does not work at this time.
+      // Remove the params orig_template from the redirect.
+      var url = $.url.parse(raptus_navexplorer.getIframe().attr('src'));
+      if ('params' in url &&
+          'orig_template' in url.params &&
+          url.params['orig_template'].search('navexplorer_tree') != -1){
+              delete url['path'];
+              delete url['relative'];
+              delete url['source'];
+              delete url['query'];
+              delete url.params['orig_template'];
+              raptus_navexplorer.goToLocation($.url.build(url));
+      }
+      if (raptus_navexplorer.getIframe() &&
+          raptus_navexplorer.getIframe().attr('src').search('navexplorer_tree') != -1){
+          $('#'+raptus_navexplorer.referer_id).trigger('dblclick.jstree');
+      }
+    },
+
     getIframe: function(){
-        return raptus_navexplorer.getPloneFrame().jQuery('#navexplorer_plone_frame').contents();
+        return raptus_navexplorer.getPloneFrame().jQuery('#navexplorer_plone_frame');
     },
 
     makeDraggable: function(){
@@ -648,3 +678,4 @@ raptus_navexplorer = {
 }
 
 jQuery(document).ready(raptus_navexplorer.init);
+
