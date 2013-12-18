@@ -7,8 +7,8 @@
       tal:omit-tag="">
 
     <table metal:define-macro="user-group-sharing" id="user-group-sharing"
-           class="listing" 
-           summary="Current sharing permissions" 
+           class="listing"
+           summary="Current sharing permissions"
            tal:define="available_roles view/roles;
                        num_columns python:len(available_roles) + 1;
                        role_settings view/role_settings"
@@ -33,8 +33,8 @@
                                 sticky python:entry['id'] in view.STICKY"
                     tal:attributes="class python:oddrow and 'odd' or 'even'">
                     <td>
-                        <img tal:condition="is_group" tal:replace="structure context/group.gif" /> 
-                        <img tal:condition="not:is_group" tal:replace="structure context/user.gif" /> 
+                        <img tal:condition="is_group" tal:replace="structure context/group.gif" />
+                        <img tal:condition="not:is_group" tal:replace="structure context/user.gif" />
 
                         <tal:sticky condition="sticky">
                           <span tal:replace="entry/title" />
@@ -50,8 +50,8 @@
                     <td class="listingCheckbox"
                         tal:repeat="role available_roles">
                         <tal:block define="entry_role python:entry['roles'][role['id']]">
-                            <img tal:condition="python:entry_role == 'global'" tal:replace="structure context/site_icon.gif" />
-                            <img tal:condition="python:entry_role == 'acquired'" tal:replace="structure context/confirm_icon.gif" />
+                            <img tal:condition="python:entry_role == 'global'" tal:replace="structure context/site_icon.png" />
+                            <img tal:condition="python:entry_role == 'acquired'" tal:replace="structure context/confirm_icon.png" />
                             <tal:block condition="python:entry_role in (True, False)">
                               <input class="noborder"
                                      type="checkbox"
@@ -74,7 +74,7 @@
            disabled="disabled"
            id="inherit"
            tal:attributes="checked python:view.inherited() and 'checked' or None"
-           /> 
+           />
     <label for="inherit" i18n:translate="label_inherit_local_roles">
     Inherit permissions from higher levels
     </label>

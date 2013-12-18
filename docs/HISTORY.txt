@@ -4,7 +4,7 @@ Changelog
 1.7 (unreleased)
 ----------------
 
-- Nothing changed yet.
+* Changed image extensions to .png
 
 
 1.6 (2013-09-25)
